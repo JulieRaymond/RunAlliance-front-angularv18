@@ -1,0 +1,46 @@
+<div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
+  <div class="grid justify-content-between">
+    <div class="col-12 md:col-2" style="margin-top:-1.5rem;">
+      <a (click)="router.navigate(['/pages/landing'], {fragment: 'home'})"
+         class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer">
+        <img
+          src="assets/layout/images/{{layoutService._config.colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
+          alt="footer sections" width="50" height="50" class="mr-2">
+        <h4 class="font-medium text-3xl text-900">A2 RunAlliance</h4>
+      </a>
+    </div>
+
+    <div class="col-12 md:col-10 lg:col-7">
+      <div class="grid text-center md:text-left">
+        <div class="col-12 md:col-3">
+          <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Notre association</h4>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">A propos</a>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/register">Devenir
+            membre</a>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/login">Se connecter</a>
+          <a class="line-height-3 text-xl block cursor-pointer text-700">Media Kit</a>
+        </div>
+
+        <div class="col-12 md:col-3 mt-4 md:mt-0">
+          <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Communauté</h4>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
+             href="https://runstorebordeaux.simplybook.it/v2/">Notre partenaire</a>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">FAQ</a>
+          <a class="line-height-3 text-xl block cursor-pointer text-700"
+             href="https://www.runningmag-aquitaine.fr/com/course_calendrier.php">Évènements</a>
+        </div>
+
+        <div class="col-12 md:col-3 mt-4 md:mt-0">
+          <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Réseaux</h4>
+          <a class="line-height-3 text-xl block cursor-pointer text-700">Conditions de service</a>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
+             href="https://www.instagram.com/a2running/">Instagram<img
+            src="assets/demo/images/landing/instagram-svgrepo-com.svg" class="ml-2" alt=""/></a>
+          <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
+             href="https://www.facebook.com/A2Running">Facebook<img
+            src="assets/demo/images/landing/facebook-svgrepo-com.svg" class="ml-2" alt=""/></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

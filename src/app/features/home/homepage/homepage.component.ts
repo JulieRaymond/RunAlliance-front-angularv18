@@ -5,6 +5,10 @@ import {Router, RouterLink} from "@angular/router";
 import {StyleClassModule} from "primeng/styleclass";
 import {Ripple} from "primeng/ripple";
 import {ButtonDirective} from "primeng/button";
+import {BannerComponent} from "../../../core/components/banner/banner.component";
+import {NavbarComponent} from "../../../core/components/navbar/navbar.component";
+import {FooterComponent} from "../../../core/components/footer/footer.component";
+import {NgOptimizedImage} from "@angular/common";
 
 interface Product {
   id: string;
@@ -22,7 +26,11 @@ interface Product {
     RouterLink,
     Ripple,
     CarouselModule,
-    ButtonDirective
+    ButtonDirective,
+    BannerComponent,
+    NavbarComponent,
+    FooterComponent,
+    NgOptimizedImage
   ],
   templateUrl: './homepage.component.html',
   styleUrl: './homepage.component.scss'

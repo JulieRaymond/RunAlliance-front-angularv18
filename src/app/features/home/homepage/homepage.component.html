@@ -1,76 +1,7 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
-
-    <!--BANNER-->
-    <div
-      class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
-      <div class="font-bold mr-8">🏃‍♀️ Prêt(e) à relever le défi ? Inscris-toi maintenant !</div>
-      <div class="align-items-center hidden lg:flex">
-        <span class="line-height-3">Ne manque pas les meilleures courses à pied près de chez toi !</span>
-      </div>
-      <a class="flex align-items-center ml-2 mr-8" routerLink="/register">
-        <span class="underline font-bold text-white">Inscris-toi dès maintenant</span>
-      </a>
-      <a pRipple
-         class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150"
-         style="width:2rem; height: 2rem">
-        <i class="pi pi-times"></i>
-      </a>
-    </div>
-    <!--END BANNER-->
-    <!--NAVBAR-->
-    <div
-      class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
-      <a class="flex align-items-center" href="#">
-        <img
-          src="assets/layout/images/{{layoutService._config.colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
-          alt="Sakai Logo" height="50" class="mr-0 lg:mr-2"><span
-        class="text-900 font-medium text-2xl line-height-3 mr-8">RunAlliance</span>
-      </a>
-      <a pRipple class="cursor-pointer block lg:hidden text-700" pStyleClass="@next" enterFromClass="hidden"
-         leaveToClass="hidden" [hideOnOutsideClick]="true">
-        <i class="pi pi-bars text-4xl"></i>
-      </a>
-      <div
-        class="align-items-center surface-0 flex-grow-1 justify-content-between hidden lg:flex absolute lg:static w-full left-0 px-6 lg:px-0 z-2"
-        style="top:120px">
-        <ul class="list-none p-0 m-0 flex lg:align-items-center select-none flex-column lg:flex-row cursor-pointer">
-          <li>
-            <a (click)="router.navigate(['/landing'], {fragment: 'home'})" pRipple
-               class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-              <span>Accueil</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="router.navigate(['/landing'], {fragment: 'features'})" pRipple
-               class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-              <span>Courses</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="router.navigate(['/landing'], {fragment: 'highlights'})" pRipple
-               class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-              <span>Les professeurs</span>
-            </a>
-          </li>
-          <li>
-            <a (click)="router.navigate(['/landing'], {fragment: 'pricing'})" pRipple
-               class="flex m-0 md:ml-5 px-0 py-3 text-900 font-medium line-height-3">
-              <span>Mon profil</span>
-            </a>
-          </li>
-        </ul>
-        <div
-          class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
-          <button pButton pRipple label="Se connecter" routerLink="/login"
-                  class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
-          <button pButton pRipple label="S'inscrire" routerLink="/register"
-                  class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"></button>
-        </div>
-      </div>
-    </div>
-    <!--END NAVBAR-->
-
+    <app-banner></app-banner>
+    <app-navbar></app-navbar>
     <!--LANDING-->
     <div id="hero" class="flex flex-column pt-4 px-4 lg:px-8 overflow-hidden"
          style="background-image: url('assets/layout/images/homepage.jpg'); background-size: cover; background-position: center center;">
@@ -235,7 +166,8 @@
               et proches à participer à une course hebdomadaire, tout en les encourageant et en partageant leurs
               conseils. C’est ainsi que l’association A2 Running a vu le jour, et en tant que développeuse, j’ai
               souhaité leur apporter de la visibilité.</p>
-            <img src="assets/demo/images/landing/peak-logo.svg" class="mt-4" alt="Company logo">
+            <img ngSrc="assets/demo/images/landing/peak-logo.svg" class="mt-4" alt="Company logo" height="50"
+                 width="136">
           </div>
         </div>
         <!--END PEAK-->
@@ -253,7 +185,7 @@
       <div class="grid mt-8 pb-2 md:pb-8">
         <div class="flex justify-content-center col-12 lg:col-6 bg-purple-100 p-0 flex-order-1 lg:flex-order-0"
              style="border-radius:8px;">
-          <img src="assets/layout/images/runner1.png" class="w-7" alt="mockup mobile">
+          <img ngSrc="assets/layout/images/runner1.png" class="w-8" alt="mockup mobile" height="719" width="515">
         </div>
 
         <div class="col-12 lg:col-6 my-auto flex flex-column lg:align-items-end text-center lg:text-right">
@@ -279,12 +211,12 @@
 
         <div class="flex justify-content-end flex-order-1 sm:flex-order-2 col-12 lg:col-6 bg-yellow-100 p-0"
              style="border-radius:8px; justify-content: center !important;">
-          <img src="assets/layout/images/runner2.png" class="w-7" alt="mockup">
+          <img ngSrc="assets/layout/images/runner2.png" class="w-8" alt="mockup" height="719" width="515">
         </div>
       </div>
     </div>
 
-    <div id="pricing" class="py-4 px-4 lg:px-8 my-2 md:my-4">
+    <div id="joinCta" class="py-4 px-4 lg:px-8 my-2 md:my-4">
       <div class="text-700 text-center">
         <div class="text-blue-600 font-bold mb-3"><i class="pi pi-sign-in"></i>&nbsp; Inscrivez-vous dès maintenant
         </div>
@@ -319,7 +251,7 @@
                     pButton
                     pRipple
                     icon="pi pi-search"
-                    class="mr-2 p-button-rounded border-none mt-3 bg-primary-300 font-normal line-height-3 px-3 text-white"
+                    class="mr-2 p-button-rounded border-none mt-3 bg-yellow-100 font-normal line-height-3 px-3 text-black-alpha-90"
                     [routerLink]="product.route">
                   </button>
                 </div>
@@ -434,51 +366,7 @@
       <!--        </div>-->
       <!--      </div>-->
       <!--    </div>-->
-
-      <div class="py-4 px-4 mx-0 mt-8 lg:mx-8">
-        <div class="grid justify-content-between">
-          <div class="col-12 md:col-2" style="margin-top:-1.5rem;">
-            <a (click)="router.navigate(['/pages/landing'], {fragment: 'home'})"
-               class="flex flex-wrap align-items-center justify-content-center md:justify-content-start md:mb-0 mb-3 cursor-pointer">
-              <img
-                src="assets/layout/images/{{layoutService._config.colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
-                alt="footer sections" width="50" height="50" class="mr-2">
-              <h4 class="font-medium text-3xl text-900">A2 RunAlliance</h4>
-            </a>
-          </div>
-
-          <div class="col-12 md:col-10 lg:col-7">
-            <div class="grid text-center md:text-left">
-              <div class="col-12 md:col-3">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Notre association</h4>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">A propos</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/register">Devenir
-                  membre</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/login">Se connecter</a>
-                <a class="line-height-3 text-xl block cursor-pointer text-700">Media Kit</a>
-              </div>
-
-              <div class="col-12 md:col-3 mt-4 md:mt-0">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Communauté</h4>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
-                   href="https://runstorebordeaux.simplybook.it/v2/">Notre partenaire</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">FAQ</a>
-                <a class="line-height-3 text-xl block cursor-pointer text-700"
-                   href="https://www.runningmag-aquitaine.fr/com/course_calendrier.php">Évènements</a>
-              </div>
-
-              <div class="col-12 md:col-3 mt-4 md:mt-0">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Réseaux</h4>
-                <a class="line-height-3 text-xl block cursor-pointer text-700">Conditions de service</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" href="https://www.instagram.com/a2running/">Instagram<img
-                  src="assets/demo/images/landing/instagram-svgrepo-com.svg" class="ml-2" alt=""/></a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" href="https://www.facebook.com/A2Running">Facebook<img
-                  src="assets/demo/images/landing/facebook-svgrepo-com.svg" class="ml-2" alt=""/></a>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
+      <app-footer></app-footer>
     </div>
   </div>
 </div>
