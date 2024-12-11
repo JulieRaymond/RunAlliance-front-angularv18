@@ -1,0 +1,49 @@
+<div class="surface-0 flex justify-content-center">
+  <div id="home" class="landing-wrapper overflow-hidden">
+    <app-navbar></app-navbar>
+    <div class="col-12">
+      <div class="card">
+        <div class="text-3xl font-medium text-900 mb-3">Formulaire de Contact</div>
+        <div class="font-medium text-500 mb-3">Merci de remplir ce formulaire pour nous contacter ou pour toute demande
+          liée à
+          nos événements de course à pied.
+        </div>
+        <h5>Vos Informations</h5>
+        <div class="p-fluid p-formgrid grid">
+          <div class="field col-12 md:col-6">
+            <label htmlFor="firstname2">Prénom</label>
+            <input pInputText id="firstname2" type="text" placeholder="Entrez votre prénom"/>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label htmlFor="lastname2">Nom</label>
+            <input pInputText id="lastname2" type="text" placeholder="Entrez votre nom"/>
+          </div>
+          <div class="field col-12">
+            <label htmlFor="address">Adresse</label>
+            <input pInputTextarea id="address" rows="4" placeholder="Entrez votre adresse complète"/>
+          </div>
+          <div class="field col-12 md:col-6">
+            <label htmlFor="city">Ville</label>
+            <input pInputText id="city" type="text" placeholder="Entrez votre ville"/>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label htmlFor="country">Pays</label>
+            <p-autoComplete
+              [(ngModel)]="selectedCountry"
+              [suggestions]="filteredCountries"
+              (completeMethod)="filterCountry($event)"
+              optionLabel="name"
+              [dropdown]="true"
+              placeholder="Sélectionnez votre pays">
+            </p-autoComplete>
+          </div>
+          <div class="field col-12 md:col-3">
+            <label htmlFor="zip">Code postal</label>
+            <input pInputText id="zip" type="text" placeholder="Entrez votre code postal"/>
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>
