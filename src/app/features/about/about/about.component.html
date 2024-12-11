@@ -1,0 +1,116 @@
+<div class="surface-0 flex justify-content-center">
+  <div id="home" class="landing-wrapper overflow-hidden">
+    <app-navbar></app-navbar>
+
+    <div class="col-12">
+      <p-splitter [style]="{'height': 'auto'}" [panelSizes]="[20,80]">
+        <ng-template pTemplate>
+          <div class="col flex align-items-center justify-content-center">
+            <img ngSrc="assets/demo/images/landing/peak-logo.svg" class="mt-4" alt="Company logo" height="50"
+                 width="136">
+          </div>
+        </ng-template>
+        <ng-template pTemplate>
+          <p-splitter layout="vertical" [panelSizes]="[50,50]" [minSizes]="[10,10]">
+            <ng-template pTemplate>
+              <div class="col flex align-items-center justify-content-center">
+                <div class="card">
+                  <h5>FAQ</h5>
+                  <p-accordion>
+                    <!-- Question 1 -->
+                    <p-accordionTab header="Qu’est-ce que A2 Running ?" [selected]="true"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      A2 Running est une association créée en 2013 par Alice et Anne, deux amies passionnées par la
+                      course à pied. Leur objectif était de créer une communauté inclusive et conviviale pour les
+                      coureurs de tous niveaux, qu'ils soient débutants ou confirmés. Nous organisons des sessions
+                      régulières dans une ambiance amicale et décontractée, afin que tout le monde puisse pratiquer le
+                      sport à son rythme.
+                    </p-accordionTab>
+                    <!-- Question 2 -->
+                    <p-accordionTab header="Que signifie A2 ?" class="line-height-3 m-0 custom-header-faq">
+                      A2 fait référence à Anne et Alice, les deux fondatrices de l’association, mais c'est aussi un
+                      clin d'œil à l'idée de courir "à deux", en duo. Cette notion de partage et de convivialité est
+                      au cœur de l’esprit de notre association.
+                    </p-accordionTab>
+                    <!-- Question 3 -->
+                    <p-accordionTab header="Quel est le niveau requis pour courir avec A2 Running ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Il n'y a aucun niveau requis pour rejoindre A2 Running. Que vous soyez un coureur expérimenté ou
+                      que vous débutiez tout juste, vous trouverez un groupe adapté à votre rythme. Nous proposons des
+                      séances qui conviennent à toutes les envies, qu'il s'agisse de courir pour le plaisir,
+                      d'améliorer ses performances, ou de relever des défis plus sportifs. L'essentiel est de partager
+                      la passion de la course à pied avec d'autres.
+                    </p-accordionTab>
+                    <!-- Question 4 -->
+                    <p-accordionTab header="Où se déroulent les sessions, quand et à quelle heure ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Les sessions de course ont lieu dans divers endroits de la ville et de ses environs. Pour
+                      connaître les lieux, horaires et jours de nos prochaines sessions, consultez notre page <a
+                      href="/runs">Courses</a>. Nous mettons à jour régulièrement notre calendrier afin que vous
+                      puissiez vous organiser au mieux.
+                    </p-accordionTab>
+                    <!-- Question 5 -->
+                    <p-accordionTab header="Combien de temps durent les sessions et comment se composent-elles ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      En général, les sessions de course durent environ 45 minutes. Elles sont réparties en groupes de
+                      niveau (débutant, intermédiaire, avancé), et chaque groupe suit un itinéraire adapté à sa
+                      vitesse. À la fin de chaque session, nous organisons un temps de renforcement musculaire de 15 à
+                      20 minutes, comprenant des exercices de gainage, de pompes, de squats, etc., suivis d'étirements
+                      pour favoriser la récupération.
+                      Le jeudi, nous proposons également des séances de fractionné, adaptées à tous les niveaux. Il
+                      arrive aussi que des événements spéciaux viennent ponctuer notre programme, comme des cours de
+                      yoga, des tests de matériel ou des courses à thème.
+                    </p-accordionTab>
+                    <!-- Question 6 -->
+                    <p-accordionTab
+                      header="Y a-t-il un vestiaire ? Un endroit pour laisser mes affaires pendant les Running Sessions ?"
+                      class="line-height-3 m-0 custom-header-faq">
+                      Nos sessions se déroulant en extérieur, nous n'avons pas de vestiaire disponible. Cependant,
+                      chaque capitaine d’équipe porte un sac à dos durant la session dans lequel vous pouvez laisser
+                      vos clés ou autres petits objets personnels. Nous vous conseillons de venir en tenue de sport,
+                      prête à courir, pour éviter d’avoir à transporter vos affaires personnelles pendant
+                      l’entraînement.
+                    </p-accordionTab>
+                    <!-- Question 7 -->
+                    <p-accordionTab header="Puis-je amener un(e) ami(e) à une session ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Bien sûr ! Nous accueillons les amis, les collègues et même les membres de la famille. Si vous
+                      souhaitez partager l'expérience avec quelqu'un, il n'y a aucune restriction. Vous pouvez vous
+                      inscrire à nos sessions et courir ensemble, que ce soit pour une première expérience ou pour une
+                      session de groupe.
+                    </p-accordionTab>
+                    <!-- Question 8 -->
+                    <p-accordionTab header="Est-ce que je dois m'inscrire à l'avance ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Il n'est généralement pas nécessaire de s'inscrire à l'avance, sauf pour des événements spéciaux
+                      ou des courses à thème où le nombre de participants peut être limité. Cependant, il est
+                      recommandé de suivre nos annonces via nos réseaux sociaux ou notre site pour être informé(e) des
+                      événements et des sessions spéciales.
+                    </p-accordionTab>
+                    <!-- Question 9 -->
+                    <p-accordionTab header="Que faire si je ne peux pas participer à une session ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Si vous ne pouvez pas assister à une session, il suffit de ne pas vous inscrire pour celle-ci.
+                      Nous comprenons que des imprévus peuvent survenir, et vous êtes libre de participer lorsque vous
+                      le pouvez. Nous encourageons la flexibilité et la bonne humeur avant tout !
+                    </p-accordionTab>
+                    <!-- Question 10 -->
+                    <p-accordionTab header="Avez-vous des conseils pour les débutants en course à pied ?"
+                                    class="line-height-3 m-0 custom-header-faq">
+                      Oui ! Nous recommandons de commencer doucement et d'écouter son corps. La course à pied doit
+                      être un plaisir, donc ne vous pressez pas. Il est important de bien s'échauffer avant de courir
+                      et de terminer par des étirements pour éviter les blessures. N'hésitez pas à nous poser des
+                      questions pendant les sessions, nous serons là pour vous guider et vous donner des conseils
+                      personnalisés.
+                    </p-accordionTab>
+                  </p-accordion>
+                </div>
+              </div>
+            </ng-template>
+          </p-splitter>
+        </ng-template>
+      </p-splitter>
+    </div>
+    <app-footer></app-footer>
+  </div>
+</div>

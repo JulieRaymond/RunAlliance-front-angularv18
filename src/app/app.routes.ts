@@ -5,6 +5,7 @@ import {AppLayoutComponent} from "./layout/app.layout.component";
 import {LoginComponent} from "./features/auth/login/login/login.component";
 import {RegisterComponent} from "./features/auth/register/register/register.component";
 import {ContactFormComponent} from "./features/contact/contact-form/contact-form.component";
+import {AboutComponent} from "./features/about/about/about.component";
 
 export const routes: Routes =
   [
@@ -15,5 +16,6 @@ export const routes: Routes =
     },
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
-    {path: 'contact', component: ContactFormComponent}
+    {path: 'contact', component: ContactFormComponent},
+    {path: 'about', component: AboutComponent},
   ];
