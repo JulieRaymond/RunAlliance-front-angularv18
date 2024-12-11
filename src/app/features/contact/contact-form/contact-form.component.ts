@@ -18,19 +18,22 @@ import {HttpClient} from "@angular/common/http";
   styleUrl: './contact-form.component.scss'
 })
 export class ContactFormComponent {
-
-
   filteredCountries: any[] = [];
   countries: { name: string; code: string }[] = [];
   selectedCountry: any;
+
+  firstname: string = '';
+  lastname: string = '';
+  city: string = '';
+  zip: string = '';
 
   constructor(private http: HttpClient) {
   }
 
   ngOnInit() {
-    // Chargement du fichier JSON
+    // Chargement des pays
     this.http.get<any>('assets/demo/data/countries.json').subscribe(data => {
-      this.countries = data.data; // Assurez-vous que la clé `data` existe dans votre JSON
+      this.countries = data.data;
     });
   }
 
