@@ -20,7 +20,6 @@ import {DialogModule} from 'primeng/dialog';
 
 @NgModule({
   imports: [
-
     CommonModule,
     FormsModule,
     ButtonModule,
@@ -36,7 +35,7 @@ import {DialogModule} from 'primeng/dialog';
     RatingModule,
     InputTextareaModule,
     DialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
   ],
   exports: [
     CommonModule,
