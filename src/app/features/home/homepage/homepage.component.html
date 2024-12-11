@@ -1,6 +1,7 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
 
+    <!--BANNER-->
     <div
       class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
       <div class="font-bold mr-8">🏃‍♀️ Prêt(e) à relever le défi ? Inscris-toi maintenant !</div>
@@ -16,7 +17,8 @@
         <i class="pi pi-times"></i>
       </a>
     </div>
-
+    <!--END BANNER-->
+    <!--NAVBAR-->
     <div
       class="py-4 px-4 mx-0 md:mx-6 lg:mx-8 lg:px-8 flex align-items-center justify-content-between relative lg:static mb-3">
       <a class="flex align-items-center" href="#">
@@ -60,14 +62,16 @@
         </ul>
         <div
           class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
-          <button pButton pRipple label="Se connecter"
+          <button pButton pRipple label="Se connecter" routerLink="/login"
                   class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
           <button pButton pRipple label="S'inscrire"
                   class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"></button>
         </div>
       </div>
     </div>
+    <!--END NAVBAR-->
 
+    <!--LANDING-->
     <div id="hero" class="flex flex-column pt-4 px-4 lg:px-8 overflow-hidden"
          style="background-image: url('assets/layout/images/homepage.jpg'); background-size: cover; background-position: center center;">
       <div class="mx-4 md:mx-8 mt-0 md:mt-4">
@@ -82,7 +86,9 @@
       <div class="flex justify-content-center md:justify-content-end" style="height:400px">
       </div>
     </div>
+    <!--END LANDING-->
 
+    <!-- VALUES-->
     <div id="features" class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
       <div class="grid justify-content-center">
         <div class="col-12 text-center mt-8 mb-4">
@@ -216,8 +222,9 @@
           </div>
         </div>
 
+        <!--PEAK-->
         <div class="col-12 mt-8 mb-8 p-2 md:p-8"
-             style="border-radius:20px; background:linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EFE1AF 0%, #C3DCFA 100%);">
+             style="border-radius:20px; background:linear-gradient(0deg, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.6)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EFE1AF 0%, #EB8F5D 100%);">
           <div class="flex flex-column justify-content-center align-items-center text-center px-3 py-3 md:py-0">
             <h3 class="text-gray-900 mb-2">Julie Raymond</h3>
             <span class="text-gray-600 text-2xl">Peak</span>
@@ -229,11 +236,13 @@
               conseils. C’est ainsi que l’association A2 Running a vu le jour, et en tant que développeuse, j’ai
               souhaité leur apporter de la visibilité.</p>
             <img src="assets/demo/images/landing/peak-logo.svg" class="mt-4" alt="Company logo">
-
           </div>
         </div>
+        <!--END PEAK-->
       </div>
     </div>
+    <!--END VALUES-->
+
 
     <div id="highlights" class="py-4 px-4 lg:px-8 mx-0 my-6 lg:mx-8">
       <div class="text-center">
@@ -244,7 +253,7 @@
       <div class="grid mt-8 pb-2 md:pb-8">
         <div class="flex justify-content-center col-12 lg:col-6 bg-purple-100 p-0 flex-order-1 lg:flex-order-0"
              style="border-radius:8px;">
-          <img src="assets/demo/images/landing/mockup.svg" class="w-11" alt="mockup mobile">
+          <img src="assets/layout/images/runner1.png" class="w-7" alt="mockup mobile">
         </div>
 
         <div class="col-12 lg:col-6 my-auto flex flex-column lg:align-items-end text-center lg:text-right">
@@ -269,8 +278,8 @@
         </div>
 
         <div class="flex justify-content-end flex-order-1 sm:flex-order-2 col-12 lg:col-6 bg-yellow-100 p-0"
-             style="border-radius:8px;">
-          <img src="assets/demo/images/landing/mockup-desktop.svg" class="w-11" alt="mockup">
+             style="border-radius:8px; justify-content: center !important;">
+          <img src="assets/layout/images/runner2.png" class="w-7" alt="mockup">
         </div>
       </div>
     </div>
