@@ -8,7 +8,7 @@
       <div class="align-items-center hidden lg:flex">
         <span class="line-height-3">Ne manque pas les meilleures courses à pied près de chez toi !</span>
       </div>
-      <a class="flex align-items-center ml-2 mr-8" routerLink="/login">
+      <a class="flex align-items-center ml-2 mr-8" routerLink="/register">
         <span class="underline font-bold text-white">Inscris-toi dès maintenant</span>
       </a>
       <a pRipple
@@ -64,7 +64,7 @@
           class="flex justify-content-between lg:block border-top-1 lg:border-top-none surface-border py-3 lg:py-0 mt-3 lg:mt-0">
           <button pButton pRipple label="Se connecter" routerLink="/login"
                   class="p-button-text p-button-rounded border-none font-light line-height-2 text-blue-500"></button>
-          <button pButton pRipple label="S'inscrire"
+          <button pButton pRipple label="S'inscrire" routerLink="/register"
                   class="p-button-rounded border-none ml-5 font-light line-height-2 bg-blue-500 text-white"></button>
         </div>
       </div>
@@ -80,7 +80,7 @@
         <p class="font-normal text-2xl line-height-3 md:mt-3 text-gray-700">A2 Running Bordeaux réunit toutes les
           personnes qui souhaitent courir en groupe !
         </p>
-        <button pButton pRipple type="button" label="S'inscrire"
+        <button pButton pRipple type="button" label="S'inscrire" routerLink="/register"
                 class="p-button-rounded text-xl border-none mt-3 bg-blue-500 font-normal line-height-3 px-3 text-white"></button>
       </div>
       <div class="flex justify-content-center md:justify-content-end" style="height:400px">
@@ -293,7 +293,7 @@
           Profitez de notre plateforme pour découvrir, vous inscrire et participer aux courses à pied les plus
           excitantes !
         </div>
-        <button pButton pRipple type="button" label="Get Started"
+        <button pButton pRipple type="button" label="S'inscrire" routerLink="/register"
                 class="p-button-rounded text-xl border-none mt-3 bg-blue-500 font-normal line-height-3 px-3 text-white"></button>
       </div>
 
@@ -452,33 +452,28 @@
               <div class="col-12 md:col-3">
                 <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Notre association</h4>
                 <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">A propos</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">News</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Investor Relations</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Careers</a>
+                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/register">Devenir
+                  membre</a>
+                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" routerLink="/login">Se connecter</a>
                 <a class="line-height-3 text-xl block cursor-pointer text-700">Media Kit</a>
               </div>
 
               <div class="col-12 md:col-3 mt-4 md:mt-0">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Resources</h4>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Get Started</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Learn</a>
-                <a class="line-height-3 text-xl block cursor-pointer text-700">Case Studies</a>
-              </div>
-
-              <div class="col-12 md:col-3 mt-4 md:mt-0">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Community</h4>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Discord</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Events<img
-                  src="assets/demo/images/landing/new-badge.svg" class="ml-2" alt=""/></a>
+                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Communauté</h4>
+                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700"
+                   href="https://runstorebordeaux.simplybook.it/v2/">Notre partenaire</a>
                 <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">FAQ</a>
-                <a class="line-height-3 text-xl block cursor-pointer text-700">Blog</a>
+                <a class="line-height-3 text-xl block cursor-pointer text-700"
+                   href="https://www.runningmag-aquitaine.fr/com/course_calendrier.php">Évènements</a>
               </div>
 
               <div class="col-12 md:col-3 mt-4 md:mt-0">
-                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Legal</h4>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Brand Policy</a>
-                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700">Privacy Policy</a>
-                <a class="line-height-3 text-xl block cursor-pointer text-700">Terms of Service</a>
+                <h4 class="font-medium text-2xl line-height-3 mb-3 text-900">Réseaux</h4>
+                <a class="line-height-3 text-xl block cursor-pointer text-700">Conditions de service</a>
+                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" href="https://www.instagram.com/a2running/">Instagram<img
+                  src="assets/demo/images/landing/instagram-svgrepo-com.svg" class="ml-2" alt=""/></a>
+                <a class="line-height-3 text-xl block cursor-pointer mb-2 text-700" href="https://www.facebook.com/A2Running">Facebook<img
+                  src="assets/demo/images/landing/facebook-svgrepo-com.svg" class="ml-2" alt=""/></a>
               </div>
             </div>
           </div>
