@@ -1,115 +1,139 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
     <app-navbar></app-navbar>
-    <div class="col-12">
-      <div class="card">
-        <div class="text-3xl font-medium text-900 mb-3">Formulaire de Contact</div>
-        <div class="font-medium text-500 mb-3">Merci de remplir ce formulaire pour nous contacter ou pour toute demande
-          liée à nos événements de course à pied.
-        </div>
-        <h5>Vos Informations</h5>
-        <form #contactForm="ngForm">
-          <div class="p-fluid p-formgrid grid">
-            <!-- Prénom -->
-            <div class="field col-12 md:col-6">
-              <label for="firstname2">Prénom</label>
-              <input
-                pInputText
-                id="firstname2"
-                type="text"
-                placeholder="Entrez votre prénom"
-                name="firstname"
-                [(ngModel)]="firstname"
-                #firstnameControl="ngModel"
-                required
-                pattern="^[a-zA-ZÀ-ÿ' ]{2,50}$"/>
-              <small *ngIf="firstnameControl.invalid && firstnameControl.dirty" class="p-error">
-                Le prénom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et
-                des apostrophes.
-              </small>
-            </div>
 
-            <!-- Nom -->
-            <div class="field col-12 md:col-6">
-              <label for="lastname2">Nom</label>
-              <input
-                pInputText
-                id="lastname2"
-                type="text"
-                placeholder="Entrez votre nom"
-                name="lastname"
-                [(ngModel)]="lastname"
-                #lastnameControl="ngModel"
-                required
-                pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$"/>
-              <small *ngIf="lastnameControl.invalid && lastnameControl.dirty" class="p-error">
-                Le nom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et des
-                apostrophes.
-              </small>
-            </div>
-
-            <!-- Ville -->
-            <div class="field col-12 md:col-6">
-              <label for="city">Ville</label>
-              <input
-                pInputText
-                id="city"
-                type="text"
-                placeholder="Entrez votre ville"
-                name="city"
-                [(ngModel)]="city"
-                #cityControl="ngModel"
-                required
-                pattern="^[a-zA-ZÀ-ÿ' ]{2,50}$"/>
-              <small *ngIf="cityControl.invalid && cityControl.dirty" class="p-error">
-                La ville doit être comprise entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et
-                des apostrophes.
-              </small>
-            </div>
-
-            <!-- Code postal -->
-            <div class="field col-12 md:col-3">
-              <label for="zip">Code postal</label>
-              <input
-                pInputText
-                id="zip"
-                type="text"
-                placeholder="Entrez votre code postal"
-                name="zip"
-                [(ngModel)]="zip"
-                #zipControl="ngModel"
-                required
-                pattern="^\d{5}$"/>
-              <small *ngIf="zipControl.invalid && zipControl.dirty" class="p-error">
-                Le code postal doit comporter exactement 5 chiffres.
-              </small>
-            </div>
-
-            <!-- Pays (auto-complete) -->
-            <div class="field col-12 md:col-3">
-              <label for="country">Pays</label>
-              <p-autoComplete
-                [(ngModel)]="selectedCountry"
-                [suggestions]="filteredCountries"
-                (completeMethod)="filterCountry($event)"
-                optionLabel="name"
-                [dropdown]="true"
-                placeholder="Sélectionnez votre pays"
-                id="country"
-                name="country">
-              </p-autoComplete>
-            </div>
-
-            <button
-              pButton
-              pRipple
-              label="Envoyer"
-              class="w-full text-xl"
-              [disabled]="contactForm.invalid">
-            </button>
-          </div>
-        </form>
+    <div id="contactBanner" class="flex flex-column pt-4 px-4 lg:px-8 overflow-hidden"
+         style="background: linear-gradient(0deg, rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0.2)), radial-gradient(77.36% 256.97% at 77.36% 57.52%, #EEEFAF 0%, #C3E3FA 100%); clip-path: ellipse(150% 87% at 93% 13%);">
+      <div class="mx-4 md:mx-8 mt-0 md:mt-4" style="height: 180px">
+        <h1 class="text-3xl font-bold text-gray-900 line-height-2"><span
+          class="font-light block">Formulaire de Contact</span>
+        </h1>
+        <p class="font-normal text-xl line-height-3 md:mt-3 text-gray-700">Merci de remplir ce formulaire pour nous
+          contacter ou pour toute demande liée à nos événements de course à pied.</p>
       </div>
+    </div>
+
+    <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
+      <h5>Vos Informations</h5>
+      <form #contactForm="ngForm">
+        <div class="p-fluid p-formgrid grid">
+          <!-- Prénom -->
+          <div class="field col-12 md:col-6">
+            <label for="firstname2">Prénom</label>
+            <input
+              pInputText
+              id="firstname2"
+              type="text"
+              placeholder="Entrez votre prénom"
+              name="firstname"
+              [(ngModel)]="firstname"
+              #firstnameControl="ngModel"
+              required
+              pattern="^[a-zA-ZÀ-ÿ' ]{2,50}$"/>
+            <small *ngIf="firstnameControl.invalid && firstnameControl.dirty" class="p-error">
+              Le prénom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et
+              des apostrophes.
+            </small>
+          </div>
+
+          <!-- Nom -->
+          <div class="field col-12 md:col-6">
+            <label for="lastname2">Nom</label>
+            <input
+              pInputText
+              id="lastname2"
+              type="text"
+              placeholder="Entrez votre nom"
+              name="lastname"
+              [(ngModel)]="lastname"
+              #lastnameControl="ngModel"
+              required
+              pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$"/>
+            <small *ngIf="lastnameControl.invalid && lastnameControl.dirty" class="p-error">
+              Le nom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et des
+              apostrophes.
+            </small>
+          </div>
+
+          <!-- Ville -->
+          <div class="field col-12 md:col-6">
+            <label for="city">Ville</label>
+            <input
+              pInputText
+              id="city"
+              type="text"
+              placeholder="Entrez votre ville"
+              name="city"
+              [(ngModel)]="city"
+              #cityControl="ngModel"
+              required
+              pattern="^[a-zA-ZÀ-ÿ' ]{2,50}$"/>
+            <small *ngIf="cityControl.invalid && cityControl.dirty" class="p-error">
+              La ville doit être comprise entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et
+              des apostrophes.
+            </small>
+          </div>
+
+          <!-- Code postal -->
+          <div class="field col-12 md:col-3">
+            <label for="zip">Code postal</label>
+            <input
+              pInputText
+              id="zip"
+              type="text"
+              placeholder="Entrez votre code postal"
+              name="zip"
+              [(ngModel)]="zip"
+              #zipControl="ngModel"
+              required
+              pattern="^\d{5}$"/>
+            <small *ngIf="zipControl.invalid && zipControl.dirty" class="p-error">
+              Le code postal doit comporter exactement 5 chiffres.
+            </small>
+          </div>
+
+          <!-- Pays (auto-complete) -->
+          <div class="field col-12 md:col-3">
+            <label for="country">Pays</label>
+            <p-autoComplete
+              [(ngModel)]="selectedCountry"
+              [suggestions]="filteredCountries"
+              (completeMethod)="filterCountry($event)"
+              optionLabel="name"
+              [dropdown]="true"
+              placeholder="Sélectionnez votre pays"
+              id="country"
+              name="country">
+            </p-autoComplete>
+          </div>
+
+          <!-- Message -->
+          <div class="field col-12">
+            <label for="message">Message</label>
+            <textarea
+              pInputTextarea
+              id="message"
+              placeholder="Entrez votre message"
+              name="message"
+              [(ngModel)]="message"
+              #messageControl="ngModel"
+              rows="5"
+              required>
+            </textarea>
+            <small *ngIf="messageControl.invalid && messageControl.dirty" class="p-error">
+              Le message doit comporter entre 10 et 500 caractères.
+            </small>
+          </div>
+
+          <button
+            pButton
+            pRipple
+            label="Envoyer"
+            class="w-full text-xl mt-8"
+            [disabled]="contactForm.invalid">
+          </button>
+        </div>
+      </form>
     </div>
     <app-footer></app-footer>
   </div>

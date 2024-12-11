@@ -26,6 +26,7 @@ export class ContactFormComponent {
   lastname: string = '';
   city: string = '';
   zip: string = '';
+  message: string = '';
 
   constructor(private http: HttpClient) {
   }
