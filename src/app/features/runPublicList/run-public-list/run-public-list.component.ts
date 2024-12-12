@@ -6,6 +6,7 @@ import {Run} from "../../../shared/models/run.model";
 import {ConfirmationService, MessageService} from "primeng/api";
 import {NavbarComponent} from "../../../core/components/navbar/navbar.component";
 import {FooterComponent} from "../../../core/components/footer/footer.component";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-run-public-list',
@@ -13,7 +14,8 @@ import {FooterComponent} from "../../../core/components/footer/footer.component"
   imports: [
     SharedModule,
     NavbarComponent,
-    FooterComponent
+    FooterComponent,
+    NgOptimizedImage
   ],
   templateUrl: './run-public-list.component.html',
   styleUrl: './run-public-list.component.scss',
