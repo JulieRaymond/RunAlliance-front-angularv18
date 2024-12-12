@@ -8,7 +8,8 @@
         <section>
           <span class="block text-6xl font-bold mb-1">Découvrez les courses à pied</span>
           <div class="text-6xl text-primary font-bold mb-3">disponibles chez A2 RunAlliance</div>
-          <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded" (click)="scrollToTable()"></button>
+          <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded"
+                  (click)="scrollToTable()"></button>
         </section>
       </div>
       <div class="col-12 md:col-6 overflow-hidden">
@@ -53,7 +54,8 @@
           </section>
 
           <p-toast></p-toast>
-          <p-table id="runs-table-public"  #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading" [rowHover]="true"
+          <p-table id="runs-table-public" #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading"
+                   [rowHover]="true"
                    styleClass="p-datatable-gridlines" [paginator]="true"
                    [globalFilterFields]="['title','location','difficultyLevel']" responsiveLayout="scroll"
                    [expandedRowKeys]="expandedRows">
