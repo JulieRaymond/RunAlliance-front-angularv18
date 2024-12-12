@@ -1,6 +1,4 @@
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
-  <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded" style="margin-right: 5rem"
-          label="Retour" routerLink="/"></button>
   <div class="flex flex-column align-items-center justify-content-center">
     <img
       src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
@@ -8,6 +6,9 @@
     <div
       style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
       <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+        <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded"
+                style="margin-bottom: 5rem"
+                label="Retour" routerLink="/"></button>
         <div class="text-center mb-5">
           <img src="assets/layout/images/avatar.png" alt="Image" style="height: 70px; border-radius:50%" class="mb-3">
           <div class="text-900 text-3xl font-medium mb-3">Créez votre compte</div>
@@ -51,6 +52,8 @@
           <button pButton pRipple label="S'inscrire" class="w-full p-3 text-xl"
                   [disabled]="signupForm.invalid"></button>
         </form>
+        <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);" routerLink="/login">
+          Déjà inscrit ? Connectez vous ici. </a>
       </div>
     </div>
   </div>
