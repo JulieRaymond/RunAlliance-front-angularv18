@@ -1,0 +1,143 @@
+<div class="surface-0 flex justify-content-center">
+  <div id="home" class="landing-wrapper overflow-hidden">
+    <app-navbar></app-navbar>
+
+    <div class="grid">
+      <div class="col-12">
+        <div class="card">
+          <h5>Les prochaines courses disponibles chez A2 RunAlliance</h5>
+          <p-toast></p-toast>
+          <p-table #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading" [rowHover]="true"
+                   styleClass="p-datatable-gridlines" [paginator]="true"
+                   [globalFilterFields]="['title','location','difficultyLevel']" responsiveLayout="scroll"
+                   [expandedRowKeys]="expandedRows">
+            <ng-template pTemplate="caption">
+              <button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}"
+                      label="{{isExpanded ? 'Réduire toutes les courses' : 'Étendre toutes les courses'}}"
+                      (click)="expandAll()"></button>
+              <div class="flex table-header">
+              </div>
+            </ng-template>
+            <ng-template pTemplate="header">
+              <tr>
+                <th style="width: 3rem"></th>
+                <th style="min-width: 12rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Titre
+                    <p-columnFilter type="text" field="title" display="menu"
+                                    placeholder="Search by title"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 12rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Lieu
+                    <p-columnFilter type="text" field="location" display="menu"
+                                    placeholder="Search by location"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 12rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Difficulté
+                    <p-columnFilter type="text" field="difficultyLevel" display="menu"
+                                    placeholder="Search by difficulty level"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Date
+                    <p-columnFilter type="date" field="date" display="menu" placeholder="mm/dd/yyyy"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Heure
+                    <p-columnFilter type="time" field="time" display="menu" placeholder="hh:mm"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Distance (km)
+                    <p-columnFilter type="numeric" field="distanceKm" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Durée (min)
+                    <p-columnFilter type="numeric" field="durationMinutes" display="menu"></p-columnFilter>
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Description
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Participants
+                  </div>
+                </th>
+                <th style="min-width: 10rem">
+                  <div class="flex justify-content-between align-items-center">
+                    Actions
+                  </div>
+                </th>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="body" let-run let-expanded="expanded">
+              <tr>
+                <td>
+                  <button type="button" pButton pRipple [pRowToggler]="run"
+                          class="p-button-text p-button-rounded p-button-plain"
+                          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                </td>
+                <td>{{ run.title }}</td>
+                <td>{{ run.location }}</td>
+                <td>{{ run.difficultyLevel }}</td>
+                <td>{{ run.date | date: 'MM/dd/yyyy' }}</td>
+                <td>{{ run.time | date: 'HH:mm' }}</td>
+                <td>{{ run.distanceKm }}</td>
+                <td>{{ run.durationMinutes }}</td>
+                <td>{{ run.description }}</td>
+                <td>
+                  <button pButton label="Voir les coureurs" class="p-button-info" icon="pi pi-users"
+                          (click)="showParticipants(run)"></button>
+                </td>
+                <td>
+                  <button pButton label="Se désinscrire" class="p-button-danger" icon="pi pi-times"
+                          (click)="unregister(run)" *ngIf="isRegistered(run)"></button>
+                  <button pButton label="S'inscrire" class="p-button-success" icon="pi pi-check" (click)="register(run)"
+                          *ngIf="!isRegistered(run)"></button>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="rowexpansion" let-run>
+              <tr>
+                <td colspan="11">
+                  <div class="p-3">
+                    <p><strong>Description:</strong> {{ run.description }}</p>
+                    <p><strong>Location:</strong> {{ run.location }}</p>
+                    <p><strong>Difficulty Level:</strong> {{ run.difficultyLevel }}</p>
+                    <p><strong>Distance:</strong> {{ run.distanceKm }} km</p>
+                    <p><strong>Duration:</strong> {{ run.durationMinutes }} minutes</p>
+                  </div>
+                </td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="emptymessage">
+              <tr>
+                <td colspan="11">No runs found.</td>
+              </tr>
+            </ng-template>
+            <ng-template pTemplate="loadingbody">
+              <tr>
+                <td colspan="11">Loading runs data. Please wait.</td>
+              </tr>
+            </ng-template>
+          </p-table>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+  </div>
+</div>
