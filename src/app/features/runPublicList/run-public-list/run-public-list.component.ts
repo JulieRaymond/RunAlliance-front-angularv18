@@ -115,4 +115,11 @@ export class RunPublicListComponent {
   showParticipants(run: Run) {
     // Implement your logic to show participants for the run
   }
+
+  scrollToTable() {
+    const tableElement = document.getElementById('runs-table-public');
+    if (tableElement) {
+      tableElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+    }
+  }
 }

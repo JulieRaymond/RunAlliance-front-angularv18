@@ -2,53 +2,58 @@
   <div id="home" class="landing-wrapper overflow-hidden">
     <app-navbar></app-navbar>
 
-    <div class="grid grid-nogutter surface-section text-800">
+    <div
+      class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
       <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center">
         <section>
           <span class="block text-6xl font-bold mb-1">Découvrez les courses à pied</span>
           <div class="text-6xl text-primary font-bold mb-3">disponibles chez A2 RunAlliance</div>
-          <p class="mt-0 mb-4 text-700 line-height-3">
-            Rejoignez-nous pour des courses passionnantes et stimulantes. Que vous soyez un coureur débutant ou
-            expérimenté, nous avons des courses adaptées à tous les niveaux. Inscrivez-vous dès maintenant et vivez une
-            expérience inoubliable !
-            <br><br>
-            Sur cette page, vous pouvez trier les courses par différents critères tels que le titre, le lieu, le niveau
-            de difficulté, la date, l'heure, la distance en kilomètres, et la durée en minutes. Utilisez les filtres
-            disponibles pour trouver la course qui vous convient le mieux.
-            <br><br>
-            Pour chaque course, vous trouverez des informations détaillées telles que :
-          </p>
-          <ul>
-            <li>Le titre de la course</li>
-            <li>Le lieu où se déroule la course</li>
-            <li>Le niveau de difficulté de la course</li>
-            <li>La date et l'heure de la course</li>
-            <li>La distance en kilomètres</li>
-            <li>La durée en minutes</li>
-            <li>Une description détaillée de la course</li>
-            <li>Le nombre de participants inscrits</li>
-          </ul>
-          <p class="mt-0 mb-4 text-700 line-height-3">
-            Vous pouvez également voir les boutons "S'inscrire" et "Se désinscrire" pour gérer votre participation aux
-            courses. N'hésitez pas à explorer les différentes options et à vous inscrire à la course qui vous
-            intéresse
-            le plus.
-          </p>
-          <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded"></button>
+          <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded" (click)="scrollToTable()"></button>
         </section>
       </div>
       <div class="col-12 md:col-6 overflow-hidden">
-        <img ngSrc="assets/layout/images/runPublicListImage.png" alt="Image" class="md:ml-auto block md:h-full"
-             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%)" height="630" width="716" priority>
+        <img ngSrc="assets/layout/images/runPublicList.jpg" alt="Image"
+             class="img-fluid max-w-full h-auto "
+             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);" height="630"
+             width="630" priority>
       </div>
     </div>
 
-    <div class="grid">
+    <div
+      class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
       <div class="col-12">
         <div class="card">
           <h5>Les prochaines courses disponibles chez A2 RunAlliance</h5>
+          <section>
+            <p class="mt-0 mb-4 text-700 line-height-3">
+              Sur cette page, vous pouvez trier les courses par différents critères tels que le titre, le lieu, le
+              niveau
+              de difficulté, la date, l'heure, la distance en kilomètres, et la durée en minutes. Utilisez les filtres
+              disponibles pour trouver la course qui vous convient le mieux.
+              <br><br>
+              Pour chaque course, vous trouverez des informations détaillées telles que :
+              <br><br>
+            </p>
+            <ul>
+              <li>Le titre de la course</li>
+              <li>Le lieu où se déroule la course</li>
+              <li>Le niveau de difficulté de la course</li>
+              <li>La date et l'heure de la course</li>
+              <li>La distance en kilomètres</li>
+              <li>La durée en minutes</li>
+              <li>Une description détaillée de la course</li>
+              <li>Le nombre de participants inscrits</li>
+            </ul>
+            <p class="text-700 line-height-3 mb-5">
+              Vous pouvez également voir les boutons "S'inscrire" et "Se désinscrire" pour gérer votre participation aux
+              courses. N'hésitez pas à explorer les différentes options et à vous inscrire à la course qui vous
+              intéresse
+              le plus.
+            </p>
+          </section>
+
           <p-toast></p-toast>
-          <p-table #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading" [rowHover]="true"
+          <p-table id="runs-table-public"  #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading" [rowHover]="true"
                    styleClass="p-datatable-gridlines" [paginator]="true"
                    [globalFilterFields]="['title','location','difficultyLevel']" responsiveLayout="scroll"
                    [expandedRowKeys]="expandedRows">
