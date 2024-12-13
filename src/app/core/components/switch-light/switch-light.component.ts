@@ -5,6 +5,7 @@ import {InputSwitchModule} from "primeng/inputswitch";
 import {PrimeTemplate} from "primeng/api";
 import {DOCUMENT} from "@angular/common";
 import {SharedModule} from "../../../shared/shared.module";
+import {LayoutService} from "../../../layout/service/app.layout.service";
 
 @Component({
   selector: 'app-switch-light',
@@ -20,6 +21,10 @@ import {SharedModule} from "../../../shared/shared.module";
   styleUrl: './switch-light.component.scss'
 })
 export class SwitchLightComponent {
+
+  constructor(public layoutService: LayoutService) {
+  }
+
   #document = inject(DOCUMENT);
   isDarkMode = false;
 
@@ -38,4 +43,8 @@ export class SwitchLightComponent {
 
   display: boolean = false;
 
+  // Méthode pour basculer entre les thèmes
+  toggleTheme(): void {
+    this.layoutService.toggleColorScheme();
+  }
 }

@@ -1,7 +1,8 @@
-import { Component } from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {Ripple} from "primeng/ripple";
 import {ButtonDirective} from "primeng/button";
+import {LayoutService} from "../../../layout/service/app.layout.service";
 
 @Component({
   selector: 'app-error-page',
@@ -16,4 +17,6 @@ import {ButtonDirective} from "primeng/button";
 })
 export class ErrorPageComponent {
 
+  constructor(public layoutService: LayoutService) {
+  }
 }

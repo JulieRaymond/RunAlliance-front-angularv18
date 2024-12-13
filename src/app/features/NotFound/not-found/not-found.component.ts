@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import {RouterLink} from "@angular/router";
 import {NgOptimizedImage} from "@angular/common";
+import {LayoutService} from "../../../layout/service/app.layout.service";
 
 @Component({
   selector: 'app-not-found',
@@ -14,4 +15,6 @@ import {NgOptimizedImage} from "@angular/common";
 })
 export class NotFoundComponent {
 
+  constructor(public layoutService: LayoutService) {
+  }
 }
