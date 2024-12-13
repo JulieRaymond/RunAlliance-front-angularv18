@@ -2,140 +2,117 @@ import {Component} from '@angular/core';
 import {SharedModule} from "../../../shared/shared.module";
 import {Table} from "primeng/table";
 import {MessageService} from "primeng/api";
+import {CalendarModule} from "primeng/calendar";
+import {InputMaskModule} from "primeng/inputmask";
 
 @Component({
   selector: 'app-dashboard-admin',
   standalone: true,
-  imports: [SharedModule],
+  imports: [SharedModule, CalendarModule, InputMaskModule],
   templateUrl: './dashboard-admin.component.html',
   styleUrl: './dashboard-admin.component.scss',
   providers: [MessageService]
 })
 export class DashboardAdminComponent {
 
-  productDialog: boolean = false;
+  runDialog: boolean = false;
+  deleteRunDialog: boolean = false;
+  deleteRunsDialog: boolean = false;
 
-  deleteProductDialog: boolean = false;
-
-  deleteProductsDialog: boolean = false;
-
-  products: any[] = [];
-
-  product: any = {};
-
-  selectedProducts: any[] = [];
-
+  runs: any[] = [];
+  run: any = {};
+  selectedRuns: any[] = [];
   submitted: boolean = false;
-
   cols: any[] = [];
-
-  statuses: any[] = [];
-
+  difficultyLevels: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
   constructor(private messageService: MessageService) {
   }
 
   ngOnInit() {
-
     this.cols = [
-      {field: 'product', header: 'Product'},
-      {field: 'price', header: 'Price'},
-      {field: 'category', header: 'Category'},
-      {field: 'rating', header: 'Reviews'},
-      {field: 'inventoryStatus', header: 'Status'}
+      {field: 'title', header: 'Titre'},
+      {field: 'date', header: 'Date'},
+      {field: 'description', header: 'Description'},
+      {field: 'time', header: 'Heure'},
+      {field: 'location', header: 'Lieu'},
+      {field: 'difficultyLevel', header: 'Difficulté'},
+      {field: 'distanceKm', header: 'Distance (km)'},
+      {field: 'durationMinutes', header: 'Durée (min)'},
     ];
 
-    this.statuses = [
-      {label: 'INSTOCK', value: 'instock'},
-      {label: 'LOWSTOCK', value: 'lowstock'},
-      {label: 'OUTOFSTOCK', value: 'outofstock'}
+    this.difficultyLevels = [
+      {label: 'Facile', value: 'EASY'},
+      {label: 'Moyenne', value: 'MEDIUM'},
+      {label: 'Difficile', value: 'HARD'},
     ];
   }
 
   openNew() {
-    this.product = {};
+    this.run = {};
     this.submitted = false;
-    this.productDialog = true;
+    this.runDialog = true;
   }
 
-  deleteSelectedProducts() {
-    this.deleteProductsDialog = true;
+  deleteSelectedRuns() {
+    this.deleteRunsDialog = true;
   }
 
-  editProduct(product: any) {
-    this.product = {...product};
-    this.productDialog = true;
+  editRun(run: any) {
+    this.run = {...run};
+    this.runDialog = true;
   }
 
-  deleteProduct(product: any) {
-    this.deleteProductDialog = true;
-    this.product = {...product};
+  deleteRun(run: any) {
+    this.deleteRunDialog = true;
+    this.run = {...run};
   }
 
   confirmDeleteSelected() {
-    this.deleteProductsDialog = false;
-    this.products = this.products.filter(val => !this.selectedProducts.includes(val));
-    this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Products Deleted', life: 3000});
-    this.selectedProducts = [];
+    this.deleteRunsDialog = false;
+    this.runs = this.runs.filter((val) => !this.selectedRuns.includes(val));
+    this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Courses supprimées', life: 3000});
+    this.selectedRuns = [];
   }
 
   confirmDelete() {
-    this.deleteProductDialog = false;
-    this.products = this.products.filter(val => val.id !== this.product.id);
-    this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Deleted', life: 3000});
-    this.product = {};
+    this.deleteRunDialog = false;
+    this.runs = this.runs.filter((val) => val.runId !== this.run.runId);
+    this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course supprimée', life: 3000});
+    this.run = {};
   }
 
   hideDialog() {
-    this.productDialog = false;
+    this.runDialog = false;
     this.submitted = false;
   }
 
-  saveProduct() {
+  saveRun() {
     this.submitted = true;
 
-    if (this.product.name?.trim()) {
-      if (this.product.id) {
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus.value ? this.product.inventoryStatus.value : this.product.inventoryStatus;
-        this.products[this.findIndexById(this.product.id)] = this.product;
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Updated', life: 3000});
+    if (this.run.title?.trim()) {
+      if (this.run.runId) {
+        this.runs[this.findIndexById(this.run.runId)] = this.run;
+        this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course mise à jour', life: 3000});
       } else {
-        this.product.id = this.createId();
-        this.product.code = this.createId();
-        this.product.image = 'product-placeholder.svg';
-        // @ts-ignore
-        this.product.inventoryStatus = this.product.inventoryStatus ? this.product.inventoryStatus.value : 'INSTOCK';
-        this.products.push(this.product);
-        this.messageService.add({severity: 'success', summary: 'Successful', detail: 'Product Created', life: 3000});
+        this.run.runId = this.createId();
+        this.runs.push(this.run);
+        this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course créée', life: 3000});
       }
 
-      this.products = [...this.products];
-      this.productDialog = false;
-      this.product = {};
+      this.runs = [...this.runs];
+      this.runDialog = false;
+      this.run = {};
     }
   }
 
-  findIndexById(id: string): number {
-    let index = -1;
-    for (let i = 0; i < this.products.length; i++) {
-      if (this.products[i].id === id) {
-        index = i;
-        break;
-      }
-    }
-
-    return index;
+  findIndexById(id: number): number {
+    return this.runs.findIndex((run) => run.runId === id);
   }
 
-  createId(): string {
-    let id = '';
-    const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
-    for (let i = 0; i < 5; i++) {
-      id += chars.charAt(Math.floor(Math.random() * chars.length));
-    }
-    return id;
+  createId(): number {
+    return Math.floor(Math.random() * 10000);
   }
 
   onGlobalFilter(table: Table, event: Event) {
