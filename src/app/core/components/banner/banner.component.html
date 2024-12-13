@@ -1,15 +1,48 @@
 <!--BANNER-->
 <div *ngIf="isBannerVisible"
-     class="bg-bluegray-900 text-gray-100 p-3 flex justify-content-between lg:justify-content-center align-items-center flex-wrap">
+     [ngClass]="{
+       'bg-bluegray-900': colorScheme === 'light',
+       'bg-white': colorScheme === 'dark',
+       'text-white': colorScheme === 'light',
+       'text-black-alpha-90': colorScheme === 'dark',
+       'p-3': true,
+       'flex': true,
+       'justify-content-between': true,
+       'lg:justify-content-center': true,
+       'align-items-center': true,
+       'flex-wrap': true
+     }">
   <div class="font-bold mr-8">🏃‍♀️ Prêt(e) à relever le défi ? Inscris-toi maintenant !</div>
   <div class="align-items-center hidden lg:flex">
     <span class="line-height-3">Ne manque pas les meilleures courses à pied près de chez toi !</span>
   </div>
-  <a class="flex align-items-center ml-2 mr-8" routerLink="/register">
-    <span class="underline font-bold text-white">Inscris-toi dès maintenant</span>
+  <!-- Lien avec classes dynamiques et statiques -->
+  <a [ngClass]="{
+        'text-white': colorScheme === 'light',
+        'text-black-alpha-90': colorScheme === 'dark',
+        'underline': true,
+        'font-bold': true,
+        'flex': true,
+        'align-items-center': true,
+        'ml-2': true,
+        'mr-8': true
+      }" routerLink="/register">
+    <span>Inscris-toi dès maintenant</span>
   </a>
+  <!-- Icône de fermeture avec classes dynamiques et statiques -->
   <a pRipple
-     class="flex align-items-center no-underline justify-content-center border-circle text-gray-50 hover:bg-bluegray-700 cursor-pointer transition-colors transition-duration-150"
+     [ngClass]="{
+       'text-white': colorScheme === 'light',
+       'text-black-alpha-90': colorScheme === 'dark',
+       'flex': true,
+       'align-items-center': true,
+       'no-underline': true,
+       'justify-content-center': true,
+       'border-circle': true,
+       'cursor-pointer': true,
+       'transition-colors': true,
+       'transition-duration-150': true
+     }"
      style="width:2rem; height: 2rem" (click)="closeBanner()">
     <i class="pi pi-times"></i>
   </a>
