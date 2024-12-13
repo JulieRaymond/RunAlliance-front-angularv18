@@ -1,6 +1,5 @@
 import {Component} from '@angular/core';
 import {SharedModule} from "../../../shared/shared.module";
-import {Table} from "primeng/table";
 import {MessageService} from "primeng/api";
 import {CalendarModule} from "primeng/calendar";
 import {InputMaskModule} from "primeng/inputmask";
