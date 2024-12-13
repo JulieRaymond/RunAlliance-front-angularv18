@@ -89,7 +89,6 @@
           </tr>
         </ng-template>
       </p-table>
-
       <p-dialog [(visible)]="runDialog" [style]="{width: '450px'}" header="Détails de la course" [modal]="true"
                 class="p-fluid">
         <ng-template pTemplate="content">
@@ -99,36 +98,58 @@
                    [ngClass]="{'ng-invalid ng-dirty' : submitted && !run.title}"/>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !run.title">Le titre est requis.</small>
           </div>
+
           <div class="field">
             <label for="description">Description</label>
             <textarea id="description" pInputTextarea [(ngModel)]="run.description" required rows="3"
                       cols="20"></textarea>
             <small class="ng-dirty ng-invalid" *ngIf="submitted && !run.description">La description est requise.</small>
           </div>
+
           <div class="field">
             <label for="date">Date</label>
-            <p-calendar [(ngModel)]="run.date" id="date" dateFormat="dd/mm/yy"></p-calendar>
+            <p-calendar [(ngModel)]="run.date" id="date" dateFormat="dd/mm/yy"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !run.date}"></p-calendar>
+            <small *ngIf="submitted && !run.date" class="ng-dirty ng-invalid">La date est requise.</small>
           </div>
+
           <div class="field">
             <label for="time">Heure</label>
-            <p-inputMask [(ngModel)]="run.time" id="time" mask="99:99"></p-inputMask>
+            <p-inputMask [(ngModel)]="run.time" id="time" mask="99:99"
+                         [ngClass]="{'ng-invalid ng-dirty': submitted && !run.time}"></p-inputMask>
+            <small *ngIf="submitted && !run.time" class="ng-dirty ng-invalid">L'heure est requise.</small>
           </div>
+
           <div class="field">
             <label for="location">Lieu</label>
-            <input type="text" pInputText id="location" [(ngModel)]="run.location" required/>
+            <input type="text" pInputText id="location" [(ngModel)]="run.location" required
+                   [ngClass]="{'ng-invalid ng-dirty': submitted && !run.location}"/>
+            <small class="ng-dirty ng-invalid" *ngIf="submitted && !run.location">Le lieu est requis.</small>
           </div>
+
           <div class="field">
             <label for="difficultyLevel">Niveau de difficulté</label>
             <p-dropdown [(ngModel)]="run.difficultyLevel" id="difficultyLevel" [options]="difficultyLevels"
-                        placeholder="Sélectionnez un niveau"></p-dropdown>
+                        placeholder="Sélectionnez un niveau"
+                        [ngClass]="{'ng-invalid ng-dirty': submitted && !run.difficultyLevel}"></p-dropdown>
+            <small *ngIf="submitted && !run.difficultyLevel" class="ng-dirty ng-invalid">Le niveau de difficulté est
+              requis.</small>
           </div>
+
           <div class="field">
             <label for="distanceKm">Distance (km)</label>
-            <p-inputNumber [(ngModel)]="run.distanceKm" id="distanceKm" [min]="0"></p-inputNumber>
+            <p-inputNumber [(ngModel)]="run.distanceKm" id="distanceKm" [min]="0" required
+                           [ngClass]="{'ng-invalid ng-dirty': submitted && (run.distanceKm === undefined || run.distanceKm <= 0)}"></p-inputNumber>
+            <small *ngIf="submitted && (run.distanceKm === undefined || run.distanceKm <= 0)"
+                   class="ng-dirty ng-invalid">La distance est requise et doit être positive.</small>
           </div>
+
           <div class="field">
             <label for="durationMinutes">Durée (min)</label>
-            <p-inputNumber [(ngModel)]="run.durationMinutes" id="durationMinutes" [min]="0"></p-inputNumber>
+            <p-inputNumber [(ngModel)]="run.durationMinutes" id="durationMinutes" [min]="0" required
+                           [ngClass]="{'ng-invalid ng-dirty': submitted && (run.durationMinutes === undefined || run.durationMinutes <= 0)}"></p-inputNumber>
+            <small *ngIf="submitted && (run.durationMinutes === undefined || run.durationMinutes <= 0)"
+                   class="ng-dirty ng-invalid">La durée est requise et doit être positive.</small>
           </div>
         </ng-template>
 

@@ -118,7 +118,10 @@ export class CrudRunAdminComponent {
   saveRun() {
     this.submitted = true;
 
-    if (this.run.title?.trim()) {
+    // Validation des champs
+    if (this.run.title?.trim() && this.run.description?.trim() && this.run.date && this.run.time &&
+      this.run.location?.trim() && this.run.difficultyLevel && this.run.distanceKm > 0 && this.run.durationMinutes > 0) {
+
       if (this.run.runId) {
         this.runs[this.findIndexById(this.run.runId)] = this.run;
         this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course mise à jour', life: 3000});
@@ -131,6 +134,13 @@ export class CrudRunAdminComponent {
       this.runs = [...this.runs];
       this.runDialog = false;
       this.run = {};
+    } else {
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Veuillez remplir tous les champs obligatoires.',
+        life: 3000
+      });
     }
   }
 
