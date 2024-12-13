@@ -17,6 +17,7 @@ import {ToolbarModule} from 'primeng/toolbar';
 import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DialogModule} from 'primeng/dialog';
+import {MultiSelectModule} from "primeng/multiselect";
 
 @NgModule({
   imports: [
@@ -24,6 +25,7 @@ import {DialogModule} from 'primeng/dialog';
     FormsModule,
     ButtonModule,
     DropdownModule,
+    MultiSelectModule,
     InputNumberModule,
     InputTextModule,
     RadioButtonModule,
@@ -42,6 +44,7 @@ import {DialogModule} from 'primeng/dialog';
     FormsModule,
     ButtonModule,
     DropdownModule,
+    MultiSelectModule,
     InputNumberModule,
     InputTextModule,
     RadioButtonModule,
