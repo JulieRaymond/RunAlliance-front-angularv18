@@ -18,6 +18,7 @@ import {RatingModule} from 'primeng/rating';
 import {InputTextareaModule} from 'primeng/inputtextarea';
 import {DialogModule} from 'primeng/dialog';
 import {MultiSelectModule} from "primeng/multiselect";
+import {ChartModule} from "primeng/chart";
 
 @NgModule({
   imports: [
@@ -38,6 +39,7 @@ import {MultiSelectModule} from "primeng/multiselect";
     InputTextareaModule,
     DialogModule,
     ReactiveFormsModule,
+    ChartModule
   ],
   exports: [
     CommonModule,
@@ -56,7 +58,8 @@ import {MultiSelectModule} from "primeng/multiselect";
     RatingModule,
     InputTextareaModule,
     DialogModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ChartModule
   ]
 })
 export class SharedModule {
