@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {SharedModule} from "../../../shared/shared.module";
-import {MessageService} from "primeng/api";
+import {ConfirmationService, MessageService} from "primeng/api";
 import {CalendarModule} from "primeng/calendar";
 import {InputMaskModule} from "primeng/inputmask";
 import {RouterOutlet} from "@angular/router";
@@ -11,7 +11,7 @@ import {RouterOutlet} from "@angular/router";
   imports: [SharedModule, CalendarModule, InputMaskModule, RouterOutlet],
   templateUrl: './dashboard-admin.component.html',
   styleUrl: './dashboard-admin.component.scss',
-  providers: [MessageService]
+  providers: [MessageService, ConfirmationService]
 })
 export class DashboardAdminComponent {
 
