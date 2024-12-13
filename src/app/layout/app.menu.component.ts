@@ -31,7 +31,12 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Les utilisateurs',
         items: [
-          {label: 'Manager les utilisateurs', icon: 'pi pi-fw pi-eye', routerLink: ['/blocks'], badge: 'NEW'},
+          {
+            label: 'Manager les utilisateurs',
+            icon: 'pi pi-fw pi-eye',
+            routerLink: ['/dashboard/admin/crud-user-admin'],
+            badge: 'NEW'
+          },
         ]
       },
       {

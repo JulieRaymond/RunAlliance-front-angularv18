@@ -11,6 +11,7 @@ import {NotFoundComponent} from "./features/NotFound/not-found/not-found.compone
 import {ErrorPageComponent} from "./features/errors/error-page/error-page.component";
 import {CrudRunAdminComponent} from "./core/components/crud-run-admin/crud-run-admin.component";
 import {WelcomeDashboardComponent} from "./core/components/welcome-dashboard/welcome-dashboard.component";
+import {CrudUserAdminComponent} from "./core/components/crud-user-admin/crud-user-admin.component";
 
 export const routes: Routes =
   [
@@ -22,9 +23,11 @@ export const routes: Routes =
           path: 'admin', component: DashboardAdminComponent,
           children: [
             {path: '', component: WelcomeDashboardComponent},
-
             {
               path: 'crud-run-admin', component: CrudRunAdminComponent
+            },
+            {
+              path: 'crud-user-admin', component: CrudUserAdminComponent
             }
           ]
         },
