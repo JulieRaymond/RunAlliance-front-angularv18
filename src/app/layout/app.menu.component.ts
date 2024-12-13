@@ -59,26 +59,27 @@ export class AppMenuComponent implements OnInit {
           {
             label: 'Se connecter',
             icon: 'pi pi-fw pi-globe',
-            routerLink: ['/landing']
+            routerLink: ['/login']
           },
           {
             label: 'S\'inscrire',
             icon: 'pi pi-fw pi-user',
+            routerLink: ['/register']
           },
           {
-            label: 'Login',
+            label: 'Se déconnecter',
             icon: 'pi pi-fw pi-sign-in',
-            routerLink: ['/auth/login']
+            routerLink: ['/logout']
           },
           {
             label: 'Page d\'erreur',
             icon: 'pi pi-fw pi-times-circle',
-            routerLink: ['/auth/error']
+            routerLink: ['/error']
           },
           {
             label: 'Accès refusé',
             icon: 'pi pi-fw pi-lock',
-            routerLink: ['/auth/access']
+            routerLink: ['/access-denied']
           },
           {
             label: 'Crud',

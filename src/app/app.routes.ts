@@ -12,6 +12,7 @@ import {ErrorPageComponent} from "./features/errors/error-page/error-page.compon
 import {CrudRunAdminComponent} from "./core/components/crud-run-admin/crud-run-admin.component";
 import {WelcomeDashboardComponent} from "./core/components/welcome-dashboard/welcome-dashboard.component";
 import {CrudUserAdminComponent} from "./core/components/crud-user-admin/crud-user-admin.component";
+import {UnauthorizedComponent} from "./features/auth/access/unauthorized/unauthorized.component";
 
 export const routes: Routes =
   [
@@ -39,5 +40,6 @@ export const routes: Routes =
     {path: 'about', component: AboutComponent},
     {path: 'runs', component: RunPublicListComponent},
     {path: 'error', component: ErrorPageComponent},
+    {path: 'access-denied', component: UnauthorizedComponent},
     {path: '**', component: NotFoundComponent}
   ];
