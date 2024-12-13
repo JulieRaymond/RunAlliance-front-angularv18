@@ -18,13 +18,14 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Accueil',
         items: [
-          {label: 'Retour au site', icon: 'pi pi-fw pi-home', routerLink: ['/']}
+          {label: 'Retour au site', icon: 'pi pi-fw pi-home', routerLink: ['/']},
+          {label: 'Dashboard', icon: 'pi pi-fw pi-home', routerLink: ['/dashboard/admin']},
         ]
       },
       {
         label: 'Les courses',
         items: [
-          {label: 'Manager les courses', icon: 'pi pi-fw pi-id-card', routerLink: ['/uikit/formlayout']},
+          {label: 'Manager les courses', icon: 'pi pi-fw pi-id-card', routerLink: ['/dashboard/admin/crud-run-admin']},
         ]
       },
       {
