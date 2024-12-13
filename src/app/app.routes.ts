@@ -13,6 +13,7 @@ import {CrudRunAdminComponent} from "./core/components/crud-run-admin/crud-run-a
 import {WelcomeDashboardComponent} from "./core/components/welcome-dashboard/welcome-dashboard.component";
 import {CrudUserAdminComponent} from "./core/components/crud-user-admin/crud-user-admin.component";
 import {UnauthorizedComponent} from "./features/auth/access/unauthorized/unauthorized.component";
+import {DashboardUserComponent} from "./features/dashboards/dashboard-user/dashboard-user.component";
 
 export const routes: Routes =
   [
@@ -34,6 +35,7 @@ export const routes: Routes =
         },
       ]
     },
+    {path: 'me', component: DashboardUserComponent},
     {path: 'login', component: LoginComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'contact', component: ContactFormComponent},
@@ -41,5 +43,7 @@ export const routes: Routes =
     {path: 'runs', component: RunPublicListComponent},
     {path: 'error', component: ErrorPageComponent},
     {path: 'access-denied', component: UnauthorizedComponent},
+
+
     {path: '**', component: NotFoundComponent}
   ];
