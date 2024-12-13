@@ -10,6 +10,7 @@ import {RunPublicListComponent} from "./features/runPublicList/run-public-list/r
 import {NotFoundComponent} from "./features/NotFound/not-found/not-found.component";
 import {ErrorPageComponent} from "./features/errors/error-page/error-page.component";
 import {CrudRunAdminComponent} from "./core/components/crud-run-admin/crud-run-admin.component";
+import {WelcomeDashboardComponent} from "./core/components/welcome-dashboard/welcome-dashboard.component";
 
 export const routes: Routes =
   [
@@ -20,6 +21,8 @@ export const routes: Routes =
         {
           path: 'admin', component: DashboardAdminComponent,
           children: [
+            {path: '', component: WelcomeDashboardComponent},
+
             {
               path: 'crud-run-admin', component: CrudRunAdminComponent
             }
