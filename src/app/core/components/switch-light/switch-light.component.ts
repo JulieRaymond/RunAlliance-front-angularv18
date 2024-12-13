@@ -43,6 +43,11 @@ export class SwitchLightComponent {
 
   display: boolean = false;
 
+  // Getter pour récupérer le colorScheme du LayoutService
+  get colorScheme() {
+    return this.layoutService.config().colorScheme;
+  }
+
   // Méthode pour basculer entre les thèmes
   toggleTheme(): void {
     this.layoutService.toggleColorScheme();

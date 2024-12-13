@@ -163,7 +163,6 @@ export class LayoutService {
     const newColorScheme = currentConfig.colorScheme === 'light' ? 'dark' : 'light';
     const newTheme = newColorScheme === 'light' ? 'lara-light-indigo' : 'lara-dark-indigo'; // Nom des thèmes pour clair et sombre
 
-    // Mise à jour de la configuration avec les nouveaux paramètres
     this.config.set({
       ...currentConfig,
       colorScheme: newColorScheme,
