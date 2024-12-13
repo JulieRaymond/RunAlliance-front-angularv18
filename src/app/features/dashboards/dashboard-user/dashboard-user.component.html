@@ -1,6 +1,39 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
     <app-navbar></app-navbar>
+    <div class="profile-page">
+      <!-- Avatar et Email -->
+      <div class="user-info">
+        <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge"
+                  shape="circle"/>
+        <h2>Bienvenue {{ user.email }}</h2>
+      </div>
+
+      <!-- Graphiques -->
+      <div class="grid p-fluid">
+        <div class="col-12 lg:col-6">
+          <div class="card">
+            <h5>Kilomètres courus (semaine)</h5>
+            <p-chart type="bar" [data]="barData" [options]="chartOptions"></p-chart>
+          </div>
+        </div>
+        <div class="col-12 lg:col-6">
+          <div class="card">
+            <h5>Allure moyenne (mois)</h5>
+            <p-chart type="line" [data]="lineData" [options]="chartOptions"></p-chart>
+          </div>
+        </div>
+      </div>
+
+      <!-- Propositions de défis -->
+      <div class="card">
+        <h5>Défis recommandés</h5>
+        <ul>
+          <li *ngFor="let challenge of challenges">{{ challenge }}</li>
+        </ul>
+      </div>
+    </div>
+
     <div class="grid justify-content-between mt-8 md:mt-0">
       <div class="col-12 lg:col-4 p-0 md:p-3">
         <div
