@@ -1,4 +1,4 @@
-import {Component, inject} from '@angular/core';
+import {Component} from '@angular/core';
 import {RouterOutlet} from '@angular/router';
 import {AppLayoutModule} from "./layout/app.layout.module";
 import {InputSwitchModule} from "primeng/inputswitch";
