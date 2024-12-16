@@ -13,7 +13,8 @@ import {SwitchLightComponent} from "./core/components/switch-light/switch-light.
     AppLayoutModule,
     InputSwitchModule,
     SharedModule,
-    SwitchLightComponent],
+    SwitchLightComponent
+  ],
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'
 })
