@@ -154,9 +154,9 @@ export class DashboardUserComponent {
     const bestDistance = Math.max(...this.runs.map(run => run.distanceKm));
 
     this.challenges = [
-      `Améliore ton 5km en atteignant une vitesse moyenne plus élevée.`,
-      `Couvre plus de ${totalKm + 5} km ce mois-ci.`,
-      `Bats ton meilleur record de ${bestDistance} km en une course !`
+      `Améliore ton 5km`,
+      `Cours plus de ${totalKm + 5} km ce mois-ci.`,
+      `Bats ton record de ${bestDistance} km !`
     ];
   }
 }
