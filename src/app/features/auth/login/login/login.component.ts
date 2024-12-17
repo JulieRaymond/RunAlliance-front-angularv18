@@ -35,9 +35,9 @@ export class LoginComponent {
         return of(null);  // On retourne un Observable vide pour éviter l'échec du stream
       })
     ).subscribe(response => {
-      if (response && response.token) {
-        localStorage.setItem('jwtToken', response.token);
-        this.router.navigate(['/me']);
+      if (response && response.accessToken && response.refreshToken) {
+        this.authService.saveTokens(response.accessToken, response.refreshToken); // Enregistre les tokens
+        this.router.navigate(['/me']);  // Redirige vers la page /me
       } else {
         this.errorMessage = 'Échec de la connexion. Veuillez vérifier vos identifiants.';
       }
