@@ -5,6 +5,7 @@ import {LayoutService} from "../../../../layout/service/app.layout.service";
 import {Router, RouterLink} from "@angular/router";
 import {AuthService} from "../../../../shared/services/auth.service";
 import {catchError, of} from "rxjs";
+import {NgOptimizedImage} from "@angular/common";
 
 @Component({
   selector: 'app-register',
@@ -12,7 +13,8 @@ import {catchError, of} from "rxjs";
   imports: [
     SharedModule,
     PasswordModule,
-    RouterLink
+    RouterLink,
+    NgOptimizedImage
   ],
   templateUrl: './register.component.html',
   styleUrl: './register.component.scss'
