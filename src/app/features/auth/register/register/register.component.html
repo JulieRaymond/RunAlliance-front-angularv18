@@ -63,6 +63,7 @@
               name="userConfirmPassword"
               placeholder="Répétez votre mot de passe"
               [toggleMask]="true"
+              [feedback]="false"
               styleClass="mb-3"
               inputStyleClass="w-full p-3 md:w-30rem"
               required
@@ -82,9 +83,6 @@
             [disabled]="signupForm.invalid"
           ></button>
         </form>
-        <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);"
-           routerLink="/login">
-          Déjà inscrit ? Connectez vous ici. </a>
         <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);"
            routerLink="/login">
           Déjà inscrit ? Connectez vous ici. </a>
