@@ -1,88 +1,95 @@
 <div class="surface-ground flex align-items-center justify-content-center min-h-screen min-w-screen overflow-hidden">
-  <div class="flex flex-column align-items-center justify-content-center">
-    <img
-      src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
-      alt="Logo de l'application" class="mb-5 w-6rem flex-shrink-0">
-    <div
-      style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
-      <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
-        <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded"
-                style="margin-bottom: 5rem"
-                label="Retour" routerLink="/"></button>
-        <div class="text-center mb-5">
-          <img src="assets/layout/images/avatar.png" alt="Image" style="height: 70px; border-radius:50%" class="mb-3">
-          <div class="text-900 text-3xl font-medium mb-3">Créez votre compte</div>
-          <span class="text-600 font-medium">Inscrivez-vous pour rejoindre notre communauté</span>
+    <div class="flex flex-column align-items-center justify-content-center">
+        <img
+                src="assets/layout/images/{{layoutService.config().colorScheme === 'light' ? 'logoA2-dark' : 'logoA2-white'}}.png"
+                alt="Logo de l'application" class="mb-5 w-6rem flex-shrink-0">
+        <div
+                style="border-radius:56px; padding:0.3rem; background: linear-gradient(180deg, var(--primary-color) 10%, rgba(33, 150, 243, 0) 30%);">
+            <div class="w-full surface-card py-8 px-5 sm:px-8" style="border-radius:53px">
+                <button pButton pRipple type="button" icon="pi pi-arrow-left" class="p-button-rounded"
+                        style="margin-bottom: 5rem"
+                        label="Retour" routerLink="/"></button>
+                <div class="text-center mb-5">
+                    <img src="assets/layout/images/avatar.png" alt="Image" style="height: 70px; border-radius:50%"
+                         class="mb-3">
+                    <div class="text-900 text-3xl font-medium mb-3">Créez votre compte</div>
+                    <span class="text-600 font-medium">Inscrivez-vous pour rejoindre notre communauté</span>
+                </div>
+
+                <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
+                    <div class="field mb-4">
+                        <label for="email" class="block text-900 text-xl font-medium mb-2">Adresse e-mail</label>
+                        <input
+                                id="email"
+                                type="email"
+                                pInputText
+                                class="w-full md:w-30rem mb-3"
+                                style="padding:1rem"
+                                name="email"
+                                required
+                                [(ngModel)]="userEmail"
+                                ngModel
+                                #email="ngModel"
+                        />
+                        <small *ngIf="email.invalid && email.dirty" class="p-error">
+                            Veuillez entrer une adresse e-mail valide.
+                        </small>
+                    </div>
+
+                    <div class="field mb-4">
+                        <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
+                        <p-password
+                                id="password"
+                                [(ngModel)]="userPassword"
+                                name="userPassword"
+                                placeholder="Entrez votre mot de passe"
+                                [toggleMask]="true"
+                                styleClass="mb-3"
+                                inputStyleClass="w-full p-3 md:w-30rem"
+                                required
+                                minlength="8"
+                                #passwordControl="ngModel"
+                        ></p-password>
+                        <small *ngIf="passwordControl.invalid && passwordControl.dirty" class="p-error">
+                            Le mot de passe doit comporter au moins 8 caractères.
+                        </small>
+                    </div>
+
+                    <div class="field mb-4">
+                        <label for="confirmPassword" class="block text-900 font-medium text-xl mb-2">Répéter le mot de
+                            passe</label>
+                        <p-password
+                                id="confirmPassword"
+                                [(ngModel)]="userConfirmPassword"
+                                name="userConfirmPassword"
+                                placeholder="Répétez votre mot de passe"
+                                [toggleMask]="true"
+                                styleClass="mb-3"
+                                inputStyleClass="w-full p-3 md:w-30rem"
+                                required
+                                #confirmPasswordControl="ngModel"
+                        ></p-password>
+                        <small *ngIf="confirmPasswordControl.dirty && userConfirmPassword !== userPassword"
+                               class="p-error">
+                            Les mots de passe ne correspondent pas.
+                        </small>
+                    </div>
+
+                    <button
+                            pButton
+                            pRipple
+                            label="S'inscrire"
+                            class="w-full p-3 text-xl"
+                            [disabled]="signupForm.invalid"
+                    ></button>
+                </form>
+                <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);"
+                   routerLink="/login">
+                    Déjà inscrit ? Connectez vous ici. </a>
+                <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);"
+                   routerLink="/login">
+                    Déjà inscrit ? Connectez vous ici. </a>
+            </div>
         </div>
-
-        <form #signupForm="ngForm" (ngSubmit)="onSubmit()">
-          <div class="field mb-4">
-            <label for="email" class="block text-900 text-xl font-medium mb-2">Adresse e-mail</label>
-            <input
-              id="email"
-              type="email"
-              pInputText
-              class="w-full md:w-30rem mb-3"
-              style="padding:1rem"
-              name="email"
-              required
-              [(ngModel)]="email"
-              ngModel
-              #email="ngModel"
-            />
-            <small *ngIf="email.invalid && email.dirty" class="p-error">
-              Veuillez entrer une adresse e-mail valide.
-            </small>
-          </div>
-
-          <div class="field mb-4">
-            <label for="password" class="block text-900 font-medium text-xl mb-2">Mot de passe</label>
-            <p-password
-              id="password"
-              [(ngModel)]="userPassword"
-              name="userPassword"
-              placeholder="Entrez votre mot de passe"
-              [toggleMask]="true"
-              styleClass="mb-3"
-              inputStyleClass="w-full p-3 md:w-30rem"
-              required
-              minlength="8"
-              #passwordControl="ngModel"
-            ></p-password>
-            <small *ngIf="passwordControl.invalid && passwordControl.dirty" class="p-error">
-              Le mot de passe doit comporter au moins 8 caractères.
-            </small>
-          </div>
-
-          <div class="field mb-4">
-            <label for="confirmPassword" class="block text-900 font-medium text-xl mb-2">Répéter le mot de passe</label>
-            <p-password
-              id="confirmPassword"
-              [(ngModel)]="userConfirmPassword"
-              name="userConfirmPassword"
-              placeholder="Répétez votre mot de passe"
-              [toggleMask]="true"
-              styleClass="mb-3"
-              inputStyleClass="w-full p-3 md:w-30rem"
-              required
-              #confirmPasswordControl="ngModel"
-            ></p-password>
-            <small *ngIf="confirmPasswordControl.dirty && userConfirmPassword !== userPassword" class="p-error">
-              Les mots de passe ne correspondent pas.
-            </small>
-          </div>
-
-          <button
-            pButton
-            pRipple
-            label="S'inscrire"
-            class="w-full p-3 text-xl"
-            [disabled]="signupForm.invalid"
-          ></button>
-        </form>
-        <a class="font-medium no-underline cursor-pointer" style="color: var(--primary-color);" routerLink="/login">
-          Déjà inscrit ? Connectez vous ici. </a>
-      </div>
     </div>
-  </div>
 </div>

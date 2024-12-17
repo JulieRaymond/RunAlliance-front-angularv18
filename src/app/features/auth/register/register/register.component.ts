@@ -20,8 +20,6 @@ import {catchError, of} from "rxjs";
 export class RegisterComponent {
   userPassword: any;
   userConfirmPassword: any;
-  email: string = '';
-  password: string = '';
 
   constructor(
     public layoutService: LayoutService,
@@ -31,9 +29,10 @@ export class RegisterComponent {
   }
 
   // Méthode de soumission du formulaire d'inscription
+  userEmail: any;
   onSubmit() {
     if (this.userPassword === this.userConfirmPassword) {
-      this.authService.register(this.email, this.userPassword).pipe(
+      this.authService.register(this.userEmail, this.userPassword).pipe(
         catchError(error => {
           console.error('Erreur d\'inscription', error);
           return of(null);  // Retourne un Observable vide en cas d'erreur
