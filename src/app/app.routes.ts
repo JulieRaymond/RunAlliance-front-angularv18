@@ -44,6 +44,5 @@ export const routes: Routes =
     {path: 'error', component: ErrorPageComponent},
     {path: 'access-denied', component: UnauthorizedComponent},
 
-
     {path: '**', component: NotFoundComponent}
   ];
