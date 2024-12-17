@@ -19,6 +19,12 @@ export class AuthService {
   constructor(private http: HttpClient) {
   }
 
+  // Méthode pour inscrire un nouvel utilisateur
+  register(email: string, password: string): Observable<any> {
+    const body = {email, password};
+    return this.http.post<any>(`${this.apiUrl}/register`, body);
+  }
+
   // Obtenir le token d'accès
   getAccessToken(): string | null {
     return localStorage.getItem(this.accessTokenKey);
