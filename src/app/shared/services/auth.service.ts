@@ -8,7 +8,7 @@ import {environment} from "../../../environments/environment";
 })
 export class AuthService {
 
-  private apiUrl = `${environment.apiUrl}/api/auth/login`;
+  private apiUrl = `${environment.apiUrl}/api/auth`;
   private accessTokenKey = 'access_token';
   private refreshTokenKey = 'refresh_token';
 
@@ -36,7 +36,7 @@ export class AuthService {
 
   // Rafraîchir le token
   refreshAccessToken(): Observable<any> {
-    return this.http.post('/api/auth/refresh', {
+    return this.http.post(`${this.apiUrl}/refresh`, {
       refreshToken: this.getRefreshToken(),
     });
   }
@@ -56,7 +56,7 @@ export class AuthService {
 
   login(email: string, password: string): Observable<any> {
     const body = {email, password};
-    return this.http.post<any>(this.apiUrl, body).pipe(
+    return this.http.post<any>(`${this.apiUrl}/login`, body).pipe(
       tap(response => {
         if (response && response.accessToken && response.refreshToken) {
           // Enregistrer les tokens dans le localStorage
