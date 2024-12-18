@@ -7,7 +7,7 @@ import {CarouselModule} from "primeng/carousel";
 import {NgOptimizedImage} from "@angular/common";
 import {PrimeTemplate} from "primeng/api";
 import {Ripple} from "primeng/ripple";
-import {RouterLink} from "@angular/router";
+import {Router, RouterLink} from "@angular/router";
 import {DividerModule} from "primeng/divider";
 import {SharedModule} from "../../../shared/shared.module";
 import {User} from "../../../shared/models/user.model";
@@ -77,7 +77,7 @@ export class DashboardUserComponent {
   chartOptions: any;
   challenges: string[] = [];
 
-  constructor(private profileService: ProfileService, private AuthService: AuthService) {
+  constructor(private profileService: ProfileService, private AuthService: AuthService, private router: Router) {
   }
 
   ngOnInit() {
@@ -153,6 +153,14 @@ export class DashboardUserComponent {
   }
 
   private loadUser(): void {
+    // Vérifier si un token existe avant de récupérer l'utilisateur
+    const token = localStorage.getItem('authToken');  // Supposons que le token soit dans localStorage
+    if (!token) {
+      this.router.navigate(['/login']);  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+      return;
+    }
+
+    // Si le token existe, récupérer l'utilisateur
     this.AuthService.getCurrentUser().subscribe({
       next: (user: User) => {
         if (user) {
@@ -161,6 +169,7 @@ export class DashboardUserComponent {
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des données utilisateur :', error);
+        this.router.navigate(['/login']);  // Rediriger vers la page de login en cas d'erreur
       }
     });
   }
