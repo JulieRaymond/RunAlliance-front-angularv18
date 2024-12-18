@@ -3,6 +3,7 @@ import {MessageService, ConfirmationService} from 'primeng/api';
 import {User} from '../../../shared/models/user.model';
 import {SharedModule} from "../../../shared/shared.module";
 import {SelectButtonModule} from "primeng/selectbutton";
+import {ManageUsersService} from "../../../shared/services/manage-users.service";
 
 @Component({
   selector: 'app-crud-user-admin',
@@ -10,117 +11,124 @@ import {SelectButtonModule} from "primeng/selectbutton";
   imports: [
     SharedModule,
     SelectButtonModule,
-    // Ajoutez ici tous les imports nécessaires à votre composant
   ],
   templateUrl: './crud-user-admin.component.html',
   styleUrls: ['./crud-user-admin.component.scss']
 })
 export class CrudUserAdminComponent {
 
-  users: User[] = []; // Liste des utilisateurs
-  user: User = {id: 0, email: '', role: ''}; // Utilisateur en cours d'édition
-  roles = [{label: 'Admin', value: 'admin'}, {label: 'User', value: 'user'}]; // Options de rôle
-  userDialog = false; // Affichage du dialogue d'édition
-  deleteUserDialog = false; // Dialogue de confirmation de suppression d'un utilisateur
-  deleteUsersDialog = false; // Dialogue de suppression des utilisateurs sélectionnés
-  submitted = false; // Flag pour valider la soumission
-  selectedUsers: User[] = []; // Utilisateurs sélectionnés pour suppression
+  users: User[] = [];
+  user: User = {id: 0, email: '', role: '', password: ''};  // Ajout du champ password
+  roles = ['admin', 'user'];
+  userDialog = false;
+  deleteUserDialog = false;
+  deleteUsersDialog = false;
+  submitted = false;
+  selectedUsers: User[] = [];
   cols = [
     {field: 'email', header: 'Email'},
     {field: 'role', header: 'Rôle'}
-  ]; // Colonnes du tableau
+  ];
 
-  constructor(private messageService: MessageService, private confirmationService: ConfirmationService) {
+  constructor(
+    private messageService: MessageService,
+    private confirmationService: ConfirmationService,
+    private manageUsersService: ManageUsersService
+  ) {
   }
 
-  // Ouvre le dialogue pour un nouvel utilisateur ou pour l'édition d'un utilisateur existant
   openNew() {
-    this.user = {id: 0, email: '', role: ''}; // Réinitialise l'utilisateur
+    this.user = {id: 0, email: '', role: '', password: ''};  // Réinitialiser le mot de passe
     this.submitted = false;
-    this.userDialog = true; // Affiche le dialogue
-  }
-
-  // Affiche le dialogue avec les données de l'utilisateur à éditer
-  editUser(user: User) {
-    this.user = {...user}; // Clone les données de l'utilisateur sélectionné
     this.userDialog = true;
   }
 
-  // Ferme le dialogue sans sauvegarder
+  editUser(user: User) {
+    this.user = {...user};
+    this.userDialog = true;
+  }
+
   hideDialog() {
     this.userDialog = false;
     this.submitted = false;
   }
 
-  // Valide l'email
   validEmail(email: string): boolean {
     const regex = /^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,6}$/;
     return regex.test(email);
   }
 
-  // Sauvegarde l'utilisateur (création ou mise à jour)
   saveUser() {
     this.submitted = true;
 
-    // Vérifie si les données sont valides
-    if (this.user.email && this.validEmail(this.user.email) && this.user.role) {
+    // Vérification si les champs sont valides
+    if (this.user.email && this.validEmail(this.user.email) && this.user.role && (this.user.password || this.user.id)) {
       if (this.user.id) {
-        // Mise à jour de l'utilisateur existant
-        const index = this.users.findIndex(u => u.id === this.user.id);
-        if (index !== -1) {
-          this.users[index] = this.user;
+        // Si l'utilisateur existe déjà, on met à jour sans toucher au mot de passe
+        this.manageUsersService.updateUser(this.user.id, this.user).subscribe(response => {
           this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur mis à jour'});
-        }
+          this.loadUsers();
+        });
       } else {
-        // Création d'un nouvel utilisateur
-        this.user.id = this.users.length + 1; // Génère un ID fictif
-        this.users.push(this.user);
-        this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur créé'});
+        // Si l'utilisateur est nouveau, on crée l'utilisateur avec un mot de passe
+        this.manageUsersService.createUser(this.user).subscribe(response => {
+          this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur créé'});
+          this.loadUsers();
+        });
       }
-      this.userDialog = false; // Ferme le dialogue
-      this.user = {id: 0, email: '', role: ''}; // Réinitialise l'utilisateur
+      this.userDialog = false;
+      this.user = {id: 0, email: '', role: '', password: ''};  // Réinitialisation
     }
   }
 
-  // Affiche le dialogue pour la suppression d'un utilisateur
   deleteUser(user: User) {
-    this.deleteUserDialog = true; // Ouvre le dialogue de suppression
-    this.user = {...user}; // Copie les données de l'utilisateur à supprimer
+    this.deleteUserDialog = true;
+    this.user = {...user};
   }
 
-  // Affiche le dialogue pour la suppression de plusieurs utilisateurs
   deleteSelectedUsers() {
-    this.deleteUsersDialog = true; // Ouvre le dialogue de suppression multiple
+    this.deleteUsersDialog = true;
   }
 
-  // Confirmer la suppression des utilisateurs sélectionnés
   confirmDeleteSelected() {
-    this.deleteUsersDialog = false; // Ferme le dialogue
-    this.users = this.users.filter((user) => !this.selectedUsers.includes(user)); // Supprime les utilisateurs sélectionnés
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Succès',
-      detail: 'Utilisateurs supprimés',
-      life: 3000
+    this.deleteUsersDialog = false;
+    this.manageUsersService.deleteUsers(this.selectedUsers.map(u => u.id)).subscribe(response => {
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Succès',
+        detail: 'Utilisateurs supprimés',
+        life: 3000
+      });
+      this.loadUsers();
     });
-    this.selectedUsers = []; // Réinitialise la sélection
+    this.selectedUsers = [];
   }
 
-  // Confirmer la suppression d'un seul utilisateur
   confirmDelete() {
-    this.deleteUserDialog = false; // Ferme le dialogue
-    this.users = this.users.filter((user) => user.id !== this.user.id); // Supprime l'utilisateur
-    this.messageService.add({
-      severity: 'success',
-      summary: 'Succès',
-      detail: 'Utilisateur supprimé',
-      life: 3000
+    this.deleteUserDialog = false;
+    this.manageUsersService.deleteUser(this.user.id).subscribe(response => {
+      this.users = this.users.filter((user) => user.id !== this.user.id);
+      this.messageService.add({
+        severity: 'success',
+        summary: 'Succès',
+        detail: 'Utilisateur supprimé',
+        life: 3000
+      });
     });
-    this.user = {id: 0, email: '', role: ''}; // Réinitialise l'utilisateur
+    this.user = {id: 0, email: '', role: ''};
   }
 
-  // Filtrage global du tableau
   onGlobalFilter(table: any, event: Event) {
     table.filterGlobal((event.target as HTMLInputElement).value, 'contains');
+  }
+
+  loadUsers() {
+    this.manageUsersService.getAllUsers().subscribe(users => {
+      this.users = users;
+    });
+  }
+
+  ngOnInit() {
+    this.loadUsers();
   }
 }

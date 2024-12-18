@@ -2,11 +2,13 @@ import {HttpErrorResponse, HttpEvent, HttpHandlerFn, HttpInterceptorFn, HttpRequ
 import {BehaviorSubject, catchError, filter, finalize, Observable, switchMap, take, throwError} from "rxjs";
 import {inject} from "@angular/core";
 import {AuthService} from "../services/auth.service";
+import {environment} from "../../../environments/environment";
 
 export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEvent<unknown>> => {
   const authService = inject(AuthService);
   const isRefreshing = inject(AuthService).isRefreshingToken;
   const refreshTokenSubject = inject(AuthService).refreshTokenSubject;
+  const refreshUrl = `${environment.apiUrl}/api/auth/refresh`; // L'URL complète du backend
 
   // Ajouter l'en-tête Authorization avec le token d'accès
   const accessToken = authService.getAccessToken();
@@ -20,7 +22,7 @@ export const authInterceptor: HttpInterceptorFn = (req, next): Observable<HttpEv
 
   return next(authReq).pipe(
     catchError((error: HttpErrorResponse) => {
-      if (error.status === 401 && !authReq.url.includes('/refresh')) {
+      if (error.status === 401 && !authReq.url.includes(refreshUrl)) {
         // Le token est expiré ou invalide, tenter un rafraîchissement
         return handle401Error(authService, authReq, next, isRefreshing, refreshTokenSubject);
       }

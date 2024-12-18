@@ -84,6 +84,13 @@
             <p-selectButton id="role" [(ngModel)]="user.role" [options]="roles" required></p-selectButton>
             <small *ngIf="submitted && !user.role" class="ng-dirty ng-invalid">Le rôle est requis.</small>
           </div>
+
+          <div class="field" *ngIf="!user.id">
+            <label for="password">Mot de passe</label>
+            <input type="password" pInputText id="password" [(ngModel)]="user.password" required
+                   [ngClass]="{'ng-invalid ng-dirty' : submitted && !user.password}"/>
+            <small *ngIf="submitted && !user.password" class="ng-dirty ng-invalid">Le mot de passe est requis.</small>
+          </div>
         </ng-template>
 
         <ng-template pTemplate="footer">
