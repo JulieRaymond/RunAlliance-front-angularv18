@@ -2,6 +2,7 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
 import {environment} from "../../../environments/environment";
+import {Router} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
@@ -15,7 +16,7 @@ export class AuthService {
   isRefreshingToken = new BehaviorSubject<boolean>(false);
   refreshTokenSubject = new BehaviorSubject<string | null>(null);
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
   }
 
   // Méthode pour inscrire un nouvel utilisateur
@@ -51,7 +52,8 @@ export class AuthService {
   logout(): void {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
-    window.location.reload();
+    localStorage.removeItem('role');
+    this.router.navigate(['/']);
   }
 
   login(email: string, password: string): Observable<any> {
@@ -62,6 +64,7 @@ export class AuthService {
           // Enregistrer les tokens dans le localStorage
           localStorage.setItem('access_token', response.accessToken);
           localStorage.setItem('refresh_token', response.refreshToken);
+          localStorage.setItem('role', response.role);
           console.log('Tokens stockés dans localStorage', response.accessToken, response.refreshToken); // Debug
         } else {
           console.error("Réponse invalide, tokens manquants");
@@ -81,4 +84,7 @@ export class AuthService {
     );
   }
 
+  isAuthenticated(): boolean {
+    return !!this.getAccessToken();
+  }
 }
