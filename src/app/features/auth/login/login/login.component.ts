@@ -37,7 +37,15 @@ export class LoginComponent {
     ).subscribe(response => {
       if (response && response.accessToken && response.refreshToken) {
         this.authService.saveTokens(response.accessToken, response.refreshToken); // Enregistre les tokens
-        this.router.navigate(['/me']);  // Redirige vers la page /me
+
+        const role = localStorage.getItem('role');
+
+        // Redirige en fonction du rôle
+        if (role === 'ROLE_ADMIN') {
+          this.router.navigate(['/dashboard/admin']);  // Redirige vers le tableau de bord admin
+        } else {
+          this.router.navigate(['/me']);  // Redirige vers la page profil (par défaut)
+        }
       } else {
         this.errorMessage = 'Échec de la connexion. Veuillez vérifier vos identifiants.';
       }
