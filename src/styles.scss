@@ -14,3 +14,7 @@
 @import "app/core/components/welcome-dashboard/welcome-dashboard.component";
 @import "app/core/components/switch-light/switch-light.component.scss";
 @import "app/core/components/navbar/navbar.component";
+/* Ajoutez ceci si nécessaire pour résoudre les conflits de z-index */
+.p-toast {
+  z-index: 1050 !important;
+}

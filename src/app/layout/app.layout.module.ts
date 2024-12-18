@@ -15,6 +15,7 @@ import {AppConfigModule} from './config/config.module';
 import {AppSidebarComponent} from "./app.sidebar.component";
 import {AppLayoutComponent} from "./app.layout.component";
 import {CommonModule} from "@angular/common";
+import {SharedModule} from "../shared/shared.module";
 
 @NgModule({
   declarations: [
@@ -25,18 +26,19 @@ import {CommonModule} from "@angular/common";
     AppSidebarComponent,
     AppLayoutComponent,
   ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    InputTextModule,
-    SidebarModule,
-    BadgeModule,
-    RadioButtonModule,
-    InputSwitchModule,
-    RippleModule,
-    RouterModule,
-    AppConfigModule
-  ],
+    imports: [
+        CommonModule,
+        FormsModule,
+        InputTextModule,
+        SidebarModule,
+        BadgeModule,
+        RadioButtonModule,
+        InputSwitchModule,
+        RippleModule,
+        RouterModule,
+        AppConfigModule,
+        SharedModule
+    ],
   exports: [AppLayoutComponent]
 })
 export class AppLayoutModule {

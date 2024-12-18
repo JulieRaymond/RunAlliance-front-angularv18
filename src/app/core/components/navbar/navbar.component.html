@@ -58,12 +58,24 @@
 
       <!-- Si l'utilisateur est connecté, afficher le bouton 'Se déconnecter' et l'avatar -->
       <ng-container *ngIf="isAuthenticated" id="custom-buttons-navbar">
-        <button pButton pRipple label="Se déconnecter" (click)="logout()"
-                class="p-button-text ml-5 p-button-rounded border-none font-light line-height-2 bg-gray-500 text-white"></button>
-        <div class="flex flex-wrap align-items-center">
-<!--          <p-chip [label]="userEmail" image="assets/demo/images/avatar/amyelsner.png" styleClass="m-1"></p-chip>-->
-        </div>
+        <button
+          pButton
+          pRipple
+          label="Se déconnecter"
+          class="p-button-text ml-5 p-button-rounded border-none font-light line-height-2 bg-gray-500 text-white"
+          (click)="showLogoutConfirmation()">
+        </button>
       </ng-container>
+
+      <!-- Confirmation Dialog -->
+      <p-confirmDialog header="Confirmation" key="logoutConfirm" icon="pi pi-exclamation-triangle"
+                       message="Êtes-vous sûr de vouloir vous déconnecter ?"
+                       [acceptLabel]="'Oui'" [rejectLabel]="'Non'">
+      </p-confirmDialog>
+
+      <!-- Toast Notification -->
+      <p-toast></p-toast>
+
     </div>
   </div>
 </div>

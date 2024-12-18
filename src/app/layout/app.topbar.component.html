@@ -17,7 +17,7 @@
 
   <div #topbarmenu class="layout-topbar-menu"
        [ngClass]="{'layout-topbar-menu-mobile-active': layoutService.state.profileSidebarVisible}">
-    <button (click)='logout()' class="p-link layout-topbar-button">
+    <button (click)="showLogoutConfirmation()" class="p-link layout-topbar-button">
       <i class="pi pi-sign-out"></i>
       <span>Se déconnecter</span>
     </button>
@@ -25,9 +25,14 @@
       <i class="pi pi-user"></i>
       <span>Mon profil</span>
     </button>
-<!--    <button class="p-link layout-topbar-button" [routerLink]="'/documentation'">-->
-<!--      <i class="pi pi-cog"></i>-->
-<!--      <span>Paramètres</span>-->
-<!--    </button>-->
   </div>
+
+  <!-- Confirmation Dialog -->
+  <p-confirmDialog header="Confirmation" key="logoutConfirm" icon="pi pi-exclamation-triangle"
+                   message="Êtes-vous sûr de vouloir vous déconnecter ?"
+                   [acceptLabel]="'Oui'" [rejectLabel]="'Non'">
+  </p-confirmDialog>
+
+  <!-- Toast Notification -->
+  <p-toast></p-toast>
 </div>

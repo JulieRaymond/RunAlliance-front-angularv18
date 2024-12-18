@@ -20,6 +20,7 @@ import {DialogModule} from 'primeng/dialog';
 import {MultiSelectModule} from "primeng/multiselect";
 import {ChartModule} from "primeng/chart";
 import {ChipModule} from "primeng/chip";
+import {ConfirmDialogModule} from "primeng/confirmdialog";
 
 @NgModule({
   imports: [
@@ -41,7 +42,8 @@ import {ChipModule} from "primeng/chip";
     DialogModule,
     ReactiveFormsModule,
     ChartModule,
-    ChipModule
+    ChipModule,
+    ConfirmDialogModule
   ],
   exports: [
     CommonModule,
@@ -62,7 +64,8 @@ import {ChipModule} from "primeng/chip";
     DialogModule,
     ReactiveFormsModule,
     ChartModule,
-    ChipModule
+    ChipModule,
+    ConfirmDialogModule
   ]
 })
 export class SharedModule {

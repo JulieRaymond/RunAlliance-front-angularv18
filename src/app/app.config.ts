@@ -4,6 +4,7 @@ import {provideRouter} from '@angular/router';
 import {routes} from './app.routes';
 import {provideAnimations} from "@angular/platform-browser/animations";
 import {provideHttpClient} from "@angular/common/http";
+import {ConfirmationService, MessageService} from "primeng/api";
 
 export const appConfig: ApplicationConfig = {
   providers:
@@ -11,6 +12,8 @@ export const appConfig: ApplicationConfig = {
       provideZoneChangeDetection({eventCoalescing: true}),
       provideRouter(routes),
       provideAnimations(),
-      provideHttpClient()
+      provideHttpClient(),
+      MessageService,
+      ConfirmationService
     ]
 };
