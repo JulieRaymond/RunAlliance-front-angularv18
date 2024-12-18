@@ -31,8 +31,8 @@ export class LoginComponent {
   onLogin(): void {
     this.authService.login(this.email, this.password).pipe(
       catchError(error => {
-        this.errorMessage = 'Identifiants incorrects. Veuillez réessayer.';  // Message d'erreur en cas d'échec
-        return of(null);  // On retourne un Observable vide pour éviter l'échec du stream
+        this.errorMessage = 'Identifiants incorrects. Veuillez réessayer.';
+        return of(null);
       })
     ).subscribe(response => {
       if (response && response.accessToken && response.refreshToken) {

@@ -154,9 +154,9 @@ export class DashboardUserComponent {
 
   private loadUser(): void {
     // Vérifier si un token existe avant de récupérer l'utilisateur
-    const token = localStorage.getItem('authToken');  // Supposons que le token soit dans localStorage
+    const token = localStorage.getItem('access_token');
     if (!token) {
-      this.router.navigate(['/login']);  // Rediriger vers la page de connexion si l'utilisateur n'est pas connecté
+      this.router.navigate(['/login']);
       return;
     }
 
@@ -164,12 +164,12 @@ export class DashboardUserComponent {
     this.AuthService.getCurrentUser().subscribe({
       next: (user: User) => {
         if (user) {
-          this.user = user;  // Assigner l'utilisateur uniquement si il est défini
+          this.user = user;
         }
       },
       error: (error) => {
         console.error('Erreur lors de la récupération des données utilisateur :', error);
-        this.router.navigate(['/login']);  // Rediriger vers la page de login en cas d'erreur
+        this.router.navigate(['/login']);
       }
     });
   }
