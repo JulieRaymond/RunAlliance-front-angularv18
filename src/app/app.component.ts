@@ -4,6 +4,7 @@ import {AppLayoutModule} from "./layout/app.layout.module";
 import {InputSwitchModule} from "primeng/inputswitch";
 import {SharedModule} from "./shared/shared.module";
 import {SwitchLightComponent} from "./core/components/switch-light/switch-light.component";
+import {AuthService} from "./shared/services/auth.service";
 
 @Component({
   selector: 'app-root',
@@ -20,4 +21,11 @@ import {SwitchLightComponent} from "./core/components/switch-light/switch-light.
 })
 export class AppComponent {
   title = 'RunAlliance-front-angularv18';
+
+  constructor(private authService: AuthService) {
+  }
+
+  logout(): void {
+    this.authService.logout();
+  }
 }
