@@ -3,8 +3,9 @@ import {provideRouter} from '@angular/router';
 
 import {routes} from './app.routes';
 import {provideAnimations} from "@angular/platform-browser/animations";
-import {provideHttpClient} from "@angular/common/http";
+import {provideHttpClient, withInterceptors} from "@angular/common/http";
 import {ConfirmationService, MessageService} from "primeng/api";
+import {jwtInterceptor} from "./shared/interceptors/jwt.interceptor";
 
 export const appConfig: ApplicationConfig = {
   providers:
@@ -12,8 +13,8 @@ export const appConfig: ApplicationConfig = {
       provideZoneChangeDetection({eventCoalescing: true}),
       provideRouter(routes),
       provideAnimations(),
-      provideHttpClient(),
       MessageService,
-      ConfirmationService
+      ConfirmationService,
+      provideHttpClient(withInterceptors([jwtInterceptor])),
     ]
 };

@@ -1,20 +1,42 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
 import {Run} from "../models/run.model";
 import {firstValueFrom, Observable} from "rxjs";
+import {environment} from "../../../environments/environment";
 
 @Injectable({
   providedIn: 'root'
 })
 export class RunService {
+
+  private apiUrl = `${environment.apiUrl}/api/runs`;
+
   constructor(private http: HttpClient) {
   }
 
-  getRuns(): Observable<Run[]> {
-    return this.http.get<Run[]>('/api/runs');
+  // Récupérer toutes les courses
+  getAllRuns(): Observable<any[]> {
+    return this.http.get<any[]>(this.apiUrl, {withCredentials: true});
   }
 
-  async getRunsAsync(): Promise<Run[]> {
-    return firstValueFrom(this.getRuns());
+  // Créer une nouvelle course
+  createRun(run: any): Observable<any> {
+    return this.http.post<any>(this.apiUrl, run, {withCredentials: true});
+  }
+
+  // Mettre à jour une course
+  updateRun(run: any): Observable<any> {
+    return this.http.put<any>(`${this.apiUrl}/${run.runId}`, run, {withCredentials: true});
+  }
+
+  // Supprimer une course par son ID
+  deleteRun(runId: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${runId}`, {withCredentials: true});
+  }
+
+  // Supprimer plusieurs courses
+  deleteRuns(runs: any[]): Observable<void> {
+    const ids = runs.map(run => run.runId);
+    return this.http.post<void>(`${this.apiUrl}/delete-multiple`, {ids}, {withCredentials: true});
   }
 }

@@ -26,6 +26,11 @@ export class AuthService {
     return this.http.post<any>(`${this.apiUrl}/register`, body);
   }
 
+  // Récupérer le token depuis localStorage ou sessionStorage
+  getToken(): string | null {
+    return localStorage.getItem('jwtToken'); // Remplace ceci par la logique de stockage que tu utilises
+  }
+
   // Obtenir le token d'accès
   getAccessToken(): string | null {
     return localStorage.getItem(this.accessTokenKey);

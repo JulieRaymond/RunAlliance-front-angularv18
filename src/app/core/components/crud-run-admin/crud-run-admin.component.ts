@@ -14,6 +14,9 @@ import {Ripple} from "primeng/ripple";
 import {Table, TableModule} from "primeng/table";
 import {ToastModule} from "primeng/toast";
 import {ToolbarModule} from "primeng/toolbar";
+import {RunService} from "../../../shared/services/run.service";
+import {Router} from "@angular/router";
+import {catchError, of} from "rxjs";
 
 @Component({
   selector: 'app-crud-run-admin',
@@ -41,11 +44,9 @@ import {ToolbarModule} from "primeng/toolbar";
   styleUrl: './crud-run-admin.component.scss'
 })
 export class CrudRunAdminComponent {
-
   runDialog: boolean = false;
   deleteRunDialog: boolean = false;
   deleteRunsDialog: boolean = false;
-
   runs: any[] = [];
   run: any = {};
   selectedRuns: any[] = [];
@@ -54,7 +55,11 @@ export class CrudRunAdminComponent {
   difficultyLevels: any[] = [];
   rowsPerPageOptions = [5, 10, 20];
 
-  constructor(private messageService: MessageService) {
+  constructor(
+    private messageService: MessageService,
+    private runService: RunService,
+    private router: Router
+  ) {
   }
 
   ngOnInit() {
@@ -66,19 +71,37 @@ export class CrudRunAdminComponent {
       {field: 'location', header: 'Lieu'},
       {field: 'difficultyLevel', header: 'Difficulté'},
       {field: 'distanceKm', header: 'Distance (km)'},
-      {field: 'durationMinutes', header: 'Durée (min)'},
+      {field: 'durationMinutes', header: 'Durée (min)'}
     ];
 
     this.difficultyLevels = [
-      {label: 'Facile', value: 'EASY'},
-      {label: 'Moyenne', value: 'MEDIUM'},
-      {label: 'Difficile', value: 'HARD'},
+      {label: 'DEBUTANT', value: 'DEBUTANT'},
+      {label: 'INTERMEDIAIRE', value: 'INTERMEDIAIRE'},
+      {label: 'AVANCE', value: 'AVANCE'}
     ];
+
+    this.loadRuns(); // Charger les courses au démarrage du composant
+  }
+
+  loadRuns() {
+    this.runService.getAllRuns().pipe(
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Échec de la récupération des courses.',
+          life: 3000
+        });
+        return of([]); // Retourner un tableau vide en cas d'erreur
+      })
+    ).subscribe(runs => {
+      this.runs = runs;
+    });
   }
 
   openNew() {
-    this.run = {};
-    this.submitted = false;
+    this.run = {};  // Réinitialiser l'objet `run`
+    this.submitted = false;  // Réinitialiser la validation
     this.runDialog = true;
   }
 
@@ -87,7 +110,7 @@ export class CrudRunAdminComponent {
   }
 
   editRun(run: any) {
-    this.run = {...run};
+    this.run = {...run};  // Copier les données de la course
     this.runDialog = true;
   }
 
@@ -98,16 +121,40 @@ export class CrudRunAdminComponent {
 
   confirmDeleteSelected() {
     this.deleteRunsDialog = false;
-    this.runs = this.runs.filter((val) => !this.selectedRuns.includes(val));
-    this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Courses supprimées', life: 3000});
-    this.selectedRuns = [];
+    this.runService.deleteRuns(this.selectedRuns).pipe(
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Échec de la suppression des courses sélectionnées.',
+          life: 3000
+        });
+        return of(null);
+      })
+    ).subscribe(() => {
+      this.runs = this.runs.filter(val => !this.selectedRuns.includes(val));
+      this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Courses supprimées', life: 3000});
+      this.selectedRuns = [];
+    });
   }
 
   confirmDelete() {
     this.deleteRunDialog = false;
-    this.runs = this.runs.filter((val) => val.runId !== this.run.runId);
-    this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course supprimée', life: 3000});
-    this.run = {};
+    this.runService.deleteRun(this.run.runId).pipe(
+      catchError(error => {
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: 'Échec de la suppression de la course.',
+          life: 3000
+        });
+        return of(null);
+      })
+    ).subscribe(() => {
+      this.runs = this.runs.filter(val => val.runId !== this.run.runId);
+      this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course supprimée', life: 3000});
+      this.run = {};
+    });
   }
 
   hideDialog() {
@@ -118,17 +165,40 @@ export class CrudRunAdminComponent {
   saveRun() {
     this.submitted = true;
 
-    // Validation des champs
     if (this.run.title?.trim() && this.run.description?.trim() && this.run.date && this.run.time &&
       this.run.location?.trim() && this.run.difficultyLevel && this.run.distanceKm > 0 && this.run.durationMinutes > 0) {
 
       if (this.run.runId) {
-        this.runs[this.findIndexById(this.run.runId)] = this.run;
-        this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course mise à jour', life: 3000});
+        this.runService.updateRun(this.run).pipe(
+          catchError(error => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Échec de la mise à jour de la course.',
+              life: 3000
+            });
+            return of(null);
+          })
+        ).subscribe(updatedRun => {
+          const index = this.findIndexById(updatedRun.runId);
+          this.runs[index] = updatedRun;
+          this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course mise à jour', life: 3000});
+        });
       } else {
-        this.run.runId = this.createId();
-        this.runs.push(this.run);
-        this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course créée', life: 3000});
+        this.runService.createRun(this.run).pipe(
+          catchError(error => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Erreur',
+              detail: 'Échec de la création de la course.',
+              life: 3000
+            });
+            return of(null);
+          })
+        ).subscribe(newRun => {
+          this.runs.push(newRun);
+          this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Course créée', life: 3000});
+        });
       }
 
       this.runs = [...this.runs];
@@ -146,10 +216,6 @@ export class CrudRunAdminComponent {
 
   findIndexById(id: number): number {
     return this.runs.findIndex((run) => run.runId === id);
-  }
-
-  createId(): number {
-    return Math.floor(Math.random() * 10000);
   }
 
   onGlobalFilter(table: Table, event: Event) {
