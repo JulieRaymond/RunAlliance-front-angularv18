@@ -14,23 +14,23 @@ import {WelcomeDashboardComponent} from "./core/components/welcome-dashboard/wel
 import {CrudUserAdminComponent} from "./core/components/crud-user-admin/crud-user-admin.component";
 import {UnauthorizedComponent} from "./features/auth/access/unauthorized/unauthorized.component";
 import {DashboardUserComponent} from "./features/dashboards/dashboard-user/dashboard-user.component";
+import {adminGuard} from "./shared/guards/admin.guard";
 
 export const routes: Routes =
   [
     {path: '', component: HomepageComponent},
     {
-      path: 'dashboard', component: AppLayoutComponent,
+      path: 'dashboard',
+      component: AppLayoutComponent,
+      canActivateChild: [adminGuard],
       children: [
         {
-          path: 'admin', component: DashboardAdminComponent,
+          path: 'admin',
+          component: DashboardAdminComponent,
           children: [
             {path: '', component: WelcomeDashboardComponent},
-            {
-              path: 'crud-run-admin', component: CrudRunAdminComponent
-            },
-            {
-              path: 'crud-user-admin', component: CrudUserAdminComponent
-            }
+            {path: 'crud-run-admin', component: CrudRunAdminComponent},
+            {path: 'crud-user-admin', component: CrudUserAdminComponent}
           ]
         },
       ]
