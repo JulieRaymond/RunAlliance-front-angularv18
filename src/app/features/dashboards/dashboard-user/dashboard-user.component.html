@@ -7,7 +7,7 @@
       <div class="user-info">
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge"
                   shape="circle"/>
-        <h2>Bienvenue {{ user.email.split('@')[0] | titlecase }}</h2>
+        <h2 *ngIf="user?.email">{{ 'Bienvenue ' + user.email.split('@')[0] | titlecase }}</h2>
       </div>
 
       <!-- Graphiques -->

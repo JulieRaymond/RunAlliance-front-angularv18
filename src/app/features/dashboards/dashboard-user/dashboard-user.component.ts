@@ -13,17 +13,9 @@ import {SharedModule} from "../../../shared/shared.module";
 import {User} from "../../../shared/models/user.model";
 import {Run} from "../../../shared/models/run.model";
 import {AvatarModule} from "primeng/avatar";
+import {AuthService} from "../../../shared/services/auth.service";
 
 class ProfileService {
-  // Fausse donnée utilisateur
-  getUser(): User {
-    return {
-      id: 1,
-      email: 'user@example.com',
-      role: 'Utilisateur'
-    };
-  }
-
   // Fausse donnée des courses
   getRuns(): Run[] {
     return [
@@ -85,11 +77,11 @@ export class DashboardUserComponent {
   chartOptions: any;
   challenges: string[] = [];
 
-  constructor(private profileService: ProfileService) {
+  constructor(private profileService: ProfileService, private AuthService: AuthService) {
   }
 
   ngOnInit() {
-    this.user = this.profileService.getUser();
+    this.loadUser();
     this.runs = this.profileService.getRuns();
 
     this.initCharts();
@@ -159,4 +151,18 @@ export class DashboardUserComponent {
       `Bats ton record de ${bestDistance} km !`
     ];
   }
+
+  private loadUser(): void {
+    this.AuthService.getCurrentUser().subscribe({
+      next: (user: User) => {
+        if (user) {
+          this.user = user;  // Assigner l'utilisateur uniquement si il est défini
+        }
+      },
+      error: (error) => {
+        console.error('Erreur lors de la récupération des données utilisateur :', error);
+      }
+    });
+  }
+
 }

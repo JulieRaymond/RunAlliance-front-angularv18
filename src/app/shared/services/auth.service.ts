@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {BehaviorSubject, Observable, tap} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Router} from "@angular/router";
+import {User} from "../models/user.model";
 
 @Injectable({
   providedIn: 'root'
@@ -86,5 +87,17 @@ export class AuthService {
 
   isAuthenticated(): boolean {
     return !!this.getAccessToken();
+  }
+
+  getCurrentUser(): Observable<User> {
+    const token = this.getAccessToken(); // Récupérer le token d'accès
+    if (!token) {
+      throw new Error('Token non trouvé'); // Gestion d'erreur si le token est manquant
+    }
+
+    // Appel à l'API backend pour obtenir les informations utilisateur
+    return this.http.get<User>(`${this.apiUrl}/me`, {
+      headers: {Authorization: `Bearer ${token}`}
+    });
   }
 }
