@@ -1,7 +1,6 @@
 import {Injectable} from '@angular/core';
-import {HttpClient, HttpHeaders} from "@angular/common/http";
-import {Run} from "../models/run.model";
-import {firstValueFrom, Observable} from "rxjs";
+import {HttpClient} from "@angular/common/http";
+import {Observable} from "rxjs";
 import {environment} from "../../../environments/environment";
 
 @Injectable({

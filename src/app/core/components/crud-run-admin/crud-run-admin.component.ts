@@ -15,7 +15,6 @@ import {Table, TableModule} from "primeng/table";
 import {ToastModule} from "primeng/toast";
 import {ToolbarModule} from "primeng/toolbar";
 import {RunService} from "../../../shared/services/run.service";
-import {Router} from "@angular/router";
 import {catchError, of} from "rxjs";
 
 @Component({
@@ -58,7 +57,6 @@ export class CrudRunAdminComponent {
   constructor(
     private messageService: MessageService,
     private runService: RunService,
-    private router: Router
   ) {
   }
 
