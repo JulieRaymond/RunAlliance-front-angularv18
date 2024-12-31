@@ -34,8 +34,7 @@ export class RunService {
   }
 
   // Supprimer plusieurs courses
-  deleteRuns(runs: any[]): Observable<void> {
-    const ids = runs.map(run => run.runId);
-    return this.http.post<void>(`${this.apiUrl}/delete-multiple`, {ids}, {withCredentials: true});
+  deleteRuns(ids: number[]): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/batch`, { body: ids });
   }
 }

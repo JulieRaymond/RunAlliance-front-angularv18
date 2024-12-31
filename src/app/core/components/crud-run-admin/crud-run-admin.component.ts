@@ -119,7 +119,9 @@ export class CrudRunAdminComponent {
 
   confirmDeleteSelected() {
     this.deleteRunsDialog = false;
-    this.runService.deleteRuns(this.selectedRuns).pipe(
+    const idsToDelete = this.selectedRuns.map(run => run.runId);
+
+    this.runService.deleteRuns(idsToDelete).pipe(
       catchError(error => {
         this.messageService.add({
           severity: 'error',
@@ -130,7 +132,7 @@ export class CrudRunAdminComponent {
         return of(null);
       })
     ).subscribe(() => {
-      this.runs = this.runs.filter(val => !this.selectedRuns.includes(val));
+      this.runs = this.runs.filter(run => !idsToDelete.includes(run.runId));
       this.messageService.add({severity: 'success', summary: 'Réussi', detail: 'Courses supprimées', life: 3000});
       this.selectedRuns = [];
     });
