@@ -124,6 +124,7 @@ export class CrudUserAdminComponent {
 
   loadUsers() {
     this.manageUsersService.getAllUsers().subscribe(users => {
+      console.log(users);
       this.users = users;
     });
   }
