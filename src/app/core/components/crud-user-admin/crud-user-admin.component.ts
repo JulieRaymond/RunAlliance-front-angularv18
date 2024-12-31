@@ -120,13 +120,13 @@ export class CrudUserAdminComponent implements OnInit {
   confirmDelete() {
     this.deleteUserDialog = false;
     this.manageUsersService.deleteUser(this.user.id).subscribe(response => {
-      this.users = this.users.filter((user) => user.id !== this.user.id);
       this.messageService.add({
         severity: 'success',
         summary: 'Succès',
         detail: 'Utilisateur supprimé',
         life: 3000
       });
+      this.loadUsers();
     });
     this.user = {id: 0, email: '', roles: []};
   }
