@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {MessageService, ConfirmationService} from 'primeng/api';
 import {User} from '../../../shared/models/user.model';
 import {SharedModule} from "../../../shared/shared.module";
@@ -15,7 +15,7 @@ import {ManageUsersService} from "../../../shared/services/manage-users.service"
   templateUrl: './crud-user-admin.component.html',
   styleUrls: ['./crud-user-admin.component.scss']
 })
-export class CrudUserAdminComponent {
+export class CrudUserAdminComponent implements OnInit {
 
   users: User[] = [];
   user: User = { id: 0, email: '', roles: [], password: '' };
@@ -48,7 +48,7 @@ export class CrudUserAdminComponent {
     this.user = {
       id: user.id,
       email: user.email,
-      roles: user.roles && user.roles[0] ? user.roles[0] : '',
+      roles: user.roles && user.roles[0] ? [user.roles[0]] : [],
       password: user.password || ''
     };
     console.log(this.user);
@@ -69,12 +69,14 @@ export class CrudUserAdminComponent {
     this.submitted = true;
 
     // Vérification si les champs sont valides
-    if (this.user.email && this.validEmail(this.user.email) && this.user.roles && (this.user.password || this.user.id)) {
+    if (this.user.email && this.validEmail(this.user.email) && this.user.roles) {
       const userToSave = { ...this.user };
 
       // Si l'utilisateur existe déjà, on met à jour sans toucher au mot de passe
       if (this.user.id) {
-        delete userToSave.password;
+        if (!userToSave.password) {
+          delete userToSave.password;
+        }
 
         this.manageUsersService.updateUser(this.user.id, userToSave).subscribe(response => {
           this.messageService.add({severity: 'success', summary: 'Succès', detail: 'Utilisateur mis à jour'});
