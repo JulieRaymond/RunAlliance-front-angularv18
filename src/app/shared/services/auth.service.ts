@@ -71,7 +71,6 @@ export class AuthService {
           localStorage.setItem('access_token', response.accessToken);
           localStorage.setItem('refresh_token', response.refreshToken);
           localStorage.setItem('role', response.role);
-          console.log('Tokens stockés dans localStorage', response.accessToken, response.refreshToken); // Debug
         } else {
           console.error("Réponse invalide, tokens manquants");
         }

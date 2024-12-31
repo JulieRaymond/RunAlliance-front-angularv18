@@ -42,7 +42,7 @@ export class RegisterComponent {
       ).subscribe(response => {
         if (response) {
           console.log('Utilisateur inscrit avec succès', response);
-          this.router.navigate(['/login']);  // Redirection après inscription
+          this.router.navigate(['/login']);
         }
       });
     } else {

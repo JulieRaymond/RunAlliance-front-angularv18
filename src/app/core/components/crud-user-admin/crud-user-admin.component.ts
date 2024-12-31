@@ -51,7 +51,6 @@ export class CrudUserAdminComponent implements OnInit {
       roles: user.roles && user.roles[0] ? [user.roles[0]] : [],
       password: user.password || ''
     };
-    console.log(this.user);
     this.userDialog = true;
   }
 
