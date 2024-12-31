@@ -7,6 +7,7 @@ import {ConfirmationService, MessageService} from "primeng/api";
 import {NavbarComponent} from "../../../core/components/navbar/navbar.component";
 import {FooterComponent} from "../../../core/components/footer/footer.component";
 import {NgOptimizedImage} from "@angular/common";
+import {firstValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-run-public-list',
@@ -20,7 +21,6 @@ import {NgOptimizedImage} from "@angular/common";
   templateUrl: './run-public-list.component.html',
   styleUrl: './run-public-list.component.scss',
   providers: [MessageService, ConfirmationService]
-
 })
 export class RunPublicListComponent {
 
@@ -34,46 +34,9 @@ export class RunPublicListComponent {
   constructor(private runService: RunService) {
   }
 
-  //
-  // async ngOnInit() {
-  //   try {
-  //     this.runs = await this.runService.getRunsAsync();
-  //     this.loading = false;
-  //   } catch (error) {
-  //     console.error('Error fetching runs:', error);
-  //     this.loading = false;
-  //   }
-  // }
-
   async ngOnInit() {
     try {
-      // Ajoutez des données de test
-      this.runs = [
-        {
-          runId: 1,
-          title: 'Course 1',
-          description: 'Description de la course 1',
-          date: new Date('2023-12-01'),
-          time: new Date('2023-12-01T09:00:00'),
-          location: 'Paris',
-          difficultyLevel: 'Moyen',
-          distanceKm: 10,
-          durationMinutes: 60,
-          inscriptions: []
-        },
-        {
-          runId: 2,
-          title: 'Course 2',
-          description: 'Description de la course 2',
-          date: new Date('2023-12-02'),
-          time: new Date('2023-12-02T10:00:00'),
-          location: 'Lyon',
-          difficultyLevel: 'Difficile',
-          distanceKm: 15,
-          durationMinutes: 90,
-          inscriptions: []
-        }
-      ];
+      this.runs = await firstValueFrom(this.runService.getAllRuns());
       this.loading = false;
     } catch (error) {
       console.error('Error fetching runs:', error);
