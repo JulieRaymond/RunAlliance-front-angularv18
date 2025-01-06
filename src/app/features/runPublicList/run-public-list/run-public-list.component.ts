@@ -11,7 +11,6 @@ import {firstValueFrom} from 'rxjs';
 import {FormatTimePipe} from "../../../shared/pipes/FormatTimePipe";
 import {AuthService} from "../../../shared/services/auth.service";
 import {CourseRegistrationService} from "../../../shared/services/course-registration.service";
-import {User} from "../../../shared/models/user.model";
 
 @Component({
   selector: 'app-run-public-list',
