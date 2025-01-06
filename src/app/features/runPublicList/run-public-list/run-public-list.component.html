@@ -142,7 +142,7 @@
                 <td>{{ run.location }}</td>
                 <td>{{ run.difficultyLevel }}</td>
                 <td>{{ run.date | date: 'MM/dd/yyyy' }}</td>
-                <td>{{ run.time | date: 'HH:mm' }}</td>
+                <td>{{ run.time | formatTime }}</td>
                 <td>{{ run.distanceKm }}</td>
                 <td>{{ run.durationMinutes }}</td>
                 <td>{{ run.description }}</td>
