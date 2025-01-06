@@ -1,6 +1,6 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, Observable, tap} from "rxjs";
+import {BehaviorSubject, catchError, Observable, tap} from "rxjs";
 import {environment} from "../../../environments/environment";
 import {Router} from "@angular/router";
 import {User} from "../models/user.model";
@@ -24,11 +24,6 @@ export class AuthService {
   register(email: string, password: string): Observable<any> {
     const body = {email, password};
     return this.http.post<any>(`${this.apiUrl}/register`, body);
-  }
-
-  // Récupérer le token depuis localStorage ou sessionStorage
-  getToken(): string | null {
-    return localStorage.getItem('jwtToken'); // Remplace ceci par la logique de stockage que tu utilises
   }
 
   // Obtenir le token d'accès
@@ -93,15 +88,33 @@ export class AuthService {
     return !!this.getAccessToken();
   }
 
+  // getCurrentUser(): Observable<User> {
+  //   const token = this.getAccessToken(); // Récupérer le token d'accès
+  //   if (!token) {
+  //     throw new Error('Token non trouvé'); // Gestion d'erreur si le token est manquant
+  //   }
+  //
+  //   // Appel à l'API backend pour obtenir les informations utilisateur
+  //   return this.http.get<User>(`${this.apiUrl}/me`, {
+  //     headers: {Authorization: `Bearer ${token}`}
+  //   });
+  // }
+
   getCurrentUser(): Observable<User> {
     const token = this.getAccessToken(); // Récupérer le token d'accès
     if (!token) {
       throw new Error('Token non trouvé'); // Gestion d'erreur si le token est manquant
     }
 
-    // Appel à l'API backend pour obtenir les informations utilisateur
     return this.http.get<User>(`${this.apiUrl}/me`, {
       headers: {Authorization: `Bearer ${token}`}
-    });
+    }).pipe(
+      catchError(err => {
+        console.error('Erreur lors de la récupération de l’utilisateur:', err);
+        this.logout(); // Déconnecter l'utilisateur en cas de token invalide
+        throw err;
+      })
+    );
   }
+
 }
