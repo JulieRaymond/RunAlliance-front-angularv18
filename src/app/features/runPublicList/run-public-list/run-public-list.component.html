@@ -151,6 +151,7 @@
                           (click)="showParticipants(run)"></button>
                 </td>
                 <td>
+                  <!-- Affichage conditionnel du bouton "S'inscrire" / "Se désinscrire" -->
                   <button pButton label="Se désinscrire" class="p-button-danger" icon="pi pi-times"
                           (click)="unregister(run)" *ngIf="isRegistered(run)"></button>
                   <button pButton label="S'inscrire" class="p-button-success" icon="pi pi-check" (click)="register(run)"

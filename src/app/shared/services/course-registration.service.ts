@@ -25,7 +25,6 @@ export class CourseRegistrationService {
             return new Observable<any>();
         }
 
-        // Utiliser getCurrentUser pour obtenir l'utilisateur connecté
         return this.authService.getCurrentUser().pipe(
             switchMap(user => {
                 const registrationDto: CourseRegistrationDTO = {userId: user.id, runId};

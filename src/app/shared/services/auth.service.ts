@@ -88,18 +88,6 @@ export class AuthService {
     return !!this.getAccessToken();
   }
 
-  // getCurrentUser(): Observable<User> {
-  //   const token = this.getAccessToken(); // Récupérer le token d'accès
-  //   if (!token) {
-  //     throw new Error('Token non trouvé'); // Gestion d'erreur si le token est manquant
-  //   }
-  //
-  //   // Appel à l'API backend pour obtenir les informations utilisateur
-  //   return this.http.get<User>(`${this.apiUrl}/me`, {
-  //     headers: {Authorization: `Bearer ${token}`}
-  //   });
-  // }
-
   getCurrentUser(): Observable<User> {
     const token = this.getAccessToken(); // Récupérer le token d'accès
     if (!token) {
@@ -116,5 +104,4 @@ export class AuthService {
       })
     );
   }
-
 }
