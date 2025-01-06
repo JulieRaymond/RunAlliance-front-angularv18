@@ -6,7 +6,7 @@ import {AutoCompleteModule} from "primeng/autocomplete";
 import {HttpClient} from "@angular/common/http";
 import {ContactService} from '../../../shared/services/contact.service';
 import {MessageService} from 'primeng/api';
-import {firstValueFrom, TimeoutError} from 'rxjs';
+import {firstValueFrom} from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
@@ -51,9 +51,9 @@ export class ContactFormComponent {
     );
   }
 
-  async submitForm() {
+  async submitForm(contactForm: any) {
     this.isLoading = true;
-    const contactForm = {
+    const contactData = {
       firstname: this.firstname,
       lastname: this.lastname,
       city: this.city,
@@ -64,7 +64,7 @@ export class ContactFormComponent {
 
     try {
       // Attente de l'envoi de l'email
-      const response = await firstValueFrom(this.contactService.sendEmail(contactForm));
+      const response = await firstValueFrom(this.contactService.sendEmail(contactData));
 
       // Vérification de la réponse du serveur
       if (response && response.status === "success") {
@@ -74,6 +74,7 @@ export class ContactFormComponent {
           detail: 'Votre message a été envoyé avec succès.'
         });
         this.resetForm();
+        contactForm.resetForm(); // Réinitialisation complète de l'état de validation
       } else {
         // Si la réponse contient une erreur
         this.messageService.add({

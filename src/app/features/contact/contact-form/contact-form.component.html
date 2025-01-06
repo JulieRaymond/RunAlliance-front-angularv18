@@ -15,7 +15,7 @@
 
     <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
       <h5>Vos Informations</h5>
-      <form #contactForm="ngForm" (ngSubmit)="submitForm()">
+      <form #contactForm="ngForm" (ngSubmit)="submitForm(contactForm)">
         <div class="p-fluid p-formgrid grid">
           <!-- Prénom -->
           <div class="field col-12 md:col-6">
@@ -126,7 +126,6 @@
           </div>
         </div>
 
-        <!-- Bouton Envoyer -->
         <!-- Bouton Envoyer -->
         <button
           pButton
