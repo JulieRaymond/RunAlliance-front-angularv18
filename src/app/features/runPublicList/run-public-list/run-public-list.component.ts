@@ -8,6 +8,7 @@ import {NavbarComponent} from "../../../core/components/navbar/navbar.component"
 import {FooterComponent} from "../../../core/components/footer/footer.component";
 import {NgOptimizedImage} from "@angular/common";
 import {firstValueFrom} from 'rxjs';
+import {FormatTimePipe} from "../../../shared/pipes/FormatTimePipe";
 
 @Component({
   selector: 'app-run-public-list',
@@ -16,7 +17,8 @@ import {firstValueFrom} from 'rxjs';
     SharedModule,
     NavbarComponent,
     FooterComponent,
-    NgOptimizedImage
+    NgOptimizedImage,
+    FormatTimePipe
   ],
   templateUrl: './run-public-list.component.html',
   styleUrl: './run-public-list.component.scss',
