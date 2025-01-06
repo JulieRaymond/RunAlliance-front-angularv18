@@ -15,7 +15,7 @@
 
     <div class="py-4 px-4 lg:px-8 mt-5 mx-0 lg:mx-8">
       <h5>Vos Informations</h5>
-      <form #contactForm="ngForm">
+      <form #contactForm="ngForm" (ngSubmit)="submitForm()">
         <div class="p-fluid p-formgrid grid">
           <!-- Prénom -->
           <div class="field col-12 md:col-6">
@@ -48,10 +48,10 @@
               [(ngModel)]="lastname"
               #lastnameControl="ngModel"
               required
-              pattern="^[a-zA-ZÀ-ÿ' ]&#123;2,50&#125;$"/>
+              pattern="^[a-zA-ZÀ-ÿ' ]{2,50}$"/>
             <small *ngIf="lastnameControl.invalid && lastnameControl.dirty" class="p-error">
-              Le nom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et des
-              apostrophes.
+              Le nom doit être compris entre 2 et 50 lettres et ne peut contenir que des lettres, des espaces et
+              des apostrophes.
             </small>
           </div>
 
@@ -124,17 +124,21 @@
               Le message doit comporter entre 10 et 500 caractères.
             </small>
           </div>
-
-          <button
-            pButton
-            pRipple
-            label="Envoyer"
-            class="w-full text-xl mt-8"
-            [disabled]="contactForm.invalid">
-          </button>
         </div>
+
+        <!-- Bouton Envoyer -->
+        <!-- Bouton Envoyer -->
+        <button
+          pButton
+          pRipple
+          class="w-full text-xl mt-8"
+          [disabled]="contactForm.invalid || isLoading">
+          <span *ngIf="isLoading" class="pi pi-spin pi-spinner"></span>
+          <span *ngIf="!isLoading">Envoyer</span>
+        </button>
       </form>
     </div>
+
     <app-footer></app-footer>
   </div>
 </div>

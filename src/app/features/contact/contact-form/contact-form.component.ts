@@ -4,6 +4,9 @@ import {NavbarComponent} from "../../../core/components/navbar/navbar.component"
 import {FooterComponent} from "../../../core/components/footer/footer.component";
 import {AutoCompleteModule} from "primeng/autocomplete";
 import {HttpClient} from "@angular/common/http";
+import {ContactService} from '../../../shared/services/contact.service';
+import {MessageService} from 'primeng/api';
+import {firstValueFrom, TimeoutError} from 'rxjs';
 
 @Component({
   selector: 'app-contact-form',
@@ -15,7 +18,8 @@ import {HttpClient} from "@angular/common/http";
     AutoCompleteModule
   ],
   templateUrl: './contact-form.component.html',
-  styleUrl: './contact-form.component.scss'
+  styleUrls: ['./contact-form.component.scss'],
+  providers: [MessageService]
 })
 export class ContactFormComponent {
   filteredCountries: any[] = [];
@@ -28,7 +32,9 @@ export class ContactFormComponent {
   zip: string = '';
   message: string = '';
 
-  constructor(private http: HttpClient) {
+  isLoading: boolean = false;
+
+  constructor(private http: HttpClient, private contactService: ContactService, private messageService: MessageService) {
   }
 
   ngOnInit() {
@@ -43,5 +49,57 @@ export class ContactFormComponent {
     this.filteredCountries = this.countries.filter(country =>
       country.name.toLowerCase().startsWith(query)
     );
+  }
+
+  async submitForm() {
+    this.isLoading = true;
+    const contactForm = {
+      firstname: this.firstname,
+      lastname: this.lastname,
+      city: this.city,
+      zip: this.zip,
+      country: this.selectedCountry?.name || '',
+      message: this.message
+    };
+
+    try {
+      // Attente de l'envoi de l'email
+      const response = await firstValueFrom(this.contactService.sendEmail(contactForm));
+
+      // Vérification de la réponse du serveur
+      if (response && response.status === "success") {
+        this.messageService.add({
+          severity: 'success',
+          summary: 'Succès',
+          detail: 'Votre message a été envoyé avec succès.'
+        });
+        this.resetForm();
+      } else {
+        // Si la réponse contient une erreur
+        this.messageService.add({
+          severity: 'error',
+          summary: 'Erreur',
+          detail: response.message || 'Une erreur est survenue lors de l\'envoi du message.'
+        });
+      }
+    } catch (error) {
+      // Gestion des erreurs générales
+      this.messageService.add({
+        severity: 'error',
+        summary: 'Erreur',
+        detail: 'Une erreur est survenue lors de l\'envoi du message.'
+      });
+    } finally {
+      this.isLoading = false;
+    }
+  }
+
+  resetForm() {
+    this.firstname = '';
+    this.lastname = '';
+    this.city = '';
+    this.zip = '';
+    this.message = '';
+    this.selectedCountry = null;
   }
 }
