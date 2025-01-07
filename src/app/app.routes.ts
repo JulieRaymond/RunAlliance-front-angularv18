@@ -15,6 +15,8 @@ import {CrudUserAdminComponent} from "./core/components/crud-user-admin/crud-use
 import {UnauthorizedComponent} from "./features/auth/access/unauthorized/unauthorized.component";
 import {DashboardUserComponent} from "./features/dashboards/dashboard-user/dashboard-user.component";
 import {adminGuard} from "./shared/guards/admin.guard";
+import {ForgotPasswordComponent} from "./core/components/forgot-password/forgot-password.component";
+import {ResetPasswordComponent} from "./core/components/reset-password/reset-password.component";
 
 export const routes: Routes =
   [
@@ -37,6 +39,8 @@ export const routes: Routes =
     },
     {path: 'me', component: DashboardUserComponent},
     {path: 'login', component: LoginComponent},
+    {path: 'forgot-password', component: ForgotPasswordComponent},
+    {path: 'reset-password', component: ResetPasswordComponent},
     {path: 'register', component: RegisterComponent},
     {path: 'contact', component: ContactFormComponent},
     {path: 'about', component: AboutComponent},
