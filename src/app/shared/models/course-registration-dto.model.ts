@@ -1,4 +1,5 @@
 export interface CourseRegistrationDTO {
-    userId: number;
-    runId: number;
+  registrationId?: number;
+  userId: number;
+  runId: number;
 }
