@@ -1,7 +1,6 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
     <app-navbar></app-navbar>
-
     <div
       class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
       <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center">
@@ -17,12 +16,11 @@
              style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);" height="630" width="630" priority>
       </div>
     </div>
-
     <div
       class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
       <div class="col-12">
         <div class="card">
-          <h5>Les prochaines courses disponibles chez A2 RunAlliance</h5>
+          <h5>Les prochaines courses disponibles chez A2RunAlliance</h5>
           <section>
             <p class="mt-0 mb-4 text-700 line-height-3">
               Sur cette page, vous pouvez trier les courses par différents critères tels que le titre, le lieu, le
@@ -48,7 +46,6 @@
               intéresse le plus.
             </p>
           </section>
-
           <p-toast></p-toast>
           <p-table id="runs-table-public" #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading"
                    [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
@@ -145,7 +142,6 @@
                           (click)="showParticipants(run)"></button>
                 </td>
                 <td>
-                  <!-- Affichage conditionnel du bouton "S'inscrire" / "Se désinscrire" -->
                   <button pButton label="Se désinscrire" class="p-button-danger" icon="pi pi-times"
                           (click)="unregister(run)" *ngIf="isRegistered(run)"></button>
                   <button pButton label="S'inscrire" class="p-button-success" icon="pi pi-check" (click)="register(run)"
@@ -180,7 +176,6 @@
         </div>
       </div>
     </div>
-
     <app-footer></app-footer>
   </div>
 </div>

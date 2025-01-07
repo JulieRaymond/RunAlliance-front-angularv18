@@ -1,24 +1,25 @@
-import {Component, ElementRef, ViewChild} from '@angular/core';
-import {SharedModule} from '../../../shared/shared.module';
-import {Table} from 'primeng/table';
-import {RunService} from '../../../shared/services/run.service';
-import {Run} from '../../../shared/models/run.model';
-import {ConfirmationService, MessageService} from 'primeng/api';
-import {NavbarComponent} from '../../../core/components/navbar/navbar.component';
-import {FooterComponent} from '../../../core/components/footer/footer.component';
-import {NgOptimizedImage} from '@angular/common';
-import {firstValueFrom} from 'rxjs';
-import {FormatTimePipe} from '../../../shared/pipes/FormatTimePipe';
-import {AuthService} from '../../../shared/services/auth.service';
-import {CourseRegistrationService} from '../../../shared/services/course-registration.service';
-import {Router} from '@angular/router';
+import { Component, ElementRef, ViewChild } from '@angular/core';
+import { SharedModule } from '../../../shared/shared.module';
+import { Table } from 'primeng/table';
+import { RunService } from '../../../shared/services/run.service';
+import { Run } from '../../../shared/models/run.model';
+import { ConfirmationService, MessageService } from 'primeng/api';
+import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
+import { FooterComponent } from '../../../core/components/footer/footer.component';
+import { NgOptimizedImage } from '@angular/common';
+import { firstValueFrom } from 'rxjs';
+import { FormatTimePipe } from '../../../shared/pipes/FormatTimePipe';
+import { AuthService } from '../../../shared/services/auth.service';
+import { CourseRegistrationService } from '../../../shared/services/course-registration.service';
+import { Router } from '@angular/router';
+import { CourseRegistrationDTO } from '../../../shared/models/course-registration-dto.model';
 
 @Component({
   selector: 'app-run-public-list',
   standalone: true,
   imports: [SharedModule, NavbarComponent, FooterComponent, NgOptimizedImage, FormatTimePipe],
   templateUrl: './run-public-list.component.html',
-  styleUrl: './run-public-list.component.scss',
+  styleUrls: ['./run-public-list.component.scss'],
   providers: [MessageService, ConfirmationService]
 })
 export class RunPublicListComponent {
@@ -27,6 +28,7 @@ export class RunPublicListComponent {
   expandedRows: any = {};
   isExpanded: boolean = false;
   currentUser: any = null;
+  userRegistrations: CourseRegistrationDTO[] = [];
 
   @ViewChild('filter') filter!: ElementRef;
   @ViewChild('dt1') dt1!: Table;
@@ -41,6 +43,39 @@ export class RunPublicListComponent {
     this.loadRuns().then(r => console.log('Runs loaded:', r));
   }
 
+  async ngOnInit() {
+    try {
+      this.runs = await firstValueFrom(this.runService.getAllRuns());
+      this.loading = false;
+      await this.loadCurrentUser();
+      await this.loadUserRegistrations();
+    } catch (error) {
+      console.error('Error fetching runs:', error);
+      this.loading = false;
+    }
+  }
+
+  async loadCurrentUser(): Promise<void> {
+    if (this.authService.isAuthenticated()) {
+      try {
+        this.currentUser = await firstValueFrom(this.authService.getCurrentUser());
+      } catch (error) {
+        console.error('Erreur lors de la récupération de l’utilisateur:', error);
+        this.authService.logout();
+      }
+    }
+  }
+
+  async loadUserRegistrations(): Promise<void> {
+    if (this.currentUser) {
+      try {
+        this.userRegistrations = await firstValueFrom(this.courseRegistrationService.getRegistrationsByUserId(this.currentUser.id));
+      } catch (error) {
+        console.error('Erreur lors de la récupération des inscriptions de l’utilisateur:', error);
+      }
+    }
+  }
+
   expandAll() {
     if (!this.isExpanded) {
       this.runs.forEach(run => this.expandedRows[run.runId] = true);
@@ -51,11 +86,10 @@ export class RunPublicListComponent {
   }
 
   isRegistered(run: Run): boolean {
-    // Vérifier si l'utilisateur est inscrit à la course
     if (!this.currentUser) {
       return false;
     }
-    return run.inscriptions?.some(registration => registration.userId === this.currentUser.id);
+    return this.userRegistrations.some(registration => registration.runId === run.runId);
   }
 
   async register(run: Run): Promise<void> {
@@ -71,7 +105,6 @@ export class RunPublicListComponent {
       });
       return;
     }
-
     try {
       await firstValueFrom(this.courseRegistrationService.registerToCourse(run.runId));
       this.messageService.add({
@@ -79,7 +112,8 @@ export class RunPublicListComponent {
         summary: 'Inscription réussie',
         detail: 'Bravo, vous êtes inscrit à la course!'
       });
-      await this.loadRuns();  // Recharge les courses pour mettre à jour l'état
+      await this.loadRuns();
+      await this.loadUserRegistrations();
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -97,7 +131,8 @@ export class RunPublicListComponent {
         summary: 'Désinscription réussie',
         detail: 'Vous avez été désinscrit de la course.'
       });
-      await this.loadRuns();  // Recharge les courses pour mettre à jour l'état
+      await this.loadRuns();
+      await this.loadUserRegistrations();
     } catch (error) {
       this.messageService.add({
         severity: 'error',
@@ -109,7 +144,6 @@ export class RunPublicListComponent {
 
   showParticipants(run: Run): void {
     this.courseRegistrationService.getRegistrationsForRun(run.runId).subscribe(participants => {
-      // Afficher la liste des participants
       console.log('Participants inscrits:', participants);
     });
   }
@@ -117,7 +151,7 @@ export class RunPublicListComponent {
   scrollToTable() {
     const tableElement = document.getElementById('runs-table-public');
     if (tableElement) {
-      tableElement.scrollIntoView({behavior: 'smooth', block: 'start'});
+      tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   }
 
