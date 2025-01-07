@@ -7,16 +7,14 @@
       <div class="col-12 md:col-6 p-6 text-center md:text-left flex align-items-center">
         <section>
           <span class="block text-6xl font-bold mb-1">Découvrez les courses à pied</span>
-          <div class="text-6xl text-primary font-bold mb-3">disponibles chez A2 RunAlliance</div>
+          <div class="text-6xl text-primary font-bold mb-3">disponibles chez A2RunAlliance</div>
           <button pButton pRipple type="button" icon="pi pi-arrow-down" class="p-button-rounded"
                   (click)="scrollToTable()"></button>
         </section>
       </div>
       <div class="col-12 md:col-6 overflow-hidden">
-        <img ngSrc="assets/layout/images/runPublicList.jpg" alt="Image"
-             class="img-fluid max-w-full h-auto "
-             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);" height="630"
-             width="630" priority>
+        <img ngSrc="assets/layout/images/runPublicList.jpg" alt="Image" class="img-fluid max-w-full h-auto"
+             style="clip-path: polygon(8% 0, 100% 0%, 100% 100%, 0 100%);" height="630" width="630" priority>
       </div>
     </div>
 
@@ -28,9 +26,8 @@
           <section>
             <p class="mt-0 mb-4 text-700 line-height-3">
               Sur cette page, vous pouvez trier les courses par différents critères tels que le titre, le lieu, le
-              niveau
-              de difficulté, la date, l'heure, la distance en kilomètres, et la durée en minutes. Utilisez les filtres
-              disponibles pour trouver la course qui vous convient le mieux.
+              niveau de difficulté, la date, l'heure, la distance en kilomètres, et la durée en minutes. Utilisez les
+              filtres disponibles pour trouver la course qui vous convient le mieux.
               <br><br>
               Pour chaque course, vous trouverez des informations détaillées telles que :
               <br>
@@ -48,23 +45,20 @@
             <p class="text-700 line-height-3 mb-5">
               Vous pouvez également voir les boutons "S'inscrire" et "Se désinscrire" pour gérer votre participation aux
               courses. N'hésitez pas à explorer les différentes options et à vous inscrire à la course qui vous
-              intéresse
-              le plus.
+              intéresse le plus.
             </p>
           </section>
 
           <p-toast></p-toast>
           <p-table id="runs-table-public" #dt1 [value]="runs" dataKey="runId" [rows]="10" [loading]="loading"
-                   [rowHover]="true"
-                   styleClass="p-datatable-gridlines" [paginator]="true"
+                   [rowHover]="true" styleClass="p-datatable-gridlines" [paginator]="true"
                    [globalFilterFields]="['title','location','difficultyLevel']" responsiveLayout="scroll"
                    [expandedRowKeys]="expandedRows">
             <ng-template pTemplate="caption">
-              <button pButton icon="pi pi-fw {{isExpanded ? 'pi-minus' : 'pi-plus'}}"
-                      label="{{isExpanded ? 'Réduire toutes les courses' : 'Étendre toutes les courses'}}"
+              <button pButton icon="pi pi-fw {{isExpanded?'pi-minus':'pi-plus'}}"
+                      label="{{isExpanded?'Réduire toutes les courses':'Étendre toutes les courses'}}"
                       (click)="expandAll()"></button>
-              <div class="flex table-header">
-              </div>
+              <div class="flex table-header"></div>
             </ng-template>
             <ng-template pTemplate="header">
               <tr>
@@ -136,12 +130,12 @@
                 <td>
                   <button type="button" pButton pRipple [pRowToggler]="run"
                           class="p-button-text p-button-rounded p-button-plain"
-                          [icon]="expanded ? 'pi pi-chevron-down' : 'pi pi-chevron-right'"></button>
+                          [icon]="expanded?'pi-chevron-down':'pi-chevron-right'"></button>
                 </td>
                 <td>{{ run.title }}</td>
                 <td>{{ run.location }}</td>
                 <td>{{ run.difficultyLevel }}</td>
-                <td>{{ run.date | date: 'MM/dd/yyyy' }}</td>
+                <td>{{ run.date | date:'MM/dd/yyyy' }}</td>
                 <td>{{ run.time | formatTime }}</td>
                 <td>{{ run.distanceKm }}</td>
                 <td>{{ run.durationMinutes }}</td>

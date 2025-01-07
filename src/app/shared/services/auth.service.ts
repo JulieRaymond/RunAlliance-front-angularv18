@@ -1,9 +1,9 @@
 import {Injectable} from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {BehaviorSubject, catchError, Observable, tap} from "rxjs";
-import {environment} from "../../../environments/environment";
-import {Router} from "@angular/router";
-import {User} from "../models/user.model";
+import {HttpClient} from '@angular/common/http';
+import {BehaviorSubject, catchError, Observable, tap} from 'rxjs';
+import {environment} from '../../../environments/environment';
+import {Router} from '@angular/router';
+import {User} from '../models/user.model';
 
 @Injectable({
   providedIn: 'root'
@@ -16,6 +16,7 @@ export class AuthService {
 
   isRefreshingToken = new BehaviorSubject<boolean>(false);
   refreshTokenSubject = new BehaviorSubject<string | null>(null);
+  private currentUser: User | null = null;
 
   constructor(private http: HttpClient, private router: Router) {
   }
@@ -38,9 +39,7 @@ export class AuthService {
 
   // Rafraîchir le token
   refreshAccessToken(): Observable<any> {
-    return this.http.post(`${this.apiUrl}/refresh`, {
-      refreshToken: this.getRefreshToken(),
-    });
+    return this.http.post(`${this.apiUrl}/refresh`, {refreshToken: this.getRefreshToken()});
   }
 
   // Sauvegarder les tokens
@@ -54,6 +53,7 @@ export class AuthService {
     localStorage.removeItem(this.accessTokenKey);
     localStorage.removeItem(this.refreshTokenKey);
     localStorage.removeItem('role');
+    this.currentUser = null;
     this.router.navigate(['/']);
   }
 
@@ -93,13 +93,19 @@ export class AuthService {
     if (!token) {
       throw new Error('Token non trouvé'); // Gestion d'erreur si le token est manquant
     }
-
-    return this.http.get<User>(`${this.apiUrl}/me`, {
-      headers: {Authorization: `Bearer ${token}`}
-    }).pipe(
+    if (this.currentUser) {
+      return new Observable<User>(observer => {
+        observer.next(this.currentUser as User);
+        observer.complete();
+      });
+    }
+    return this.http.get<User>(`${this.apiUrl}/me`, {headers: {Authorization: `Bearer ${token}`}}).pipe(
+      tap(user => {
+        this.currentUser = user;
+      }),
       catchError(err => {
         console.error('Erreur lors de la récupération de l’utilisateur:', err);
-        this.logout(); // Déconnecter l'utilisateur en cas de token invalide
+        this.logout();
         throw err;
       })
     );
