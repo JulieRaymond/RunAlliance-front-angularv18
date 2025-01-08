@@ -30,15 +30,18 @@
             <th style="width: 3rem">
               <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
             </th>
+            <th pSortableColumn="registrationId">ID Inscription
+              <p-sortIcon field="registrationId"></p-sortIcon>
+            </th>
             <th pSortableColumn="runTitle">Course
               <p-sortIcon field="runTitle"></p-sortIcon>
             </th>
             <th pSortableColumn="userName">Participant
               <p-sortIcon field="userName"></p-sortIcon>
             </th>
-<!--            <th pSortableColumn="registrationDate">Date d'inscription-->
-<!--              <p-sortIcon field="registrationDate"></p-sortIcon>-->
-<!--            </th>-->
+            <!--            <th pSortableColumn="registrationDate">Date d'inscription-->
+            <!--              <p-sortIcon field="registrationDate"></p-sortIcon>-->
+            <!--            </th>-->
             <th></th>
           </tr>
         </ng-template>
@@ -48,9 +51,10 @@
             <td>
               <p-tableCheckbox [value]="registration"></p-tableCheckbox>
             </td>
+            <td>{{ registration.registrationId }}</td>
             <td>{{ getRunTitleById(registration.runId) }}</td>
             <td>{{ getUserEmailById(registration.userId) }}</td>
-<!--            <td>{{ registration.registrationDate | date: 'dd/MM/yyyy' }}</td>-->
+            <!--            <td>{{ registration.registrationDate | date: 'dd/MM/yyyy' }}</td>-->
             <td>
               <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
                       (click)="editRegistration(registration)"></button>

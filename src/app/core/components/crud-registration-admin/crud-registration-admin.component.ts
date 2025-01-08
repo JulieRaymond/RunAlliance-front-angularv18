@@ -191,6 +191,8 @@ export class CrudRegistrationAdminComponent {
           runId: numberRunId,
         };
 
+        console.log('Nouvelle inscription : ', registrationDto);
+
         this.registrationService.createRegistration(registrationDto).pipe(
           catchError(error => {
             this.messageService.add({
@@ -203,13 +205,16 @@ export class CrudRegistrationAdminComponent {
           })
         ).subscribe(newRegistration => {
           if (newRegistration) {
-            this.registrations.push(newRegistration);
             this.messageService.add({
               severity: 'success',
               summary: 'Réussi',
               detail: 'Inscription ajoutée',
               life: 3000
             });
+
+            // Rafraîchir le tableau après ajout
+            this.loadRegistrations();
+
             this.registrationDialog = false;
             this.registration = {} as CourseRegistrationDTO;
           }
@@ -224,6 +229,7 @@ export class CrudRegistrationAdminComponent {
       });
     }
   }
+
 
   private extractRunId(runId: any): number {
     // Si runId est un objet avec une propriété runId
