@@ -13,7 +13,8 @@
     </div>
 
     <!-- Section Graphiques -->
-    <div class="grid p-fluid">
+    <div
+      class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3 grid p-fluid">
       <div class="col-12 lg:col-3">
         <div class="card">
           <h5>Kilomètres courus de la semaine</h5>
@@ -22,7 +23,7 @@
       </div>
       <div class="col-12 lg:col-3">
         <div class="card">
-          <h5>Kilomètres courus du mois</h5>
+          <h5>Kilomètres courus du mois de {{ currentMonth }}</h5>
           <p-chart *ngIf="lineData$ | async as lineData" type="bar" [data]="lineData"
                    [options]="chartOptions"></p-chart>
         </div>
@@ -36,13 +37,62 @@
       </div>
       <div class="col-12 lg:col-3">
         <div class="card">
-          <h5>Allure moyenne du mois</h5>
+          <h5>Allure moyenne du mois de {{ currentMonth }}</h5>
           <p-chart *ngIf="lineData$ | async as lineData" type="line" [data]="lineData"
                    [options]="chartOptions"></p-chart>
         </div>
       </div>
     </div>
+
+    <!-- Section Challenges -->
+    <div
+      class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
+      <div class="grid justify-content-between mt-8 md:mt-0">
+        <div class="col-12 lg:col-4 p-0 md:p-3" *ngFor="let challenge of challenges; let i = index">
+          <div
+            class="p-3 flex flex-column border-200 pricing-card cursor-pointer border-2 hover:border-primary transition-duration-300 transition-all"
+            style="border-radius:10px">
+            <img [src]="'assets/layout/images/badges/badge' + (i + 1) + '.svg'" class="w-3 h-10 mx-auto"
+                 alt="badge {{ i + 1 }}">
+            <h5 class="text-900 text-center my-5">{{ challenge.title }}</h5>
+            <p class="text-center text-gray-600"> {{ challenge.accomplishment }} </p>
+
+            <!-- Optionnel: bouton pour plus d'infos -->
+            <!-- <div class="my-5 text-center">
+              <button pButton pRipple label="Voir la course proposée"
+                      class="block mx-auto mt-4 p-button-rounded border-none ml-3 font-light line-height-2 bg-blue-500 text-white"></button>
+            </div> -->
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <app-footer></app-footer>
+
   </div>
 </div>
 
-<app-footer></app-footer>
+<!--&lt;!&ndash; Section Challenges &ndash;&gt;-->
+<!--<div-->
+<!--  class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">-->
+<!--  <div class="grid justify-content-between mt-8 md:mt-0">-->
+<!--    <div class="col-12 lg:col-4 p-0 md:p-3" *ngFor="let challenge of challenges; let i = index">-->
+<!--      <div-->
+<!--        class="p-3 flex flex-column border-200 pricing-card cursor-pointer border-2 hover:border-primary transition-duration-300 transition-all"-->
+<!--        style="border-radius:10px">-->
+<!--        <img [src]="'assets/layout/images/badges/badge' + (i + 1) + '.svg'" class="w-3 h-10 mx-auto"-->
+<!--             alt="badge {{ i + 1 }}">-->
+<!--        <h5 class="text-900 text-center my-5">{{ challenge.title }}</h5>-->
+<!--        <p class="text-center text-gray-600"> {{ challenge.accomplishment }} </p>-->
+
+<!--        &lt;!&ndash; Optionnel: bouton pour plus d'infos &ndash;&gt;-->
+<!--        &lt;!&ndash; <div class="my-5 text-center">-->
+<!--          <button pButton pRipple label="Voir la course proposée"-->
+<!--                  class="block mx-auto mt-4 p-button-rounded border-none ml-3 font-light line-height-2 bg-blue-500 text-white"></button>-->
+<!--        </div> &ndash;&gt;-->
+<!--      </div>-->
+<!--    </div>-->
+<!--  </div>-->
+<!--</div>-->
+
+<!--<app-footer></app-footer>-->
