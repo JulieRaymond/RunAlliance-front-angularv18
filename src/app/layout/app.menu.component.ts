@@ -25,7 +25,7 @@ export class AppMenuComponent implements OnInit {
       {
         label: 'Les courses',
         items: [
-          {label: 'Manager les courses', icon: 'pi pi-fw pi-id-card', routerLink: ['/dashboard/admin/crud-run-admin']},
+          {label: 'Manager les courses', icon: 'pi pi-fw pi-stopwatch', routerLink: ['/dashboard/admin/crud-run-admin']},
         ]
       },
       {
@@ -33,17 +33,22 @@ export class AppMenuComponent implements OnInit {
         items: [
           {
             label: 'Manager les utilisateurs',
-            icon: 'pi pi-fw pi-eye',
+            icon: 'pi pi-fw pi-users',
             routerLink: ['/dashboard/admin/crud-user-admin'],
-            badge: 'NEW'
           },
+        ]
+      },
+      {
+        label: 'Les inscriptions aux courses',
+        items: [
+          {label: 'Manager les inscriptions', icon: 'pi pi-fw pi-id-card', routerLink: ['/dashboard/admin/crud-registration-admin']},
         ]
       },
       {
         label: 'Messagerie',
         items: [
-          {label: 'Messages reçus', icon: 'pi pi-fw pi-prime', routerLink: ['/utilities/icons']},
-          {label: 'Envoyer un message', icon: 'pi pi-fw pi-prime', routerLink: ['/utilities/icons']},
+          {label: 'Messages reçus', icon: 'pi pi-fw pi-envelope', routerLink: ['/utilities/icons']},
+          {label: 'Envoyer un message', icon: 'pi pi-fw pi-send', routerLink: ['/utilities/icons']},
           // {
           //   label: 'PrimeFlex',
           //   icon: 'pi pi-fw pi-desktop',

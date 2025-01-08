@@ -17,6 +17,9 @@ import {DashboardUserComponent} from "./features/dashboards/dashboard-user/dashb
 import {adminGuard} from "./shared/guards/admin.guard";
 import {ForgotPasswordComponent} from "./core/components/forgot-password/forgot-password.component";
 import {ResetPasswordComponent} from "./core/components/reset-password/reset-password.component";
+import {
+  CrudRegistrationAdminComponent
+} from "./core/components/crud-registration-admin/crud-registration-admin.component";
 
 export const routes: Routes =
   [
@@ -32,7 +35,8 @@ export const routes: Routes =
           children: [
             {path: '', component: WelcomeDashboardComponent},
             {path: 'crud-run-admin', component: CrudRunAdminComponent},
-            {path: 'crud-user-admin', component: CrudUserAdminComponent}
+            {path: 'crud-user-admin', component: CrudUserAdminComponent},
+            {path: 'crud-registration-admin', component: CrudRegistrationAdminComponent},
           ]
         },
       ]
