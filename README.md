@@ -1,27 +1,69 @@
-# RunAllianceFrontAngularv18
+# RunAlliance Front-End
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 18.0.1.
+## Overview
 
-## Development server
+RunAlliance Front-End is an Angular application that serves as the front-end for the Run Alliance app. This project is built using Angular v18 and includes various dependencies such as PrimeNG, Chart.js, and more.
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The application will automatically reload if you change any of the source files.
+## Prerequisites
 
-## Code scaffolding
+- Node.js (v14 or later)
+- Angular CLI (v18 or later)
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+## Installation
 
-## Build
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory.
+### Clone the repository:
+   ```bash
+   git clone <repository-url>
+   cd RunAlliance-front-angularv18
+   ```
 
-## Running unit tests
+### Install the dependencies:
+   ```npm install ```
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+### Development 
 
-## Running end-to-end tests
+Start the development server: ``` npm start```
 
-Run `ng e2e` to execute the end-to-end tests via a platform of your choice. To use this command, you need to first add a package that implements end-to-end testing capabilities.
+Open your browser and navigate to http://localhost:4200/.
 
-## Further help
+### Build the project:
+``` npm run build```
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
+The build artifacts will be stored in the dist/run-alliance-front-angularv18 directory.
+
+## Testing
+Run the tests:
+``` npm test```
+
+## Dependencies
+- Angular v18 
+- PrimeNG v17.18.11 
+- Chart.js v3.3.2 
+- RxJS v7.8.0
+- Zone.js v0.14.3
+
+## Scripts
+
+ng: Run Angular CLI commands.
+start: Start the development server.
+build: Build the project.
+watch: Build the project and watch for changes.
+test: Run the tests.
+
+## Configuration
+Development configuration:
+
+Optimization: false
+SourceMap: true
+File replacements: environment.development.ts
+Production configuration:
+
+Budgets:
+Initial: maximumWarning: 500kB, maximumError: 1MB
+AnyComponentStyle: maximumWarning: 2kB, maximumError: 4kB
+OutputHashing: all
+License
+This project is licensed under the MIT License.
+
+
