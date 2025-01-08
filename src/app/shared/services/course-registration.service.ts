@@ -5,6 +5,7 @@ import {environment} from '../../../environments/environment';
 import {AuthService} from './auth.service';
 import {Router} from '@angular/router';
 import {CourseRegistrationDTO} from '../models/course-registration-dto.model';
+import {ParticipantDTO} from "../models/participant-dto.model";
 
 @Injectable({
   providedIn: 'root'
@@ -15,8 +16,8 @@ export class CourseRegistrationService {
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
   }
 
-  getRegistrationsForRun(runId: number): Observable<CourseRegistrationDTO[]> {
-    return this.http.get<CourseRegistrationDTO[]>(`${this.apiUrl}/run/${runId}`);
+  getRegistrationsForRun(runId: number): Observable<ParticipantDTO[]> {
+    return this.http.get<ParticipantDTO[]>(`${this.apiUrl}/run/${runId}`);
   }
 
   getRegistrationsByUserId(userId: number): Observable<CourseRegistrationDTO[]> {

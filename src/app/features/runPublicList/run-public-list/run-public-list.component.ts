@@ -1,18 +1,18 @@
-import { Component, ElementRef, ViewChild } from '@angular/core';
-import { SharedModule } from '../../../shared/shared.module';
-import { Table } from 'primeng/table';
-import { RunService } from '../../../shared/services/run.service';
-import { Run } from '../../../shared/models/run.model';
-import { ConfirmationService, MessageService } from 'primeng/api';
-import { NavbarComponent } from '../../../core/components/navbar/navbar.component';
-import { FooterComponent } from '../../../core/components/footer/footer.component';
-import { NgOptimizedImage } from '@angular/common';
-import { firstValueFrom } from 'rxjs';
-import { FormatTimePipe } from '../../../shared/pipes/FormatTimePipe';
-import { AuthService } from '../../../shared/services/auth.service';
-import { CourseRegistrationService } from '../../../shared/services/course-registration.service';
-import { Router } from '@angular/router';
-import { CourseRegistrationDTO } from '../../../shared/models/course-registration-dto.model';
+import {Component, ElementRef, ViewChild} from '@angular/core';
+import {SharedModule} from '../../../shared/shared.module';
+import {Table} from 'primeng/table';
+import {RunService} from '../../../shared/services/run.service';
+import {Run} from '../../../shared/models/run.model';
+import {ConfirmationService, MessageService} from 'primeng/api';
+import {NavbarComponent} from '../../../core/components/navbar/navbar.component';
+import {FooterComponent} from '../../../core/components/footer/footer.component';
+import {NgOptimizedImage} from '@angular/common';
+import {firstValueFrom} from 'rxjs';
+import {FormatTimePipe} from '../../../shared/pipes/FormatTimePipe';
+import {AuthService} from '../../../shared/services/auth.service';
+import {CourseRegistrationService} from '../../../shared/services/course-registration.service';
+import {Router} from '@angular/router';
+import {CourseRegistrationDTO} from '../../../shared/models/course-registration-dto.model';
 
 @Component({
   selector: 'app-run-public-list',
@@ -29,6 +29,8 @@ export class RunPublicListComponent {
   isExpanded: boolean = false;
   currentUser: any = null;
   userRegistrations: CourseRegistrationDTO[] = [];
+  participantsDialogVisible: boolean = false;
+  participants: any[] = []; // Tableau pour stocker les participants
 
   @ViewChild('filter') filter!: ElementRef;
   @ViewChild('dt1') dt1!: Table;
@@ -142,16 +144,19 @@ export class RunPublicListComponent {
     }
   }
 
+  // Méthode pour récupérer la liste des participants inscrits à une course
   showParticipants(run: Run): void {
     this.courseRegistrationService.getRegistrationsForRun(run.runId).subscribe(participants => {
-      console.log('Participants inscrits:', participants);
+      this.participants = participants; // Met à jour la liste des participants avec le nouveau DTO
+      this.participantsDialogVisible = true; // Ouvre la popup
     });
   }
+
 
   scrollToTable() {
     const tableElement = document.getElementById('runs-table-public');
     if (tableElement) {
-      tableElement.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      tableElement.scrollIntoView({behavior: 'smooth', block: 'start'});
     }
   }
 
