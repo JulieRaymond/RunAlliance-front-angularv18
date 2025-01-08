@@ -1,0 +1,101 @@
+<div class="grid">
+  <div class="col-12">
+    <div class="card px-6 py-6">
+      <p-toast></p-toast>
+
+      <p-toolbar styleClass="mb-4">
+        <ng-template pTemplate="left">
+          <div class="my-2">
+            <button pButton pRipple label="Nouvelle inscription" icon="pi pi-plus" class="p-button-success mr-2"
+                    (click)="openNew()"></button>
+            <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
+                    (click)="deleteSelectedRegistrations()"
+                    [disabled]="!selectedRegistrations || !selectedRegistrations.length"></button>
+          </div>
+        </ng-template>
+        <ng-template pTemplate="right">
+          <button pButton pRipple label="Exporter" icon="pi pi-upload" class="p-button-help"
+                  (click)="dt.exportCSV()"></button>
+        </ng-template>
+      </p-toolbar>
+
+      <p-table #dt [value]="registrations" [rows]="10" [selection]="selectedRegistrations" selectionMode="multiple"
+               [rowHover]="true" dataKey="registrationId">
+        <ng-template pTemplate="caption">
+          <h5 class="m-0">Liste des inscriptions</h5>
+        </ng-template>
+
+        <ng-template pTemplate="header">
+          <tr>
+            <th style="width: 3rem">
+              <p-tableHeaderCheckbox></p-tableHeaderCheckbox>
+            </th>
+            <th pSortableColumn="runTitle">Course
+              <p-sortIcon field="runTitle"></p-sortIcon>
+            </th>
+            <th pSortableColumn="userName">Participant
+              <p-sortIcon field="userName"></p-sortIcon>
+            </th>
+<!--            <th pSortableColumn="registrationDate">Date d'inscription-->
+<!--              <p-sortIcon field="registrationDate"></p-sortIcon>-->
+<!--            </th>-->
+            <th></th>
+          </tr>
+        </ng-template>
+
+        <ng-template pTemplate="body" let-registration>
+          <tr>
+            <td>
+              <p-tableCheckbox [value]="registration"></p-tableCheckbox>
+            </td>
+            <td>{{ getRunTitleById(registration.runId) }}</td>
+            <td>{{ getUserEmailById(registration.userId) }}</td>
+<!--            <td>{{ registration.registrationDate | date: 'dd/MM/yyyy' }}</td>-->
+            <td>
+              <button pButton pRipple icon="pi pi-pencil" class="p-button-rounded p-button-success mr-2"
+                      (click)="editRegistration(registration)"></button>
+              <button pButton pRipple icon="pi pi-trash" class="p-button-rounded p-button-warning"
+                      (click)="deleteRegistration(registration)"></button>
+            </td>
+          </tr>
+        </ng-template>
+      </p-table>
+
+      <!-- Dialog pour créer ou éditer une inscription -->
+      <p-dialog [(visible)]="registrationDialog" header="Détails de l'inscription" [modal]="true" class="p-fluid">
+        <ng-template pTemplate="content">
+          <div class="field">
+            <label for="run">Course</label>
+            <p-dropdown id="run" [(ngModel)]="registration.runId" [options]="runs" optionLabel="title"
+                        placeholder="Sélectionner une course"></p-dropdown>
+          </div>
+
+          <div class="field">
+            <label for="user">Participant</label>
+            <input type="text" pInputText id="user" [(ngModel)]="registration.userId" required/>
+          </div>
+        </ng-template>
+
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Annuler" icon="pi pi-times" class="p-button-text"
+                  (click)="hideDialog()"></button>
+          <button pButton pRipple label="Enregistrer" icon="pi pi-check" class="p-button-text"
+                  (click)="saveRegistration()"></button>
+        </ng-template>
+      </p-dialog>
+
+      <!-- Dialog de confirmation pour suppression -->
+      <p-dialog [(visible)]="deleteRegistrationDialog" header="Confirmer" [modal]="true" [closable]="false">
+        <ng-template pTemplate="content">
+          <p>Êtes-vous sûr de vouloir supprimer cette inscription ?</p>
+        </ng-template>
+        <ng-template pTemplate="footer">
+          <button pButton pRipple label="Non" icon="pi pi-times" class="p-button-text"
+                  (click)="deleteRegistrationDialog = false"></button>
+          <button pButton pRipple label="Oui" icon="pi pi-check" class="p-button-text"
+                  (click)="confirmDelete()"></button>
+        </ng-template>
+      </p-dialog>
+    </div>
+  </div>
+</div>

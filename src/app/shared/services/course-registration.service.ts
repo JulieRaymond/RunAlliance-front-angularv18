@@ -16,6 +16,10 @@ export class CourseRegistrationService {
   constructor(private http: HttpClient, private authService: AuthService, private router: Router) {
   }
 
+  getAllRegistrations(): Observable<CourseRegistrationDTO[]> {
+    return this.http.get<CourseRegistrationDTO[]>(this.apiUrl);
+  }
+
   getRegistrationsForRun(runId: number): Observable<ParticipantDTO[]> {
     return this.http.get<ParticipantDTO[]>(`${this.apiUrl}/run/${runId}`);
   }
@@ -67,5 +71,20 @@ export class CourseRegistrationService {
         }
       })
     );
+  }
+
+  // Nouvelle méthode pour supprimer une inscription
+  deleteRegistration(registrationId: number): Observable<any> {
+    return this.http.delete<any>(`${this.apiUrl}/${registrationId}`);
+  }
+
+  // Nouvelle méthode pour mettre à jour une inscription
+  updateRegistration(registrationId: number, updatedRegistration: CourseRegistrationDTO): Observable<CourseRegistrationDTO> {
+    return this.http.put<CourseRegistrationDTO>(`${this.apiUrl}/${registrationId}`, updatedRegistration);
+  }
+
+  // Nouvelle méthode pour créer une inscription
+  createRegistration(newRegistration: CourseRegistrationDTO): Observable<CourseRegistrationDTO> {
+    return this.http.post<CourseRegistrationDTO>(this.apiUrl, newRegistration);
   }
 }
