@@ -1,77 +1,48 @@
 <div class="surface-0 flex justify-content-center">
   <div id="home" class="landing-wrapper overflow-hidden">
     <app-navbar></app-navbar>
+
+    <!-- Section Avatar et Email -->
     <div
       class="profile-page py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
-      <!-- Avatar et Email -->
       <div class="user-info">
         <p-avatar image="https://primefaces.org/cdn/primeng/images/demo/avatar/amyelsner.png" class="mr-2" size="xlarge"
                   shape="circle"/>
         <h2 *ngIf="user?.email">{{ 'Bienvenue ' + user.email.split('@')[0] | titlecase }}</h2>
       </div>
-
-      <!-- Graphiques -->
-      <div class="grid p-fluid">
-        <div class="col-12 lg:col-3">
-          <div class="card">
-            <h5>Kilomètres courus de la semaine</h5>
-            <p-chart type="bar" [data]="barData" [options]="chartOptions"></p-chart>
-          </div>
-        </div>
-        <div class="col-12 lg:col-3">
-          <div class="card">
-            <h5>Kilomètres courus du mois</h5>
-            <p-chart type="bar" [data]="barData" [options]="chartOptions"></p-chart>
-          </div>
-        </div>
-        <div class="col-12 lg:col-3">
-          <div class="card">
-            <h5>Allure moyenne de la semaine</h5>
-            <p-chart type="line" [data]="lineData" [options]="chartOptions"></p-chart>
-          </div>
-        </div>
-        <div class="col-12 lg:col-3">
-          <div class="card">
-            <h5>Allure moyenne du mois</h5>
-            <p-chart type="line" [data]="lineData" [options]="chartOptions"></p-chart>
-          </div>
-        </div>
-      </div>
     </div>
 
-    <div
-      class="py-4 px-4 md:mx-6 lg:mx-8 lg:px-8 flex flex-wrap align-items-center justify-content-between relative lg:static mb-3">
-      <div class="grid justify-content-between mt-8 md:mt-0">
-        <div class="col-12 lg:col-4 p-0 md:p-3" *ngFor="let challenge of challenges; let i = index">
-          <div
-            class="p-3 flex flex-column border-200 pricing-card cursor-pointer border-2 hover:border-primary transition-duration-300 transition-all"
-            style="border-radius:10px">
-            <h3 class="text-900 text-center my-5">{{ challenge }}</h3>
-            <img [src]="'assets/layout/images/badges/badge' + (i + 1) + '.svg'"
-                 class="w-3 h-10 mx-auto" alt="badge {{ i + 1 }}">
-            <div class="my-5 text-center">
-              <button pButton pRipple label="Voir la course proposée"
-                      class="block mx-auto mt-4 p-button-rounded border-none ml-3 font-light line-height-2 bg-blue-500 text-white"></button>
-            </div>
-            <p-divider class="w-full bg-surface-200"></p-divider>
-            <ul class="my-5 list-none p-0 flex text-900 flex-column">
-              <li class="py-2">
-                <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                <span class="text-xl line-height-3">Augmentez votre condition physique</span>
-              </li>
-              <li class="py-2">
-                <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                <span class="text-xl line-height-3">Rencontrez d'autres coureurs</span>
-              </li>
-              <li class="py-2">
-                <i class="pi pi-fw pi-check text-xl text-cyan-500 mr-2"></i>
-                <span class="text-xl line-height-3">Amusez vous</span>
-              </li>
-            </ul>
-          </div>
+    <!-- Section Graphiques -->
+    <div class="grid p-fluid">
+      <div class="col-12 lg:col-3">
+        <div class="card">
+          <h5>Kilomètres courus de la semaine</h5>
+          <p-chart *ngIf="barData$ | async as barData" type="bar" [data]="barData" [options]="chartOptions"></p-chart>
+        </div>
+      </div>
+      <div class="col-12 lg:col-3">
+        <div class="card">
+          <h5>Kilomètres courus du mois</h5>
+          <p-chart *ngIf="lineData$ | async as lineData" type="bar" [data]="lineData"
+                   [options]="chartOptions"></p-chart>
+        </div>
+      </div>
+      <div class="col-12 lg:col-3">
+        <div class="card">
+          <h5>Allure moyenne de la semaine</h5>
+          <p-chart *ngIf="lineData$ | async as lineData" type="line" [data]="lineData"
+                   [options]="chartOptions"></p-chart>
+        </div>
+      </div>
+      <div class="col-12 lg:col-3">
+        <div class="card">
+          <h5>Allure moyenne du mois</h5>
+          <p-chart *ngIf="lineData$ | async as lineData" type="line" [data]="lineData"
+                   [options]="chartOptions"></p-chart>
         </div>
       </div>
     </div>
   </div>
 </div>
+
 <app-footer></app-footer>
