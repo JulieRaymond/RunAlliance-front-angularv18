@@ -36,7 +36,9 @@ export class CourseRegistrationService {
     return this.authService.getCurrentUser().pipe(
       switchMap(user => {
         const registrationDto: CourseRegistrationDTO = {userId: user.id, runId};
-        return this.http.post<any>(`${this.apiUrl}/register/${runId}`, registrationDto);
+        return this.http.post<any>(`${this.apiUrl}/register/${runId}`, registrationDto, {
+          withCredentials: true
+        });
       })
     );
   }
@@ -48,12 +50,16 @@ export class CourseRegistrationService {
     }
     return this.authService.getCurrentUser().pipe(
       switchMap(user => {
-        return this.getRegistrationId(user.id, runId).pipe(
-          switchMap(registrationId => {
-            return this.http.delete<any>(`${this.apiUrl}/unregister/${registrationId}`);
-          })
-        );
-      })
+          return this.getRegistrationId(user.id, runId).pipe(
+            switchMap(registrationId => {
+              return this.http.delete<any>(`${this.apiUrl}/unregister/${registrationId}`,
+                {
+                  withCredentials: true
+                });
+            })
+          );
+        }
+      )
     );
   }
 

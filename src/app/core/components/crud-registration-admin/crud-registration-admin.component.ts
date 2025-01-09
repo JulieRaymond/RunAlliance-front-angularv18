@@ -36,7 +36,7 @@ export class CrudRegistrationAdminComponent {
   ngOnInit() {
     this.loadRegistrations();
     this.loadRuns();
-    this.loadUsers();  // Charger les utilisateurs pour afficher les participants
+    this.loadUsers();
   }
 
   loadRegistrations() {
@@ -229,7 +229,6 @@ export class CrudRegistrationAdminComponent {
       });
     }
   }
-
 
   private extractRunId(runId: any): number {
     // Si runId est un objet avec une propriété runId

@@ -10,7 +10,8 @@
                     (click)="openNew()"></button>
             <button pButton pRipple label="Supprimer" icon="pi pi-trash" class="p-button-danger"
                     (click)="deleteSelectedRegistrations()"
-                    [disabled]="!selectedRegistrations || !selectedRegistrations.length"></button>
+                    [disabled]="selectedRegistrations.length === 0">
+            </button>
           </div>
         </ng-template>
         <ng-template pTemplate="right">
@@ -19,7 +20,7 @@
         </ng-template>
       </p-toolbar>
 
-      <p-table #dt [value]="registrations" [rows]="10" [selection]="selectedRegistrations" selectionMode="multiple"
+      <p-table #dt [value]="registrations" [rows]="10" [(selection)]="selectedRegistrations" selectionMode="multiple"
                [rowHover]="true" dataKey="registrationId">
         <ng-template pTemplate="caption">
           <h5 class="m-0">Liste des inscriptions</h5>

@@ -42,7 +42,6 @@ export class RunPublicListComponent {
     private messageService: MessageService,
     private router: Router
   ) {
-    this.loadRuns().then(r => console.log('Runs loaded:', r));
   }
 
   async ngOnInit() {
