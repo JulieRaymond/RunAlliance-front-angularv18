@@ -6,12 +6,4 @@ services:
       context: .
       dockerfile: Dockerfile
     ports:
-      - "4201:4200"
-    networks:
-      - run-alliance-network
-    environment:
-      - NODE_ENV=development
-
-networks:
-  run-alliance-network:
-    external: true
+      - "4200:4200"
