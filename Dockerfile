@@ -1,19 +1,13 @@
-FROM node:18 AS build
+FROM node:alpine
 
-LABEL authors="jraymond"
+WORKDIR /usr/src/app
 
-WORKDIR /app
+COPY . /usr/src/app
 
-COPY package*.json ./
+RUN npm install -g @angular/cli
+
+RUN npm cache clean --force
 
 RUN npm install
 
-COPY . .
-
-RUN npm run build -- --configuration production
-
-FROM nginx:alpine
-
-COPY --from=build /app/dist/run-alliance-front-angularv18 /usr/share/nginx/html
-
-EXPOSE 80
+CMD ["ng", "serve", "--host", "0.0.0.0"]
