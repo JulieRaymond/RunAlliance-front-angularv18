@@ -1,0 +1,51 @@
+name: CI/CD Pipeline front
+
+on:
+  push:
+    branches:
+      - master
+      - dev
+      - feature/*
+  pull_request:
+    branches:
+      - master
+      - dev
+
+jobs:
+  build-and-test:
+    name: Build and Test Angular Application
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout code
+        uses: actions/checkout@v3
+
+      - name: 🔧 Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+
+      - name: 🚀 Cache npm dependencies
+        uses: actions/cache@v3
+        with:
+          path: ~/.npm
+          key: ${{ runner.os }}-npm-${{ hashFiles('**/package-lock.json') }}
+
+      - name: ✅ Install dependencies
+        run: npm install
+
+      - name: 🧪 Run tests with Karma
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+      - name: 🏗️ Build the application
+        run: npm run build --configuration production
+
+      - name: 📦 Deploy Docker image (optional)
+        run: |
+          docker build -t runalliance-front-angularv18-frontend .
+          docker tag runalliance-front-angularv18-frontend:latest <your-docker-repo>/runalliance-front-angularv18-frontend:latest
+          docker push <your-docker-repo>/runalliance-front-angularv18-frontend:latest
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+
