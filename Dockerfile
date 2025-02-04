@@ -1,13 +1,17 @@
-FROM node:alpine
+FROM node:18 AS build-stage
 
 WORKDIR /usr/src/app
 
-COPY . /usr/src/app
-
-RUN npm install -g @angular/cli
-
-RUN npm cache clean --force
-
+COPY package.json package-lock.json ./
 RUN npm install
 
-CMD ["ng", "serve", "--host", "0.0.0.0"]
+COPY . .
+RUN npm run build --configuration production
+
+FROM nginx:alpine AS production-stage
+
+COPY --from=build-stage /usr/src/app/dist/run-alliance-front-angularv18 /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

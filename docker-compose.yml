@@ -2,8 +2,7 @@ version: '3.8'
 
 services:
   frontend:
-    build:
-      context: .
-      dockerfile: Dockerfile
+    image: julieraymond/runalliance-front:latest
+    restart: always
     ports:
-      - "4200:4200"
+      - "80:80"
