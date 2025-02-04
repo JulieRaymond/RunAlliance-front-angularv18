@@ -1,96 +1,104 @@
-# RunAlliance Backend
+# A2RunAlliance - Frontend
 
-## Introduction
+## Project Overview
+A2RunAlliance is a web application designed for running enthusiasts. It allows users to register, participate in running sessions, track their performances, and access exclusive content. The platform is developed for A2 Running, an association founded by Alice and Anne in Bordeaux, which brings together runners of all levels in a friendly and supportive environment.
 
-RunAlliance Backend is a Spring Boot-based REST API that powers the A2RunAlliance web application. This project was developed to meet the needs of the A2 Running association, founded by Alice and Anne, which brings together running enthusiasts in Bordeaux. The goal is to provide a modern platform to efficiently manage running events, register users for sessions, and track their performance.
+As a member of the association and a junior developer, I wanted to contribute to this spirit of solidarity by developing an intuitive and secure application that facilitates event organization, performance tracking, and user engagement. This project is also part of my professional certification as an "Application Designer and Developer" (Level 6).
 
-This application is part of the certification process for the professional title "Application Developer Designer" and aims to offer an intuitive and secure solution for association members. It replaces the current WordPress-based site, which only allows static content publication.
+## Technologies Used
+- **Frontend Framework**: Angular 18
+- **UI Components**: PrimeNG, PrimeIcons, PrimeFlex
+- **Charting Library**: Chart.js
+- **State Management**: Angular Services
+- **Authentication**: JWT (JSON Web Token) with Interceptors
+- **Styles**: SCSS
 
-## Key Features
+## Features
+### 1. User Authentication & Management
+- Secure user registration and login with email & password.
+- Role-based access control (Admin/User).
+- Admin dashboard for managing users (CRUD operations).
 
-- **Authentication & Authorization** using JWT
-- **Complete user management** (registration, login, profile updates, roles)
-- **Full CRUD operations** for races and registrations
-- **API security** with Spring Security and role management (admin/user)
-- **Email notifications** for race registrations
-- **Integration with MySQL database**
-- **Monitoring & health checks** with Spring Boot Actuator
+### 2. Running Session Management
+- Admins can create, update, and delete running events.
+- Users can view available running sessions and register for them.
 
-## Versions Used
+### 3. Performance Tracking
+- Users can track their running history.
+- Display of key statistics (distance, total duration, average speed) using interactive charts.
 
-- **Java**: 21
-- **Spring Boot**: 3.x
-- **Spring Security**: 6.x
-- **JWT**: jjwt 0.11.5
-- **Database**: MySQL 8.x
-- **Maven**: 3.x
-- **Docker**: 20.x with Docker Compose
+### 4. Security & Privacy
+- Secure API communication using JWT authentication.
+- Data protection mechanisms to ensure user confidentiality.
+- Private and public profile settings for users.
 
-## Installation
+### 5. Accessibility & Eco-Responsibility
+- Responsive design for an optimal experience on all devices.
+- Optimized code for reduced environmental impact.
 
-### Prerequisites
-
-- Java 21
-- Maven
-- Docker & Docker Compose
-
-### Installation Instructions
-
-1. Clone the repository:
-   ```sh
-   git clone https://github.com/your-repo/RunAlliance-back.git
-   cd RunAlliance-back
-   ```
-2. Build the application:
-   ```sh
-   mvn clean package
-   ```
-3. Run with Docker:
-   ```sh
-   docker-compose up --build
-   ```
-4. The API will be available at `http://localhost:8080`
-
-## Configuration
-
-### Environment Variables
-
-- `SPRING_DATASOURCE_URL` - Database URL
-- `SPRING_DATASOURCE_USERNAME` - Database username
-- `SPRING_DATASOURCE_PASSWORD` - Database password
-- `SECURITY_JWT_SECRET_KEY` - Secret key used to sign JWT tokens
-
-## Security & JWT Management
-
-The application uses **Spring Security** for authentication and access control.
-
-### How JWT Works
-
-1. **Token Generation**: When a user logs in, a JWT token is generated using the secret key (`SECURITY_JWT_SECRET_KEY`).
-2. **Client-Side Storage**: The token is stored client-side (e.g., `localStorage` or `sessionStorage`).
-3. **Token Validation**: The token is sent in the `Authorization` header with each request and validated server-side.
-4. **Expiration & Refresh**: Tokens have a limited lifespan. A future implementation may include a refresh token mechanism.
-
-## API Endpoints
-
-| Method | Endpoint                                  | Description              | Access      |
-|--------|------------------------------------------|--------------------------|-------------|
-| POST   | `/api/auth/login`                       | Authenticate a user      | Public      |
-| GET    | `/api/auth/me`                          | Retrieve current user info | User/Admin |
-| GET    | `/api/runs`                             | Retrieve all races       | Public      |
-| POST   | `/api/runs`                             | Create a new race        | Admin       |
-| DELETE | `/api/runs/{id}`                        | Delete a race            | Admin       |
-| POST   | `/api/registrations/register/{raceId}`  | Register for a race      | User        |
-| DELETE | `/api/registrations/unregister/{raceId}`| Unregister from a race   | User        |
-
-## Running Tests
-
-Run unit and integration tests:
-```sh
-mvn test
+## Project Structure
+```
+RunAlliance-front-angularv18/
+├── src/
+│   ├── app/
+│   │   ├── features/  # Main application features
+│   │   ├── core/      # Core components & services
+│   │   ├── shared/    # Shared modules, guards, and utilities
+│   │   ├── layout/    # Application layout components
+│   ├── assets/        # Static assets
+│   ├── environments/  # Environment configuration files
+│   ├── styles.scss    # Global styles
+├── angular.json       # Angular project configuration
+├── package.json       # Project dependencies & scripts
+├── Dockerfile         # Containerization setup
+├── docker-compose.yml # Docker Compose configuration
 ```
 
-## License
+## Installation & Setup
+### Prerequisites
+- Node.js (latest LTS version recommended)
+- Angular CLI
+- Docker (optional for containerized deployment)
 
+### Local Development
+```sh
+# Clone the repository
+git clone https://github.com/your-repo/RunAlliance-front-angularv18.git
+cd RunAlliance-front-angularv18
+
+# Install dependencies
+npm install
+
+# Start the development server
+npm start
+```
+Access the app at `http://localhost:4200/`.
+
+### Running with Docker
+```sh
+# Build and start the frontend container
+docker-compose up --build
+```
+
+## JWT Authentication Workflow
+### 1. User Login
+- User submits credentials to `/api/auth/login`.
+- Backend returns an **access token** and a **refresh token**.
+- Access token is stored in memory and used for authenticated requests.
+
+### 2. Token Interception & Refresh
+- HTTP requests include the `Authorization: Bearer <access_token>` header.
+- If the token expires, the app automatically requests a new token using the refresh token (`/api/auth/refresh`).
+- If refresh fails, the user is logged out and redirected to the login page.
+
+### 3. Logout
+- User logs out, and both tokens are cleared from storage.
+
+## Contribution
+Contributions are welcome! Feel free to fork the repository, create a feature branch, and submit a pull request.
+
+## License
 This project is licensed under the MIT License.
 
+---
+Developed with ❤️ for A2 Running. Let's run together! 🏃‍♂️🏃‍♀️
