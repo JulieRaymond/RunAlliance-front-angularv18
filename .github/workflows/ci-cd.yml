@@ -38,4 +38,4 @@ jobs:
         run: npm run test -- --watch=false --browsers=ChromeHeadless
 
       - name: 🏗️ Build the application
-        run: npm run build --configuration production
+        run: npm run build -- --configuration production
