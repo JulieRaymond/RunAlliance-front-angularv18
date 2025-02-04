@@ -45,13 +45,9 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🧑‍💻 Clone project on server
+      - name: 🧑‍💻 Copy docker-compose.yml to server
         run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-          if [ ! -d /home/ubuntu/RunAlliance-front ]; then
-            git clone https://github.com/JulieRaymond/RunAlliance-front-angularv18.git /home/ubuntu/RunAlliance-front;
-          fi
-          "
+          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/ubuntu/RunAlliance-front/
 
       - name: 📡 Deploy on Server
         run: |
