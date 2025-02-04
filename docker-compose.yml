@@ -5,4 +5,4 @@ services:
     image: julieraymonddev/runalliance-front:latest
     restart: always
     ports:
-      - "8080:80"  # Utiliser le port 8080 sur l'hôte
+      - "8081:80"  # Utilise un autre port (par exemple 8081)
