@@ -39,13 +39,3 @@ jobs:
 
       - name: 🏗️ Build the application
         run: npm run build --configuration production
-
-      - name: 📦 Deploy Docker image (optional)
-        run: |
-          docker build -t runalliance-front-angularv18-frontend .
-          docker tag runalliance-front-angularv18-frontend:latest <your-docker-repo>/runalliance-front-angularv18-frontend:latest
-          docker push <your-docker-repo>/runalliance-front-angularv18-frontend:latest
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-
