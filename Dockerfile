@@ -6,7 +6,7 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 COPY . .
-RUN npm run build --project RunAlliance-front-angularv18 --configuration production
+RUN npm run build -- --configuration production
 
 FROM nginx:alpine AS production-stage
 
