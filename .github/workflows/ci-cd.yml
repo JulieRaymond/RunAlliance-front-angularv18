@@ -54,6 +54,6 @@ jobs:
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
           cd /home/ubuntu/RunAlliance-front &&
           docker compose down &&
-          docker pull julieraymonddev/runalliance-front:latest
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest &&
           docker compose up -d --build
           "
