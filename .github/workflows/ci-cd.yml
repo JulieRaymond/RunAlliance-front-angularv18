@@ -45,10 +45,18 @@ jobs:
           chmod 600 ~/.ssh/id_ed25519
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
+      - name: 🧑‍💻 Clone project on server
+        run: |
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+          if [ ! -d /home/ubuntu/RunAlliance-front ]; then
+            git clone https://github.com/JulieRaymond/RunAlliance-front-angularv18.git /home/ubuntu/RunAlliance-front;
+          fi
+          "
+
       - name: 📡 Deploy on Server
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-          cd /home/jraymond/CDA/RunAlliance-front-angularv18 &&
+          cd /home/ubuntu/RunAlliance-front &&
           docker compose down &&
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest &&
           docker compose up -d --build
