@@ -1,4 +1,4 @@
 export const environment = {
   production: false,
-  apiUrl: 'http://app:8080'  // Utilise le nom du service 'app' pour le backend dans Docker
+  apiUrl: 'http://54.38.32.57:8080/'
 };
