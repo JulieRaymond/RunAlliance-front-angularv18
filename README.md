@@ -103,3 +103,15 @@ This project is licensed under the MIT License.
 
 ---
 Developed with ❤️ for A2 Running. Let's run together! 🏃‍♂️🏃‍♀️
+
+## Configuration des emails
+### Service d'emails
+- Le projet utilise Mailjet comme service d'envoi d'emails
+- Les clés API sont configurées dans le fichier `.env` du backend
+- Deux types d'emails sont implémentés :
+  - Emails de contact
+  - Emails de réinitialisation de mot de passe
+
+### Configuration des templates
+Les templates d'emails sont définis dans `EmailService.java` :
+
