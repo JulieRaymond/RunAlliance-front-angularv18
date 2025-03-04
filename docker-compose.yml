@@ -3,4 +3,4 @@ services:
     image: julieraymonddev/runalliance-front:latest
     restart: always
     ports:
-      - "8081:80"  # Utilise un autre port (par exemple 8081)
+      - "8081:80"
