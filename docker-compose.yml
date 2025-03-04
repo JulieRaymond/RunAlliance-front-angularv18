@@ -4,3 +4,8 @@ services:
     restart: always
     ports:
       - "8081:80"
+    deploy:
+      resources:
+        reservations:
+          cpus: '0.3'
+          memory: 576M
