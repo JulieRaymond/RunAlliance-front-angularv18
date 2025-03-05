@@ -47,6 +47,11 @@ jobs:
 
       - name: 🧑‍💻 Copy docker-compose.yml to server
         run: |
+          echo "Vérification et création du dossier si nécessaire..."
+          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+            mkdir -p /home/ubuntu/RunAlliance-front/
+          "
+          echo "Copie du fichier docker-compose.yml sur le serveur..."
           scp -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/ubuntu/RunAlliance-front/
 
       - name: 📡 Deploy on Server
