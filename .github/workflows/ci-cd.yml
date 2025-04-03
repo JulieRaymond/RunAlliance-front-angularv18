@@ -58,7 +58,7 @@ jobs:
       - name: 🗂️ Préparer les fichiers à transférer
         run: |
           mkdir -p deploy/browser
-          cp -r dist/RunAlliance-front-angularv18/browser/* deploy/browser/
+          cp -r dist/run-alliance-front-angularv18/browser/* deploy/browser/
           cp nginx.conf Dockerfile deploy/
 
       - name: 🔐 Ajouter la clé SSH
