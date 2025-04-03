@@ -1,7 +1,5 @@
 # A2RunAlliance - Frontend
 
-[![Pipeline Status](https://github.com/JulieRaymond/RunAlliance-front-angularv18/actions/workflows/pipeline.yml/badge.svg)](https://github.com/JulieRaymond/RunAlliance-front-angularv18/actions)
-
 
 ## Project Overview
 A2RunAlliance is a web application designed for running enthusiasts. It allows users to register, participate in running sessions, track their performances, and access exclusive content. The platform is developed for A2 Running, an association founded by Alice and Anne in Bordeaux, which brings together runners of all levels in a friendly and supportive environment.
