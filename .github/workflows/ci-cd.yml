@@ -57,24 +57,8 @@ jobs:
       - name: 📡 Deploy on Server
         run: |
           ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-            cd /home/ubuntu/RunAlliance-front &&
-            docker compose down &&
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest &&
-
-            # Vérifier si le réseau Traefik existe, sinon le créer
-            docker network ls | grep traefik || docker network create traefik &&
-
-            # Supprimer le conteneur existant pour éviter les conflits
-            docker stop runalliance-front || true &&
-            docker rm runalliance-front || true &&
-
-            # Lancer le nouveau conteneur avec les labels pour Traefik
-            docker run -d --name runalliance-front \
-              --label traefik.enable=true \
-              --label 'traefik.http.routers.runalliance.rule=Host("run-alliance.wcs-students.fr")' \
-              --label traefik.http.routers.runalliance.entrypoints=websecure \
-              --label traefik.http.routers.runalliance.tls.certresolver=letsencrypt \
-              --label traefik.http.services.runalliance.loadbalancer.server.port=80 \
-              --network traefik \
-              ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest
+          cd /home/ubuntu/RunAlliance-front &&
+          docker compose down &&
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest &&
+          docker compose up -d --build
           "
