@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://run-alliance.wcs-students.fr/api'
+  apiUrl: 'http://54.36.181.55:8080'
 };
