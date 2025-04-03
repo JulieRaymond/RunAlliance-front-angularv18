@@ -1,80 +1,96 @@
-name: CI/CD Pipeline front
+name: CI/CD Angular
 
 on:
   push:
     branches:
-      - master
+      - main
+      - dev
+      - feat/**
+  pull_request:
+    branches:
+      - main
+      - dev
 
 jobs:
-  build-and-deploy:
-    name: Build and Deploy Frontend
+  build-and-test:
+    name: 🔧 Build and test
     runs-on: ubuntu-latest
 
     steps:
-      - name: 📥 Checkout code
+      - name: 📥 Checkout du code
         uses: actions/checkout@v3
 
-      - name: 🔧 Set up Node.js
+      - name: ⚙️ Installer Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '18'
+          node-version: 18
 
-      - name: ✅ Install dependencies
-        run: npm install
+      - name: 📦 Installer les dépendances
+        run: npm ci
 
-      - name: 🏗️ Build the application
+      - name: 🧪 Lancer les tests
+        run: npm run test -- --watch=false --browsers=ChromeHeadless
+
+  deploy:
+    name: 🚀 Déploiement sur le VPS
+    needs: build-and-test
+    if: github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 📥 Checkout du code
+        uses: actions/checkout@v3
+
+      - name: ⚙️ Installer Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      - name: 📦 Installer Angular CLI
+        run: npm install -g @angular/cli
+
+      - name: 📦 Installer les dépendances
+        run: npm ci
+
+      - name: 🧱 Build Angular (production)
         run: npm run build -- --configuration production
 
-      - name: 📦 Build Docker Image
+      - name: 🗂️ Préparer les fichiers à transférer
         run: |
-          docker build -t ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest .
+          mkdir -p deploy/browser
+          cp -r dist/wild-blog/browser/* deploy/browser/
+          cp nginx.conf Dockerfile deploy/
 
-      - name: 🔑 Login to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKERHUB_TOKEN }}" | docker login -u "${{ secrets.DOCKERHUB_USERNAME }}" --password-stdin
-        env:
-          DOCKER_CLI_EXPERIMENTAL: enabled
-
-      - name: 🚀 Push Docker Image to Docker Hub
-        run: docker push ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest
-
-      - name: 🔑 Add SSH private key
+      - name: 🔐 Ajouter la clé SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519
-          chmod 600 ~/.ssh/id_ed25519
+          echo "${{ secrets.SSH_PRIVATE_KEY }}" > ~/.ssh/id_ed25519_run-alliance-front
+          chmod 600 ~/.ssh/id_ed25519_run-alliance-front
           ssh-keyscan -H ${{ secrets.SERVER_IP }} >> ~/.ssh/known_hosts
 
-      - name: 🧑‍💻 Copy docker-compose.yml to server
+      - name: 📤 Copier les fichiers buildés et Dockerfile sur le VPS
+        uses: appleboy/scp-action@v0.1.4
+        with:
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          source: "deploy/**"
+          strip_components: 1
+          target: /home/${{ secrets.SERVER_USER }}/run-alliance-front/
+
+      - name: 🐳 Build et run le conteneur sur le VPS
         run: |
-          echo "Vérification et création du dossier si nécessaire..."
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-            mkdir -p /home/ubuntu/RunAlliance-front/
-          "
-          echo "Copie du fichier docker-compose.yml sur le serveur..."
-          scp -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 docker-compose.yml ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }}:/home/ubuntu/RunAlliance-front/
-
-      - name: 📡 Deploy on Server
-        run: |
-          ssh -o StrictHostKeyChecking=no -i ~/.ssh/id_ed25519 ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
-            cd /home/ubuntu/RunAlliance-front &&
-            docker compose down &&
-            docker pull ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest &&
-
-            # Vérifier si le réseau Traefik existe, sinon le créer
-            docker network ls | grep traefik || docker network create traefik &&
-
-            # Supprimer le conteneur existant pour éviter les conflits
-            docker stop runalliance-front || true &&
-            docker rm runalliance-front || true &&
-
-            # Lancer le nouveau conteneur avec les labels pour Traefik
-            docker run -d --name runalliance-front \
+          ssh -i ~/.ssh/id_ed25519_run-alliance-front -o StrictHostKeyChecking=no ${{ secrets.SERVER_USER }}@${{ secrets.SERVER_IP }} "
+            cd /home/${{ secrets.SERVER_USER }}/run-alliance-front &&
+            docker stop run-alliance-front || true &&
+            docker rm run-alliance-front || true &&
+            docker build -t run-alliance-front . &&
+            docker run -d --name run-alliance-front \
               --label traefik.enable=true \
-              --label 'traefik.http.routers.runalliance.rule=Host("run-alliance.wcs-students.fr")' \
-              --label traefik.http.routers.runalliance.entrypoints=websecure \
-              --label traefik.http.routers.runalliance.tls.certresolver=letsencrypt \
-              --label traefik.http.services.runalliance.loadbalancer.server.port=80 \
+              --label 'traefik.http.routers.run-alliance.rule=Host(\"run-alliance.wcs-students.fr\")' \
+              --label traefik.http.routers.run-alliance.entrypoints=websecure \
+              --label traefik.http.routers.run-alliance.tls.certresolver=letsencrypt \
+              --label traefik.http.services.run-alliance.loadbalancer.server.port=80 \
               --network traefik \
-              ${{ secrets.DOCKERHUB_USERNAME }}/runalliance-front:latest
+              run-alliance-front
           "
