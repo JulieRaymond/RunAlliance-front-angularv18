@@ -3,12 +3,12 @@ name: CI/CD Angular
 on:
   push:
     branches:
-      - master
+      - main
       - dev
       - feat/**
   pull_request:
     branches:
-      - master
+      - main
       - dev
 
 jobs:
